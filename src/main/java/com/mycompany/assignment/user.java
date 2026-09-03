@@ -1,5 +1,5 @@
 
-package assignmentv1;
+package com.mycompany.assignment;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
