@@ -1,0 +1,53 @@
+# =========================
+# NetBeans
+# =========================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# NetBeans generated files
+/nbproject/Makefile-*.mk
+/nbproject/Package-*.bash
+build.xml~
+manifest.mf~
+
+# =========================
+# Java build output
+# =========================
+/build/
+/target/
+/out/
+*.class
+*.jar
+*.war
+*.ear
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# IDE / Editor files
+# =========================
+.idea/
+*.iml
+.vscode/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
