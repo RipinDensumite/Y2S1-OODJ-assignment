@@ -339,7 +339,6 @@ public class AdminStaff extends User {
     }
 
     public String generateNextUserId() {
-
         int highestId = 0;
 
         try {
@@ -371,10 +370,7 @@ public class AdminStaff extends User {
             br.close();
             fr.close();
         } catch (IOException e) {
-            System.out.println(
-                    "Error generating User ID: "
-                    + e.getMessage()
-            );
+            System.out.println("Error generating User ID: " + e.getMessage());
         }
 
         int nextId = highestId + 1;
@@ -391,11 +387,7 @@ public class AdminStaff extends User {
         }
     }
 
-    public boolean createInsuranceNetwork(
-            String providerName,
-            double coverageRate,
-            boolean accepted
-    ) {
+    public boolean createInsuranceNetwork(String providerName, double coverageRate, boolean accepted) {
         try {
             InsuranceNetwork insurance = new InsuranceNetwork(
                     providerName,
@@ -406,23 +398,13 @@ public class AdminStaff extends User {
             insurance.addInsuranceNetwork();
 
             return true;
-
         } catch (IOException | IllegalArgumentException e) {
-            System.out.println(
-                    "Error creating insurance network: "
-                    + e.getMessage()
-            );
-
+            System.out.println("Error creating insurance network: " + e.getMessage());
             return false;
         }
     }
 
-    public boolean updateInsuranceNetwork(
-            String insuranceId,
-            String providerName,
-            double coverageRate,
-            boolean accepted
-    ) {
+    public boolean updateInsuranceNetwork(String insuranceId, String providerName, double coverageRate, boolean accepted) {
         try {
             InsuranceNetwork insurance = new InsuranceNetwork(
                     insuranceId,
@@ -458,12 +440,13 @@ public class AdminStaff extends User {
         }
     }
 
-    public boolean createCheckUpType(String name, String description, double baseRate) {
+    public boolean createCheckUpType(String name, String description, double baseRate, int duration) {
         try {
             CheckUpType checkUpType = new CheckUpType(
                     name,
                     description,
-                    baseRate
+                    baseRate,
+                    duration
             );
 
             checkUpType.insertFile();
@@ -475,13 +458,14 @@ public class AdminStaff extends User {
         }
     }
 
-    public boolean updateCheckUpType(String checkUpTypeId, String name, String description, double baseRate, boolean active) {
+    public boolean updateCheckUpType(String checkUpTypeId, String name, String description, double baseRate, int duration, boolean active) {
         try {
             CheckUpType checkUpType = new CheckUpType(
                     checkUpTypeId,
                     name,
                     description,
                     baseRate,
+                    duration,
                     active
             );
 
@@ -489,6 +473,7 @@ public class AdminStaff extends User {
                     name,
                     description,
                     baseRate,
+                    duration,
                     active
             );
 

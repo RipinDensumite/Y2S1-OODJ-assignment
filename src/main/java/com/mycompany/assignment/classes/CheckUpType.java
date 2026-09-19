@@ -1,6 +1,5 @@
 package com.mycompany.assignment.classes;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,33 +23,23 @@ public class CheckUpType {
     private String description;
     private double baseRate;
     private boolean active;
+    private int duration;
 
-    // Create new CheckUpType
-    public CheckUpType(
-            String name,
-            String description,
-            double baseRate
-    ) throws IOException {
-
+    public CheckUpType(String name, String description, double baseRate, int duration) throws IOException {
         this.checkUpTypeId = generateCheckUpTypeId();
         this.name = name;
         this.description = description;
         this.baseRate = baseRate;
+        this.duration = duration;
         this.active = true;
     }
 
-    // Load existing CheckUpType
-    public CheckUpType(
-            String checkUpTypeId,
-            String name,
-            String description,
-            double baseRate,
-            boolean active
-    ) {
+    public CheckUpType(String checkUpTypeId, String name, String description, double baseRate, int duration, boolean active) {
         this.checkUpTypeId = checkUpTypeId;
         this.name = name;
         this.description = description;
         this.baseRate = baseRate;
+        this.duration = duration;
         this.active = active;
     }
 
@@ -70,12 +59,15 @@ public class CheckUpType {
         return baseRate;
     }
 
+    public int getDuration() {
+        return duration;
+    }
+
     public boolean isActive() {
         return active;
     }
 
     public void insertFile() throws IOException {
-
         FileWriter fw = new FileWriter("CheckUp.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
 
@@ -84,6 +76,7 @@ public class CheckUpType {
                 + name + ","
                 + description + ","
                 + baseRate + ","
+                + duration + ","
                 + active
         );
 
@@ -93,13 +86,7 @@ public class CheckUpType {
         fw.close();
     }
 
-    public void updateDetails(
-            String name,
-            String description,
-            double baseRate,
-            boolean active
-    ) throws IOException {
-
+    public void updateDetails(String name, String description, double baseRate, int duration, boolean active) throws IOException {
         File originalFile = new File("CheckUp.txt");
         File tempFile = new File("CheckUp_temp.txt");
 
@@ -112,7 +99,6 @@ public class CheckUpType {
         String line;
 
         while ((line = br.readLine()) != null) {
-
             if (line.trim().isEmpty()) {
                 continue;
             }
@@ -121,12 +107,12 @@ public class CheckUpType {
             String currentId = data[0];
 
             if (currentId.equals(checkUpTypeId)) {
-
                 bw.write(
                         checkUpTypeId + ","
                         + name + ","
                         + description + ","
                         + baseRate + ","
+                        + duration + ","
                         + active
                 );
 
@@ -149,12 +135,11 @@ public class CheckUpType {
         this.name = name;
         this.description = description;
         this.baseRate = baseRate;
+        this.duration = duration;
         this.active = active;
     }
 
-    public static ArrayList<CheckUpType> getAllCheckUpTypes()
-            throws IOException {
-
+    public static ArrayList<CheckUpType> getAllCheckUpTypes() throws IOException {
         ArrayList<CheckUpType> checkUpList = new ArrayList<>();
 
         File file = new File("CheckUp.txt");
@@ -169,7 +154,6 @@ public class CheckUpType {
         String line;
 
         while ((line = br.readLine()) != null) {
-
             if (line.trim().isEmpty()) {
                 continue;
             }
@@ -180,13 +164,15 @@ public class CheckUpType {
             String name = data[1];
             String description = data[2];
             double baseRate = Double.parseDouble(data[3]);
-            boolean active = Boolean.parseBoolean(data[4]);
+            int duration = Integer.parseInt(data[4]);
+            boolean active = Boolean.parseBoolean(data[5]);
 
             CheckUpType checkUpType = new CheckUpType(
                     checkUpTypeId,
                     name,
                     description,
                     baseRate,
+                    duration,
                     active
             );
 
@@ -200,7 +186,6 @@ public class CheckUpType {
     }
 
     private String generateCheckUpTypeId() throws IOException {
-
         File file = new File("CheckUp.txt");
 
         if (!file.exists()) {
@@ -214,7 +199,6 @@ public class CheckUpType {
         String line;
 
         while ((line = br.readLine()) != null) {
-
             if (line.trim().isEmpty()) {
                 continue;
             }

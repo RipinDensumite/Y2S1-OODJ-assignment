@@ -80,7 +80,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         tbCheckUpTypes.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
-                new String[]{"ID", "Name", "Base Rate", "Description", "Active"}
+                new String[]{"ID", "Name", "Base Rate (RM)", "Duration (min)", "Description", "Active"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -135,6 +135,7 @@ public class AdminPage extends javax.swing.JFrame {
                 checkUp.getCheckUpTypeId(),
                 checkUp.getName(),
                 checkUp.getBaseRate(),
+                checkUp.getDuration(),
                 checkUp.getDescription(),
                 checkUp.isActive()
             });
@@ -179,6 +180,7 @@ public class AdminPage extends javax.swing.JFrame {
         txtNameCheckUp.setText("");
         txtDescriptionCheckUp.setText("");
         txtBaseRateCheckUp.setText("");
+        txtDurationCheckUp.setText("");
 
         cdActiveCheckUp.setSelected(true);
 
@@ -230,6 +232,8 @@ public class AdminPage extends javax.swing.JFrame {
         cdActiveCheckUp = new javax.swing.JCheckBox();
         txtBaseRateCheckUp = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        txtDurationCheckUp = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
         MainPanel = new javax.swing.JPanel();
         tabAdminDashboard = new javax.swing.JTabbedPane();
         UsersPanel = new javax.swing.JPanel();
@@ -435,6 +439,8 @@ public class AdminPage extends javax.swing.JFrame {
 
         jLabel11.setText("Base Rate (RM):");
 
+        jLabel12.setText("Duration (min):");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -450,13 +456,15 @@ public class AdminPage extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cdActiveCheckUp)
                     .addComponent(txtDescriptionCheckUp, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .addComponent(txtNameCheckUp, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addComponent(txtBaseRateCheckUp))
+                    .addComponent(txtBaseRateCheckUp)
+                    .addComponent(txtDurationCheckUp))
                 .addGap(121, 121, 121))
         );
         jPanel10Layout.setVerticalGroup(
@@ -474,9 +482,13 @@ public class AdminPage extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBaseRateCheckUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDurationCheckUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
                 .addGap(18, 18, 18)
                 .addComponent(cdActiveCheckUp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelCheckUp)
                     .addComponent(btnCreateCheckUp))
@@ -1079,24 +1091,32 @@ public class AdminPage extends javax.swing.JFrame {
         String name = txtNameCheckUp.getText().trim();
         String description = txtDescriptionCheckUp.getText().trim();
         String baseRateText = txtBaseRateCheckUp.getText().trim();
+        String durationText = txtDurationCheckUp.getText().trim();
         boolean active = cdActiveCheckUp.isSelected();
 
-        if (name.isEmpty() || description.isEmpty() || baseRateText.isEmpty()) {
+        if (name.isEmpty() || description.isEmpty() || baseRateText.isEmpty() || durationText.isEmpty()) {
             JOptionPane.showMessageDialog(CreateCheckUpDialog, "Please fill in all fields.");
             return;
         }
 
         double baseRate;
+        int duration;
 
         try {
             baseRate = Double.parseDouble(baseRateText);
+            duration = Integer.parseInt(durationText);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Base rate must be a number.");
+            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Base rate and duration must be a numbers");
             return;
         }
 
         if (baseRate < 0) {
-            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Base rate cannot be negative.");
+            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Base rate cannot be negative");
+            return;
+        }
+
+        if (duration <= 0) {
+            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Duration must be greater than 0 minutes");
             return;
         }
 
@@ -1104,7 +1124,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         // CREATE
         if (editingCheckUpId == null) {
-            success = adminStaff.createCheckUpType(name, description, baseRate);
+            success = adminStaff.createCheckUpType(name, description, baseRate, duration);
 
             if (success) {
                 JOptionPane.showMessageDialog(CreateCheckUpDialog, "Check-up type created successfully.");
@@ -1120,6 +1140,7 @@ public class AdminPage extends javax.swing.JFrame {
                     name,
                     description,
                     baseRate,
+                    duration,
                     active
             );
 
@@ -1161,12 +1182,14 @@ public class AdminPage extends javax.swing.JFrame {
         editingCheckUpId = tbCheckUpTypes.getValueAt(selectedRow, 0).toString();
         String name = tbCheckUpTypes.getValueAt(selectedRow, 1).toString();
         String baseRate = tbCheckUpTypes.getValueAt(selectedRow, 2).toString();
-        String description = tbCheckUpTypes.getValueAt(selectedRow, 3).toString();
-        boolean active = Boolean.parseBoolean(tbCheckUpTypes.getValueAt(selectedRow, 4).toString());
+        String duration = tbCheckUpTypes.getValueAt(selectedRow, 3).toString();
+        String description = tbCheckUpTypes.getValueAt(selectedRow, 4).toString();
+        boolean active = Boolean.parseBoolean(tbCheckUpTypes.getValueAt(selectedRow, 5).toString());
 
         txtNameCheckUp.setText(name);
         txtDescriptionCheckUp.setText(description);
         txtBaseRateCheckUp.setText(baseRate);
+        txtDurationCheckUp.setText(duration);
         cdActiveCheckUp.setSelected(active);
 
         btnCreateCheckUp.setText("Save Changes");
@@ -1208,6 +1231,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JCheckBox cdActiveCheckUp;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1232,6 +1256,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JTextField txtBaseRateCheckUp;
     private javax.swing.JTextField txtCoverage;
     private javax.swing.JTextField txtDescriptionCheckUp;
+    private javax.swing.JTextField txtDurationCheckUp;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtNameCheckUp;
