@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class AdminPage extends javax.swing.JFrame {
 
     private AdminStaff adminStaff;
+    private String editingUserId = null;
 
     /**
      * Creates new form AdminPage
@@ -73,6 +74,8 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     private void initialCreateUserDialog() {
+        editingUserId = null;
+
         cbRole.removeAllItems();
         cbRole.addItem("ADMIN");
         cbRole.addItem("MEDICAL_MANAGER");
@@ -83,8 +86,12 @@ public class AdminPage extends javax.swing.JFrame {
         txtEmail.setText("");
         txtPhoneNumber.setText("");
         txtPassword.setText("");
+
         cbRole.setSelectedIndex(0);
         cbActive.setSelected(true);
+
+        btnCreateUser.setText("Create");
+        CreateUserDialog.setTitle("Create User");
     }
 
     /**
@@ -200,6 +207,7 @@ public class AdminPage extends javax.swing.JFrame {
         btnAddUser.addActionListener(this::btnAddUserActionPerformed);
 
         btnEditUser.setText("Edit User");
+        btnEditUser.addActionListener(this::btnEditUserActionPerformed);
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -321,83 +329,139 @@ public class AdminPage extends javax.swing.JFrame {
         String fullName = txtFullName.getText().trim();
         String email = txtEmail.getText().trim();
         String phoneNumber = txtPhoneNumber.getText().trim();
-
         String password = new String(txtPassword.getPassword());
-
         String role = cbRole.getSelectedItem().toString();
-
         boolean active = cbActive.isSelected();
 
-        // Check empty fields
-        if (fullName.isEmpty()
-                || email.isEmpty()
-                || phoneNumber.isEmpty()
-                || password.isEmpty()) {
+        if (fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(CreateUserDialog, "Please fill in all fields.");
             return;
         }
 
-        User newUser = null;
+        User user = null;
 
-        switch (role) {
-            case "ADMIN":
-                newUser = new AdminStaff(
-                        fullName,
-                        email,
-                        phoneNumber,
-                        password,
-                        active
-                );
-                break;
+//        CREATE
+        if (editingUserId == null) {
+            switch (role) {
+                case "ADMIN":
+                    user = new AdminStaff(
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
 
-            case "MEDICAL_MANAGER":
-                newUser = new MedicalManager(
-                        fullName,
-                        email,
-                        phoneNumber,
-                        password,
-                        active
-                );
-                break;
+                case "MEDICAL_MANAGER":
+                    user = new MedicalManager(
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
 
-            case "DOCTOR":
-                newUser = new Doctor(
-                        fullName,
-                        email,
-                        phoneNumber,
-                        password,
-                        active
-                );
-                break;
+                case "DOCTOR":
+                    user = new Doctor(
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
 
-            case "PATIENT":
-                newUser = new Patient(
-                        fullName,
-                        email,
-                        phoneNumber,
-                        password,
-                        active
-                );
-                break;
-        }
+                case "PATIENT":
+                    user = new Patient(
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
+            }
 
-        if (newUser != null) {
-            boolean success = adminStaff.createUser(newUser);
+            if (user != null) {
+                boolean success = adminStaff.createUser(user);
+                if (success) {
+                    JOptionPane.showMessageDialog(CreateUserDialog, "User created successfully.");
+                    CreateUserDialog.dispose();
 
-            if (success) {
-                JOptionPane.showMessageDialog(CreateUserDialog, "User created successfully.");
-                CreateUserDialog.dispose();
+                    loadUsers();
+                } else {
+                    JOptionPane.showMessageDialog(CreateUserDialog, "Failed to create user.");
+                }
+            }
+        } else {
+//            EDIT
+            switch (role) {
+                case "ADMIN":
+                    user = new AdminStaff(
+                            editingUserId,
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
 
-                // Refresh JTable
-                loadUsers();
-            } else {
-                JOptionPane.showMessageDialog(CreateUserDialog, "Failed to create user.");
+                case "MEDICAL_MANAGER":
+                    user = new MedicalManager(
+                            editingUserId,
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
+
+                case "DOCTOR":
+                    user = new Doctor(
+                            editingUserId,
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
+
+                case "PATIENT":
+                    user = new Patient(
+                            editingUserId,
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password,
+                            active
+                    );
+                    break;
+            }
+
+            if (user != null) {
+                boolean success = adminStaff.updateUser(user);
+
+                if (success) {
+                    JOptionPane.showMessageDialog(CreateUserDialog, "User updated successfully.");
+
+                    CreateUserDialog.dispose();
+
+                    editingUserId = null;
+
+                    loadUsers();
+                } else {
+                    JOptionPane.showMessageDialog(CreateUserDialog, "Failed to update user.");
+                }
             }
         }
     }//GEN-LAST:event_btnCreateUserActionPerformed
 
     private void btnCancelCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelCreateUserActionPerformed
-        // TODO add your handling code here:
         CreateUserDialog.dispose();
     }//GEN-LAST:event_btnCancelCreateUserActionPerformed
 
@@ -409,9 +473,7 @@ public class AdminPage extends javax.swing.JFrame {
             return;
         }
 
-        // User ID is column 0
         String userId = tbUsers.getValueAt(selectedRow, 0).toString();
-
         String fullName = tbUsers.getValueAt(selectedRow, 1).toString();
 
         int confirm = JOptionPane.showConfirmDialog(
@@ -431,12 +493,46 @@ public class AdminPage extends javax.swing.JFrame {
 
         if (success) {
             JOptionPane.showMessageDialog(this, "User deleted successfully.");
-
             loadUsers();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to delete user.", "Delete Failed", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDeleteUserActionPerformed
+
+    private void btnEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserActionPerformed
+        int selectedRow = tbUsers.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user to edit.");
+            return;
+        }
+
+        String userId = tbUsers.getValueAt(selectedRow, 0).toString();
+
+        User user = adminStaff.getUser(userId);
+
+        if (user == null) {
+            JOptionPane.showMessageDialog(this, "User could not be found.");
+            return;
+        }
+
+//        Select user want to edit
+        editingUserId = userId;
+
+        txtFullName.setText(user.getFullName());
+        txtEmail.setText(user.getEmail());
+        txtPhoneNumber.setText(user.getPhoneNumber());
+        txtPassword.setText(user.getPassword());
+        cbRole.setSelectedItem(user.getRole().toString());
+        cbActive.setSelected(user.isActive());
+
+        btnCreateUser.setText("Save Changes");
+        CreateUserDialog.setTitle("Edit User");
+
+        CreateUserDialog.pack();
+        CreateUserDialog.setLocationRelativeTo(this);
+        CreateUserDialog.setVisible(true);
+    }//GEN-LAST:event_btnEditUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog CreateUserDialog;
