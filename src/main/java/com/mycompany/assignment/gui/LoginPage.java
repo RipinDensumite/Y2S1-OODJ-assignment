@@ -7,7 +7,6 @@ package com.mycompany.assignment.gui;
 import com.mycompany.assignment.classes.Authentication;
 import com.mycompany.assignment.classes.AdminStaff;
 import com.mycompany.assignment.classes.User;
-import com.mycompany.assignment.gui.AdminPage;
 import java.io.IOException;
 
 /**
