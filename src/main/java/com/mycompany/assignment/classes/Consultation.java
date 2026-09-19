@@ -2,45 +2,45 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.assignment.classes;
-
-import com.mycompany.assignment.enums.ConsultationStatus;
+package assignment;
 import java.time.LocalDateTime;
+
 
 /**
  *
- * @author arifi
+ * @author kohty
  */
 public class Consultation {
-
-    private String consultationId;
-    private LocalDateTime consultationDateTime;
-    private String consultationNotes;
-    private ConsultationStatus status;
-
-    public Consultation(String consultationId, LocalDateTime consultationDateTime, String consultationNotes, ConsultationStatus status){
-        this.consultationId = consultationId;
-        this.consultationDateTime = consultationDateTime;
-        this.consultationNotes = consultationNotes;
-        this.status = status;
-    }
     
-    public void addNotes(String notes){
-        if(notes.isBlank()){
-            throw new IllegalArgumentException("Notes cannot be empty");
-        }
-        consultationNotes = notes;
-        // add consultation notes
-    }
-    
-    public void startConsultation(){
-        if(status == ConsultationStatus.COMPLETED){
-            throw new IllegalArgumentException("Consultation already completed");
-        }
-        status = ConsultationStatus.IN_PROGRESS;
-    }
-    
-    public void completeConsultation(){
-        status = ConsultationStatus.COMPLETED;
-    }
+   private String consultationId;
+   private LocalDateTime consultationDateTime;
+   private String consultationNotes;
+   private boolean completed;
+   
+   public Consultation(String consultationId,LocalDateTime consultationDateTime, String consultationNotes ){
+       this.consultationId=consultationId;
+       this.consultationDateTime=consultationDateTime;
+       this.consultationNotes=consultationNotes;
+       this.completed=false;
+   }
+   
+   public void addNotes(String notes){
+       if(this.consultationNotes==null | this.consultationNotes.isEmpty()){
+           this.consultationNotes=notes;
+       }else{
+           this.consultationNotes+="\n Addition: "+notes;
+       }
+   }
+   
+   public void completeConsultation(){
+       this.completed=true;
+   }
+   
+   public String getconsultationId(){
+       return consultationId;
+   }
+   
+   public LocalDateTime getconsultationDateTime(){
+       return consultationDateTime;
+   }
 }
