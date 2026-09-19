@@ -11,23 +11,12 @@ import com.mycompany.assignment.enums.UserRole;
  * @author arifi
  */
 public class MedicalManager extends User {
-
-    public MedicalManager(
-            String userId,
-            String fullName,
-            String email,
-            String phoneNumber,
-            String password,
-            boolean active
-    ) {
-        super(
-                userId,
-                fullName,
-                email,
-                phoneNumber,
-                password,
-                active
-        );
+    public MedicalManager(String userId, String fullName, String email, String phoneNumber, String password, boolean active) {
+        super(userId, fullName, email, phoneNumber, password, active);
+    }
+    
+    public MedicalManager(String fullName, String email, String phoneNumber, String password, boolean active) {
+        super(fullName, email, phoneNumber, password, active);
     }
 
     @Override

@@ -11,10 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- *
- * @author arifi
- */
 public abstract class User {
     private String userId;
     private String fullName;
@@ -32,6 +28,21 @@ public abstract class User {
             boolean active
     ) {
         this.userId = userId;
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.active = active;
+    }
+
+    public User(
+            String fullName,
+            String email,
+            String phoneNumber,
+            String password,
+            boolean active
+    ) {
+        this.userId = null;
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -141,6 +152,10 @@ public abstract class User {
 
     public String getUserId() {
         return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getFullName() {

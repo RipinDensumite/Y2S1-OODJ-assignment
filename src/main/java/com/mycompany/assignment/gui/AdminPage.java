@@ -5,8 +5,12 @@
 package com.mycompany.assignment.gui;
 
 import com.mycompany.assignment.classes.AdminStaff;
+import com.mycompany.assignment.classes.Doctor;
+import com.mycompany.assignment.classes.MedicalManager;
+import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.User;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,10 +18,12 @@ import javax.swing.table.DefaultTableModel;
  * @author arifi
  */
 public class AdminPage extends javax.swing.JFrame {
+
     private AdminStaff adminStaff;
 
     /**
      * Creates new form AdminPage
+     *
      * @param adminStaff
      */
     public AdminPage(AdminStaff adminStaff) {
@@ -25,9 +31,9 @@ public class AdminPage extends javax.swing.JFrame {
 
         this.adminStaff = adminStaff;
 
-        jLabel1.setText(
-                "Admin staff - " + adminStaff.getFullName()
-        );
+        initialCreateUserDialog();
+
+        jLabel1.setText("Admin staff - " + adminStaff.getFullName());
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -35,7 +41,12 @@ public class AdminPage extends javax.swing.JFrame {
                     "User ID", "Full Name", "Email",
                     "Phone Number", "Role", "Active"
                 }
-        ));
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
 
         loadUsers();
     }
@@ -61,6 +72,21 @@ public class AdminPage extends javax.swing.JFrame {
         }
     }
 
+    private void initialCreateUserDialog() {
+        cbRole.removeAllItems();
+        cbRole.addItem("ADMIN");
+        cbRole.addItem("MEDICAL_MANAGER");
+        cbRole.addItem("DOCTOR");
+        cbRole.addItem("PATIENT");
+
+        txtFullName.setText("");
+        txtEmail.setText("");
+        txtPhoneNumber.setText("");
+        txtPassword.setText("");
+        cbRole.setSelectedIndex(0);
+        cbActive.setSelected(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +96,16 @@ public class AdminPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        CreateUserDialog = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        txtFullName = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtPhoneNumber = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        cbRole = new javax.swing.JComboBox<>();
+        cbActive = new javax.swing.JCheckBox();
+        btnCreateUser = new javax.swing.JButton();
+        btnCancelCreateUser = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -82,15 +118,85 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbActive.setText("active");
+
+        btnCreateUser.setText("Create");
+        btnCreateUser.addActionListener(this::btnCreateUserActionPerformed);
+
+        btnCancelCreateUser.setText("Cancel");
+        btnCancelCreateUser.addActionListener(this::btnCancelCreateUserActionPerformed);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(btnCreateUser)
+                            .addGap(39, 39, 39)
+                            .addComponent(btnCancelCreateUser))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(74, 74, 74)
+                            .addComponent(cbActive)))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtFullName)
+                        .addComponent(txtEmail)
+                        .addComponent(txtPhoneNumber)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(162, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbActive)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreateUser)
+                    .addComponent(btnCancelCreateUser))
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout CreateUserDialogLayout = new javax.swing.GroupLayout(CreateUserDialog.getContentPane());
+        CreateUserDialog.getContentPane().setLayout(CreateUserDialogLayout);
+        CreateUserDialogLayout.setHorizontalGroup(
+            CreateUserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        CreateUserDialogLayout.setVerticalGroup(
+            CreateUserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         btnRefreshUsers.setText("Refresh");
+        btnRefreshUsers.addActionListener(this::btnRefreshUsersActionPerformed);
 
         btnDeleteUser.setText("Delete User");
 
         btnAddUser.setText("Add User");
+        btnAddUser.addActionListener(this::btnAddUserActionPerformed);
 
         btnEditUser.setText("Edit User");
 
@@ -105,11 +211,19 @@ public class AdminPage extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        tbUsers.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbUsers);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -190,17 +304,123 @@ public class AdminPage extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnRefreshUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshUsersActionPerformed
+        loadUsers();
+    }//GEN-LAST:event_btnRefreshUsersActionPerformed
+
+    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
+        initialCreateUserDialog();
+
+        CreateUserDialog.pack();
+        CreateUserDialog.setLocationRelativeTo(this);
+        CreateUserDialog.setVisible(true);
+    }//GEN-LAST:event_btnAddUserActionPerformed
+
+    private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
+        String fullName = txtFullName.getText().trim();
+        String email = txtEmail.getText().trim();
+        String phoneNumber = txtPhoneNumber.getText().trim();
+
+        String password = new String(txtPassword.getPassword());
+
+        String role = cbRole.getSelectedItem().toString();
+
+        boolean active = cbActive.isSelected();
+
+        // Check empty fields
+        if (fullName.isEmpty()
+                || email.isEmpty()
+                || phoneNumber.isEmpty()
+                || password.isEmpty()) {
+            JOptionPane.showMessageDialog(CreateUserDialog, "Please fill in all fields.");
+            return;
+        }
+
+        User newUser = null;
+
+        switch (role) {
+            case "ADMIN":
+                newUser = new AdminStaff(
+                        fullName,
+                        email,
+                        phoneNumber,
+                        password,
+                        active
+                );
+                break;
+
+            case "MEDICAL_MANAGER":
+                newUser = new MedicalManager(
+                        fullName,
+                        email,
+                        phoneNumber,
+                        password,
+                        active
+                );
+                break;
+
+            case "DOCTOR":
+                newUser = new Doctor(
+                        fullName,
+                        email,
+                        phoneNumber,
+                        password,
+                        active
+                );
+                break;
+
+            case "PATIENT":
+                newUser = new Patient(
+                        fullName,
+                        email,
+                        phoneNumber,
+                        password,
+                        active
+                );
+                break;
+        }
+
+        if (newUser != null) {
+            boolean success = adminStaff.createUser(newUser);
+            
+            if (success){
+                JOptionPane.showMessageDialog(CreateUserDialog, "User created successfully.");
+                CreateUserDialog.dispose();
+
+                // Refresh JTable
+                loadUsers();
+            } else {
+                JOptionPane.showMessageDialog(CreateUserDialog, "Failed to create user.");
+            }
+        }
+    }//GEN-LAST:event_btnCreateUserActionPerformed
+
+    private void btnCancelCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelCreateUserActionPerformed
+        // TODO add your handling code here:
+        CreateUserDialog.dispose();
+    }//GEN-LAST:event_btnCancelCreateUserActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog CreateUserDialog;
     private javax.swing.JButton btnAddUser;
+    private javax.swing.JButton btnCancelCreateUser;
+    private javax.swing.JButton btnCreateUser;
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnEditUser;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRefreshUsers;
+    private javax.swing.JCheckBox cbActive;
+    private javax.swing.JComboBox<String> cbRole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tbUsers;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFullName;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtPhoneNumber;
     // End of variables declaration//GEN-END:variables
 }

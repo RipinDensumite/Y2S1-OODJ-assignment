@@ -17,23 +17,29 @@ import java.util.ArrayList;
  *
  * @author arifi
  */
-public class AdminStaff extends User{
-
-    public AdminStaff(String userId, String fullName, String email, String phoneNumber, String password, boolean active){
+public class AdminStaff extends User {
+    public AdminStaff(String userId, String fullName, String email, String phoneNumber, String password, boolean active) {
         super(userId, fullName, email, phoneNumber, password, active);
     }
 
+    public AdminStaff(String fullName, String email, String phoneNumber, String password, boolean active) {
+        super(fullName, email, phoneNumber, password, active);
+    }
+
     @Override
-    public UserRole getRole(){
+    public UserRole getRole() {
         return UserRole.ADMIN;
     }
 
-    public boolean createUser(User user){
-        if (user == null){
+    public boolean createUser(User user) {
+        if (user == null) {
             return false;
         }
 
-        try{
+        String newUserId = generateNextUserId();
+        user.setUserId(newUserId);
+
+        try {
             FileWriter fw = new FileWriter("accountlist.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
 
@@ -53,27 +59,27 @@ public class AdminStaff extends User{
             fw.close();
 
             return true;
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error creating user: " + e.getMessage());
             return false;
         }
     }
 
-    public User getUser(String userId){
-        try{
+    public User getUser(String userId) {
+        try {
             FileReader fr = new FileReader("accountlist.txt");
             BufferedReader br = new BufferedReader(fr);
 
             String line;
 
-            while ((line = br.readLine()) != null){
-                if (line.trim().isEmpty()){
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) {
                     continue;
                 }
 
                 String[] data = line.split(",");
 
-                if (data[0].equals(userId)){
+                if (data[0].equals(userId)) {
 
                     String id = data[0];
                     String fullName = data[1];
@@ -90,7 +96,7 @@ public class AdminStaff extends User{
                     br.close();
                     fr.close();
 
-                    switch (role){
+                    switch (role) {
                         case ADMIN:
                             return new AdminStaff(
                                     id,
@@ -136,22 +142,22 @@ public class AdminStaff extends User{
 
             br.close();
             fr.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error reading user: " + e.getMessage());
         }
 
         return null;
     }
 
-    public boolean updateUser(User user){
-        if (user == null){
+    public boolean updateUser(User user) {
+        if (user == null) {
             return false;
         }
 
         File originalFile = new File("accountlist.txt");
         File tempFile = new File("accountlist_temp.txt");
 
-        try{
+        try {
             FileReader fr = new FileReader(originalFile);
             BufferedReader br = new BufferedReader(fr);
 
@@ -160,14 +166,14 @@ public class AdminStaff extends User{
 
             String line;
 
-            while ((line = br.readLine()) != null){
-                if (line.trim().isEmpty()){
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) {
                     continue;
                 }
 
                 String[] data = line.split(",");
 
-                if (data[0].equals(user.getUserId())){
+                if (data[0].equals(user.getUserId())) {
 
                     bw.write(
                             user.getUserId() + ","
@@ -179,7 +185,7 @@ public class AdminStaff extends User{
                             + user.isActive()
                     );
 
-                } else{
+                } else {
 
                     bw.write(line);
                 }
@@ -196,22 +202,22 @@ public class AdminStaff extends User{
             tempFile.renameTo(originalFile);
 
             return true;
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error updating user: " + e.getMessage());
             return false;
         }
     }
 
-    public ArrayList<User> getUsers(){
+    public ArrayList<User> getUsers() {
         ArrayList<User> userList = new ArrayList<>();
-        try{
+        try {
             FileReader fr = new FileReader("accountlist.txt");
             BufferedReader br = new BufferedReader(fr);
 
             String line;
 
-            while ((line = br.readLine()) != null){
-                if (line.trim().isEmpty()){
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) {
                     continue;
                 }
 
@@ -231,7 +237,7 @@ public class AdminStaff extends User{
 
                 User user = null;
 
-                switch (role){
+                switch (role) {
                     case ADMIN:
                         user = new AdminStaff(
                                 id,
@@ -243,60 +249,60 @@ public class AdminStaff extends User{
                         );
                         break;
 
-                case DOCTOR:
-                    user = new Doctor(
-                            id,
-                            fullName,
-                            email,
-                            phoneNumber,
-                            password,
-                            active
-                    );
-                    break;
+                    case DOCTOR:
+                        user = new Doctor(
+                                id,
+                                fullName,
+                                email,
+                                phoneNumber,
+                                password,
+                                active
+                        );
+                        break;
 
-                case PATIENT:
-                    user = new Patient(
-                            id,
-                            fullName,
-                            email,
-                            phoneNumber,
-                            password,
-                            active
-                    );
-                    break;
+                    case PATIENT:
+                        user = new Patient(
+                                id,
+                                fullName,
+                                email,
+                                phoneNumber,
+                                password,
+                                active
+                        );
+                        break;
 
-                case MEDICAL_MANAGER:
-                    user = new MedicalManager(
-                            id,
-                            fullName,
-                            email,
-                            phoneNumber,
-                            password,
-                            active
-                    );
-                    break;
+                    case MEDICAL_MANAGER:
+                        user = new MedicalManager(
+                                id,
+                                fullName,
+                                email,
+                                phoneNumber,
+                                password,
+                                active
+                        );
+                        break;
                 }
 
-                if (user != null){
+                if (user != null) {
                     userList.add(user);
                 }
             }
 
             br.close();
             fr.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error reading users: " + e.getMessage());
         }
 
         return userList;
     }
 
-    public boolean deleteUser(String userId){
+    public boolean deleteUser(String userId) {
         File originalFile = new File("accountlist.txt");
         File tempFile = new File("accountlist_temp.txt");
         boolean found = false;
 
-        try{
+        try {
             FileReader fr = new FileReader(originalFile);
             BufferedReader br = new BufferedReader(fr);
 
@@ -305,14 +311,14 @@ public class AdminStaff extends User{
 
             String line;
 
-            while ((line = br.readLine()) != null){
-                if (line.trim().isEmpty()){
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) {
                     continue;
                 }
 
                 String[] data = line.split(",");
 
-                if (data[0].equals(userId)){
+                if (data[0].equals(userId)) {
                     found = true;
                     continue;
                 }
@@ -329,11 +335,56 @@ public class AdminStaff extends User{
 
             originalFile.delete();
             tempFile.renameTo(originalFile);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error deleting user: " + e.getMessage());
             return false;
         }
 
         return found;
+    }
+
+    public String generateNextUserId() {
+
+        int highestId = 0;
+
+        try {
+            FileReader fr = new FileReader("accountlist.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+
+                String[] data = line.split(",");
+
+                try {
+                    int currentId = Integer.parseInt(data[0]);
+
+                    if (currentId > highestId) {
+                        highestId = currentId;
+                    }
+
+                } catch (NumberFormatException e) {
+                    // Ignore invalid IDs
+                }
+            }
+
+            br.close();
+            fr.close();
+
+        } catch (IOException e) {
+            System.out.println(
+                    "Error generating User ID: "
+                    + e.getMessage()
+            );
+        }
+
+        int nextId = highestId + 1;
+
+        return String.format("%03d", nextId);
     }
 }
