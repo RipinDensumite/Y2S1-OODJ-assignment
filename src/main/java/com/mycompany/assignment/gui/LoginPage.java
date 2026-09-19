@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.assignment;
+package com.mycompany.assignment.gui;
 
+import com.mycompany.assignment.classes.Authentication;
 import com.mycompany.assignment.classes.AdminStaff;
 import com.mycompany.assignment.classes.User;
 import com.mycompany.assignment.gui.AdminPage;
@@ -13,16 +14,16 @@ import java.io.IOException;
  *
  * @author HP
  */
-public class loginchangelater extends javax.swing.JFrame {
+public class LoginPage extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loginchangelater.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginPage.class.getName());
 
     /**
-     * Creates new form loginchangelater
+     * Creates new form LoginPage
      */
-    public loginchangelater() {
+    public LoginPage() {
         initComponents();
-        
+
         setTitle("Login");
     }
 
@@ -98,23 +99,15 @@ public class loginchangelater extends javax.swing.JFrame {
         );
 
         try {
-
             String role = auth.login();
 
             switch (role) {
-
                 case "ADMIN":
-
                     User loggedInUser = auth.getLoggedInUser();
 
                     if (loggedInUser instanceof AdminStaff) {
-
-                        AdminStaff admin
-                                = (AdminStaff) loggedInUser;
-
-                        AdminPage adminPage
-                                = new AdminPage(admin);
-
+                        AdminStaff admin = (AdminStaff) loggedInUser;
+                        AdminPage adminPage = new AdminPage(admin);
                         adminPage.setVisible(true);
 
                         // Close login page
@@ -141,43 +134,10 @@ public class loginchangelater extends javax.swing.JFrame {
             }
 
         } catch (IOException ex) {
-
             jLabel1.setText("Error reading account file");
-
-            System.getLogger(
-                    loginchangelater.class.getName()
-            ).log(
-                    System.Logger.Level.ERROR,
-                    (String) null,
-                    ex
-            );
+            System.getLogger(LoginPage.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new loginchangelater().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
