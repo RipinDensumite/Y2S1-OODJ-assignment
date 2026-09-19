@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * @author arifi
  */
 public class AdminStaff extends User {
+
     public AdminStaff(String userId, String fullName, String email, String phoneNumber, String password, boolean active) {
         super(userId, fullName, email, phoneNumber, password, active);
     }
