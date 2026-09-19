@@ -87,6 +87,16 @@ public class AdminPage extends javax.swing.JFrame {
                 return false;
             }
         });
+        
+        tbHospitalAssets.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Asset ID", "Name", "Type", "Status", "Department"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
     }
 
     private void loadInsuranceNetwork() {
@@ -246,6 +256,13 @@ public class AdminPage extends javax.swing.JFrame {
         DoctorAssignmentPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbDoctorAssignment = new javax.swing.JTable();
+        HospitalAssetsPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbHospitalAssets = new javax.swing.JTable();
+        btnAddAssetHospitalAssets = new javax.swing.JButton();
+        btnEditAssetHospitalAssets = new javax.swing.JButton();
+        btnAllocateToDepartmentHospitalAssets = new javax.swing.JButton();
+        btnRefreshHospitalAssets = new javax.swing.JButton();
         InsuranceNetworkPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbInsuranceNetwork = new javax.swing.JTable();
@@ -607,6 +624,59 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         tabAdminDashboard.addTab("Doctor Assignment", DoctorAssignmentPanel);
+
+        tbHospitalAssets.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbHospitalAssets.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tbHospitalAssets);
+
+        btnAddAssetHospitalAssets.setText("Add Asset");
+
+        btnEditAssetHospitalAssets.setText("Edit Asset");
+
+        btnAllocateToDepartmentHospitalAssets.setText("Allocate To Department");
+
+        btnRefreshHospitalAssets.setText("Refresh");
+
+        javax.swing.GroupLayout HospitalAssetsPanelLayout = new javax.swing.GroupLayout(HospitalAssetsPanel);
+        HospitalAssetsPanel.setLayout(HospitalAssetsPanelLayout);
+        HospitalAssetsPanelLayout.setHorizontalGroup(
+            HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5)
+            .addGroup(HospitalAssetsPanelLayout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(btnAddAssetHospitalAssets)
+                .addGap(35, 35, 35)
+                .addComponent(btnEditAssetHospitalAssets)
+                .addGap(18, 18, 18)
+                .addComponent(btnAllocateToDepartmentHospitalAssets)
+                .addGap(18, 18, 18)
+                .addComponent(btnRefreshHospitalAssets)
+                .addContainerGap(188, Short.MAX_VALUE))
+        );
+        HospitalAssetsPanelLayout.setVerticalGroup(
+            HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HospitalAssetsPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddAssetHospitalAssets)
+                    .addComponent(btnEditAssetHospitalAssets)
+                    .addComponent(btnAllocateToDepartmentHospitalAssets)
+                    .addComponent(btnRefreshHospitalAssets))
+                .addGap(21, 21, 21))
+        );
+
+        tabAdminDashboard.addTab("Hospital Assets", HospitalAssetsPanel);
 
         tbInsuranceNetwork.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1206,13 +1276,16 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JDialog CreateInsuranceNetworkDialog;
     private javax.swing.JDialog CreateUserDialog;
     private javax.swing.JPanel DoctorAssignmentPanel;
+    private javax.swing.JPanel HospitalAssetsPanel;
     private javax.swing.JPanel InsuranceNetworkPanel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JPanel UsersPanel;
+    private javax.swing.JButton btnAddAssetHospitalAssets;
     private javax.swing.JButton btnAddCheckUp;
     private javax.swing.JButton btnAddInsurance;
     private javax.swing.JButton btnAddInsuranceNetwork;
     private javax.swing.JButton btnAddUser;
+    private javax.swing.JButton btnAllocateToDepartmentHospitalAssets;
     private javax.swing.JButton btnCancelCheckUp;
     private javax.swing.JButton btnCancelCreateUser;
     private javax.swing.JButton btnCancelInsuranceNetwork;
@@ -1220,10 +1293,12 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateCheckUp;
     private javax.swing.JButton btnCreateUser;
     private javax.swing.JButton btnDeleteUser;
+    private javax.swing.JButton btnEditAssetHospitalAssets;
     private javax.swing.JButton btnEditCheckUp;
     private javax.swing.JButton btnEditInsurance;
     private javax.swing.JButton btnEditUser;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnRefreshHospitalAssets;
     private javax.swing.JButton btnRefreshUsers;
     private javax.swing.JCheckBox cbAccepted;
     private javax.swing.JCheckBox cbActive;
@@ -1247,10 +1322,12 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lbWelcomeTitle;
     private javax.swing.JTabbedPane tabAdminDashboard;
     private javax.swing.JTable tbCheckUpTypes;
     private javax.swing.JTable tbDoctorAssignment;
+    private javax.swing.JTable tbHospitalAssets;
     private javax.swing.JTable tbInsuranceNetwork;
     private javax.swing.JTable tbUsers;
     private javax.swing.JTextField txtBaseRateCheckUp;
