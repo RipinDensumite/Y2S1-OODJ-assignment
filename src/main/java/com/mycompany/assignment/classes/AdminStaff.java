@@ -448,4 +448,54 @@ public class AdminStaff extends User {
             return false;
         }
     }
+
+    public ArrayList<CheckUpType> getCheckUpTypes() {
+        try {
+            return CheckUpType.getAllCheckUpTypes();
+        } catch (IOException e) {
+            System.out.println("Error reading check up types: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean createCheckUpType(String name, String description, double baseRate) {
+        try {
+            CheckUpType checkUpType = new CheckUpType(
+                    name,
+                    description,
+                    baseRate
+            );
+
+            checkUpType.insertFile();
+
+            return true;
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error creating check up type: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updateCheckUpType(String checkUpTypeId, String name, String description, double baseRate, boolean active) {
+        try {
+            CheckUpType checkUpType = new CheckUpType(
+                    checkUpTypeId,
+                    name,
+                    description,
+                    baseRate,
+                    active
+            );
+
+            checkUpType.updateDetails(
+                    name,
+                    description,
+                    baseRate,
+                    active
+            );
+
+            return true;
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error updating check up type: " + e.getMessage());
+            return false;
+        }
+    }
 }

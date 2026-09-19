@@ -5,12 +5,12 @@
 package com.mycompany.assignment.gui;
 
 import com.mycompany.assignment.classes.AdminStaff;
+import com.mycompany.assignment.classes.CheckUpType;
 import com.mycompany.assignment.classes.Doctor;
 import com.mycompany.assignment.classes.InsuranceNetwork;
 import com.mycompany.assignment.classes.MedicalManager;
 import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.User;
-import com.mycompany.assignment.loginchangelater;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +40,13 @@ public class AdminPage extends javax.swing.JFrame {
 
         lbWelcomeTitle.setText("Admin staff - " + adminStaff.getFullName());
 
+        setupTables();
+        loadUsers();
+        loadInsuranceNetwork();
+        loadCheckUpTypes();
+    }
+
+    private void setupTables() {
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{"User ID", "Full Name", "Email", "Phone Number", "Role", "Active"}
@@ -59,7 +66,7 @@ public class AdminPage extends javax.swing.JFrame {
                 return false;
             }
         });
-        
+
         tbDoctorAssignment.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Doctor ID", "Doctor", "Manager ID", "Medical Manager"}
@@ -70,8 +77,15 @@ public class AdminPage extends javax.swing.JFrame {
             }
         });
 
-        loadUsers();
-        loadInsuranceNetwork();
+        tbCheckUpTypes.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"ID", "Name", "Base Rate", "Description", "Active"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
     }
 
     private void loadInsuranceNetwork() {
@@ -106,6 +120,22 @@ public class AdminPage extends javax.swing.JFrame {
                 user.getPhoneNumber(),
                 user.getRole(),
                 user.isActive()
+            });
+        }
+    }
+
+    private void loadCheckUpTypes() {
+        DefaultTableModel model = (DefaultTableModel) tbCheckUpTypes.getModel();
+        model.setRowCount(0);
+        ArrayList<CheckUpType> checkUpTypes = adminStaff.getCheckUpTypes();
+
+        for (CheckUpType checkUp : checkUpTypes) {
+            model.addRow(new Object[]{
+                checkUp.getCheckUpTypeId(),
+                checkUp.getName(),
+                checkUp.getBaseRate(),
+                checkUp.getDescription(),
+                checkUp.isActive()
             });
         }
     }
@@ -192,6 +222,12 @@ public class AdminPage extends javax.swing.JFrame {
         tbInsuranceNetwork = new javax.swing.JTable();
         btnAddInsurance = new javax.swing.JButton();
         btnEditInsurance = new javax.swing.JButton();
+        CheckUpTypesPanel = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbCheckUpTypes = new javax.swing.JTable();
+        btnAddCheckUp = new javax.swing.JButton();
+        btnEditCheckUp = new javax.swing.JButton();
+        btnCheckUpRefresh = new javax.swing.JButton();
         lbWelcomeTitle = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
@@ -444,6 +480,7 @@ public class AdminPage extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbDoctorAssignment.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tbDoctorAssignment);
 
         javax.swing.GroupLayout DoctorAssignmentPanelLayout = new javax.swing.GroupLayout(DoctorAssignmentPanel);
@@ -505,6 +542,55 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         tabAdminDashboard.addTab("Insurance", InsuranceNetworkPanel);
+
+        tbCheckUpTypes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbCheckUpTypes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tbCheckUpTypes);
+
+        btnAddCheckUp.setText("Add Check-Up");
+
+        btnEditCheckUp.setText("Edit / Base Rate");
+
+        btnCheckUpRefresh.setText("Refresh");
+        btnCheckUpRefresh.addActionListener(this::btnCheckUpRefreshActionPerformed);
+
+        javax.swing.GroupLayout CheckUpTypesPanelLayout = new javax.swing.GroupLayout(CheckUpTypesPanel);
+        CheckUpTypesPanel.setLayout(CheckUpTypesPanelLayout);
+        CheckUpTypesPanelLayout.setHorizontalGroup(
+            CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4)
+            .addGroup(CheckUpTypesPanelLayout.createSequentialGroup()
+                .addGap(293, 293, 293)
+                .addComponent(btnAddCheckUp)
+                .addGap(30, 30, 30)
+                .addComponent(btnEditCheckUp)
+                .addGap(28, 28, 28)
+                .addComponent(btnCheckUpRefresh)
+                .addContainerGap(201, Short.MAX_VALUE))
+        );
+        CheckUpTypesPanelLayout.setVerticalGroup(
+            CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CheckUpTypesPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddCheckUp)
+                    .addComponent(btnEditCheckUp)
+                    .addComponent(btnCheckUpRefresh))
+                .addGap(21, 21, 21))
+        );
+
+        tabAdminDashboard.addTab("Check Up Types", CheckUpTypesPanel);
 
         lbWelcomeTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lbWelcomeTitle.setText("Admin staff - USER NAME");
@@ -569,7 +655,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         dispose();
 
-        loginchangelater loginPage = new loginchangelater();
+        LoginPage loginPage = new LoginPage();
         loginPage.setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
@@ -932,39 +1018,36 @@ public class AdminPage extends javax.swing.JFrame {
         CreateInsuranceNetworkDialog.setVisible(true);
     }//GEN-LAST:event_btnEditInsuranceActionPerformed
 
+    private void btnCheckUpRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckUpRefreshActionPerformed
+        // TODO add your handling code here:
+        loadCheckUpTypes();
+    }//GEN-LAST:event_btnCheckUpRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel CheckUpTypesPanel;
     private javax.swing.JDialog CreateInsuranceNetworkDialog;
     private javax.swing.JDialog CreateUserDialog;
     private javax.swing.JPanel DoctorAssignmentPanel;
     private javax.swing.JPanel InsuranceNetworkPanel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JPanel UsersPanel;
+    private javax.swing.JButton btnAddCheckUp;
     private javax.swing.JButton btnAddInsurance;
     private javax.swing.JButton btnAddInsuranceNetwork;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnCancelCreateUser;
-    private javax.swing.JButton btnCancelCreateUser1;
-    private javax.swing.JButton btnCancelCreateUser2;
-    private javax.swing.JButton btnCancelCreateUser3;
     private javax.swing.JButton btnCancelInsuranceNetwork;
+    private javax.swing.JButton btnCheckUpRefresh;
     private javax.swing.JButton btnCreateUser;
-    private javax.swing.JButton btnCreateUser1;
-    private javax.swing.JButton btnCreateUser2;
-    private javax.swing.JButton btnCreateUser3;
     private javax.swing.JButton btnDeleteUser;
+    private javax.swing.JButton btnEditCheckUp;
     private javax.swing.JButton btnEditInsurance;
     private javax.swing.JButton btnEditUser;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRefreshUsers;
     private javax.swing.JCheckBox cbAccepted;
     private javax.swing.JCheckBox cbActive;
-    private javax.swing.JCheckBox cbActive1;
-    private javax.swing.JCheckBox cbActive2;
-    private javax.swing.JCheckBox cbActive3;
     private javax.swing.JComboBox<String> cbRole;
-    private javax.swing.JComboBox<String> cbRole1;
-    private javax.swing.JComboBox<String> cbRole2;
-    private javax.swing.JComboBox<String> cbRole3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -973,35 +1056,22 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lbWelcomeTitle;
     private javax.swing.JTabbedPane tabAdminDashboard;
+    private javax.swing.JTable tbCheckUpTypes;
     private javax.swing.JTable tbDoctorAssignment;
     private javax.swing.JTable tbInsuranceNetwork;
     private javax.swing.JTable tbUsers;
     private javax.swing.JTextField txtCoverage;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEmail1;
-    private javax.swing.JTextField txtEmail2;
-    private javax.swing.JTextField txtEmail3;
     private javax.swing.JTextField txtFullName;
-    private javax.swing.JTextField txtFullName1;
-    private javax.swing.JTextField txtFullName2;
-    private javax.swing.JTextField txtFullName3;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JPasswordField txtPassword1;
-    private javax.swing.JPasswordField txtPassword2;
-    private javax.swing.JPasswordField txtPassword3;
     private javax.swing.JTextField txtPhoneNumber;
-    private javax.swing.JTextField txtPhoneNumber1;
-    private javax.swing.JTextField txtPhoneNumber2;
-    private javax.swing.JTextField txtPhoneNumber3;
     private javax.swing.JTextField txtProvider;
     // End of variables declaration//GEN-END:variables
 }
