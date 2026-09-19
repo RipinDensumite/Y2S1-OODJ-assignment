@@ -194,6 +194,7 @@ public class AdminPage extends javax.swing.JFrame {
         btnRefreshUsers.addActionListener(this::btnRefreshUsersActionPerformed);
 
         btnDeleteUser.setText("Delete User");
+        btnDeleteUser.addActionListener(this::btnDeleteUserActionPerformed);
 
         btnAddUser.setText("Add User");
         btnAddUser.addActionListener(this::btnAddUserActionPerformed);
@@ -382,8 +383,8 @@ public class AdminPage extends javax.swing.JFrame {
 
         if (newUser != null) {
             boolean success = adminStaff.createUser(newUser);
-            
-            if (success){
+
+            if (success) {
                 JOptionPane.showMessageDialog(CreateUserDialog, "User created successfully.");
                 CreateUserDialog.dispose();
 
@@ -399,6 +400,43 @@ public class AdminPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         CreateUserDialog.dispose();
     }//GEN-LAST:event_btnCancelCreateUserActionPerformed
+
+    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+        int selectedRow = tbUsers.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user to delete.");
+            return;
+        }
+
+        // User ID is column 0
+        String userId = tbUsers.getValueAt(selectedRow, 0).toString();
+
+        String fullName = tbUsers.getValueAt(selectedRow, 1).toString();
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete "
+                + fullName
+                + " (" + userId + ")?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean success = adminStaff.deleteUser(userId);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "User deleted successfully.");
+
+            loadUsers();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to delete user.", "Delete Failed", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog CreateUserDialog;
