@@ -24,6 +24,7 @@ public class AdminPage extends javax.swing.JFrame {
     private AdminStaff adminStaff;
     private String editingUserId = null;
     private String editingInsuranceId = null;
+    private String editingCheckUpId = null;
 
     /**
      * Creates new form AdminPage
@@ -172,6 +173,19 @@ public class AdminPage extends javax.swing.JFrame {
         CreateInsuranceNetworkDialog.setTitle("Add Insurance Network");
     }
 
+    private void initialCheckUpDialog() {
+        editingCheckUpId = null;
+
+        txtNameCheckUp.setText("");
+        txtDescriptionCheckUp.setText("");
+        txtBaseRateCheckUp.setText("");
+
+        cdActiveCheckUp.setSelected(true);
+
+        btnCreateCheckUp.setText("Create");
+        CreateCheckUpDialog.setTitle("Create Check-Up Type");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -205,6 +219,17 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cbAccepted = new javax.swing.JCheckBox();
+        CreateCheckUpDialog = new javax.swing.JDialog();
+        jPanel10 = new javax.swing.JPanel();
+        btnCreateCheckUp = new javax.swing.JButton();
+        btnCancelCheckUp = new javax.swing.JButton();
+        txtNameCheckUp = new javax.swing.JTextField();
+        txtDescriptionCheckUp = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cdActiveCheckUp = new javax.swing.JCheckBox();
+        txtBaseRateCheckUp = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         MainPanel = new javax.swing.JPanel();
         tabAdminDashboard = new javax.swing.JTabbedPane();
         UsersPanel = new javax.swing.JPanel();
@@ -396,6 +421,79 @@ public class AdminPage extends javax.swing.JFrame {
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        btnCreateCheckUp.setText("Create");
+        btnCreateCheckUp.addActionListener(this::btnCreateCheckUpActionPerformed);
+
+        btnCancelCheckUp.setText("Cancel");
+        btnCancelCheckUp.addActionListener(this::btnCancelCheckUpActionPerformed);
+
+        jLabel9.setText("Name:");
+
+        jLabel10.setText("Description:");
+
+        cdActiveCheckUp.setText("active");
+
+        jLabel11.setText("Base Rate (RM):");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCreateCheckUp)
+                .addGap(112, 112, 112)
+                .addComponent(btnCancelCheckUp)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cdActiveCheckUp)
+                    .addComponent(txtDescriptionCheckUp, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .addComponent(txtNameCheckUp, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .addComponent(txtBaseRateCheckUp))
+                .addGap(121, 121, 121))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNameCheckUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDescriptionCheckUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBaseRateCheckUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addComponent(cdActiveCheckUp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelCheckUp)
+                    .addComponent(btnCreateCheckUp))
+                .addGap(82, 82, 82))
+        );
+
+        javax.swing.GroupLayout CreateCheckUpDialogLayout = new javax.swing.GroupLayout(CreateCheckUpDialog.getContentPane());
+        CreateCheckUpDialog.getContentPane().setLayout(CreateCheckUpDialogLayout);
+        CreateCheckUpDialogLayout.setHorizontalGroup(
+            CreateCheckUpDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        CreateCheckUpDialogLayout.setVerticalGroup(
+            CreateCheckUpDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -558,8 +656,10 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tbCheckUpTypes);
 
         btnAddCheckUp.setText("Add Check-Up");
+        btnAddCheckUp.addActionListener(this::btnAddCheckUpActionPerformed);
 
         btnEditCheckUp.setText("Edit / Base Rate");
+        btnEditCheckUp.addActionListener(this::btnEditCheckUpActionPerformed);
 
         btnCheckUpRefresh.setText("Refresh");
         btnCheckUpRefresh.addActionListener(this::btnCheckUpRefreshActionPerformed);
@@ -882,16 +982,12 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditUserActionPerformed
 
     private void btnAddInsuranceNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInsuranceNetworkActionPerformed
-        // TODO add your handling code here:
         String providerName = txtProvider.getText().trim();
         String coverageText = txtCoverage.getText().trim();
         boolean accepted = cbAccepted.isSelected();
 
         if (providerName.isEmpty() || coverageText.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    CreateInsuranceNetworkDialog,
-                    "Please fill in all fields."
-            );
+            JOptionPane.showMessageDialog(CreateInsuranceNetworkDialog, "Please fill in all fields.");
             return;
         }
 
@@ -900,10 +996,7 @@ public class AdminPage extends javax.swing.JFrame {
         try {
             coverageRate = Double.parseDouble(coverageText);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(
-                    CreateInsuranceNetworkDialog,
-                    "Coverage must be a number."
-            );
+            JOptionPane.showMessageDialog(CreateInsuranceNetworkDialog, "Coverage must be a number.");
             return;
         }
 
@@ -911,50 +1004,26 @@ public class AdminPage extends javax.swing.JFrame {
 
         // CREATE
         if (editingInsuranceId == null) {
-
-            success = adminStaff.createInsuranceNetwork(
-                    providerName,
-                    coverageRate,
-                    accepted
-            );
+            success = adminStaff.createInsuranceNetwork(providerName, coverageRate, accepted);
 
             if (success) {
-                JOptionPane.showMessageDialog(
-                        CreateInsuranceNetworkDialog,
-                        "Insurance network created successfully."
-                );
+                JOptionPane.showMessageDialog(CreateInsuranceNetworkDialog, "Insurance network created successfully.");
             } else {
-                JOptionPane.showMessageDialog(
-                        CreateInsuranceNetworkDialog,
-                        "Failed to create insurance network."
-                );
+                JOptionPane.showMessageDialog(CreateInsuranceNetworkDialog, "Failed to create insurance network.");
                 return;
             }
 
         } else {
-
             // EDIT
-            success = adminStaff.updateInsuranceNetwork(
-                    editingInsuranceId,
-                    providerName,
-                    coverageRate,
-                    accepted
-            );
+            success = adminStaff.updateInsuranceNetwork(editingInsuranceId, providerName, coverageRate, accepted);
 
             if (success) {
-                JOptionPane.showMessageDialog(
-                        CreateInsuranceNetworkDialog,
-                        "Insurance network updated successfully."
-                );
+                JOptionPane.showMessageDialog(CreateInsuranceNetworkDialog, "Insurance network updated successfully.");
             } else {
-                JOptionPane.showMessageDialog(
-                        CreateInsuranceNetworkDialog,
-                        "Failed to update insurance network."
-                );
+                JOptionPane.showMessageDialog(CreateInsuranceNetworkDialog, "Failed to update insurance network.");
                 return;
             }
         }
-
         CreateInsuranceNetworkDialog.dispose();
 
         editingInsuranceId = null;
@@ -978,40 +1047,24 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddInsuranceActionPerformed
 
     private void btnEditInsuranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditInsuranceActionPerformed
-        // TODO add your handling code here:
         int selectedRow = tbInsuranceNetwork.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Please select an insurance network to edit."
-            );
+            JOptionPane.showMessageDialog(this, "Please select an insurance network to edit.");
             return;
         }
 
         editingInsuranceId = tbInsuranceNetwork.getValueAt(selectedRow, 0).toString();
-
-        String providerName
-                = tbInsuranceNetwork.getValueAt(selectedRow, 1).toString();
-
-        String coverageRate
-                = tbInsuranceNetwork.getValueAt(selectedRow, 2).toString();
-
-        boolean accepted
-                = Boolean.parseBoolean(
-                        tbInsuranceNetwork
-                                .getValueAt(selectedRow, 3)
-                                .toString()
-                );
+        String providerName = tbInsuranceNetwork.getValueAt(selectedRow, 1).toString();
+        String coverageRate = tbInsuranceNetwork.getValueAt(selectedRow, 2).toString();
+        boolean accepted = Boolean.parseBoolean(tbInsuranceNetwork.getValueAt(selectedRow, 3).toString());
 
         txtProvider.setText(providerName);
         txtCoverage.setText(coverageRate);
         cbAccepted.setSelected(accepted);
 
         btnAddInsuranceNetwork.setText("Save Changes");
-        CreateInsuranceNetworkDialog.setTitle(
-                "Edit Insurance Network"
-        );
+        CreateInsuranceNetworkDialog.setTitle("Edit Insurance Network");
 
         CreateInsuranceNetworkDialog.pack();
         CreateInsuranceNetworkDialog.setLocationRelativeTo(this);
@@ -1019,12 +1072,114 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditInsuranceActionPerformed
 
     private void btnCheckUpRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckUpRefreshActionPerformed
-        // TODO add your handling code here:
         loadCheckUpTypes();
     }//GEN-LAST:event_btnCheckUpRefreshActionPerformed
 
+    private void btnCreateCheckUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCheckUpActionPerformed
+        String name = txtNameCheckUp.getText().trim();
+        String description = txtDescriptionCheckUp.getText().trim();
+        String baseRateText = txtBaseRateCheckUp.getText().trim();
+        boolean active = cdActiveCheckUp.isSelected();
+
+        if (name.isEmpty() || description.isEmpty() || baseRateText.isEmpty()) {
+            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Please fill in all fields.");
+            return;
+        }
+
+        double baseRate;
+
+        try {
+            baseRate = Double.parseDouble(baseRateText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Base rate must be a number.");
+            return;
+        }
+
+        if (baseRate < 0) {
+            JOptionPane.showMessageDialog(CreateCheckUpDialog, "Base rate cannot be negative.");
+            return;
+        }
+
+        boolean success;
+
+        // CREATE
+        if (editingCheckUpId == null) {
+            success = adminStaff.createCheckUpType(name, description, baseRate);
+
+            if (success) {
+                JOptionPane.showMessageDialog(CreateCheckUpDialog, "Check-up type created successfully.");
+            } else {
+                JOptionPane.showMessageDialog(CreateCheckUpDialog, "Failed to create check-up type.");
+                return;
+            }
+
+        } else {
+            // EDIT
+            success = adminStaff.updateCheckUpType(
+                    editingCheckUpId,
+                    name,
+                    description,
+                    baseRate,
+                    active
+            );
+
+            if (success) {
+                JOptionPane.showMessageDialog(CreateCheckUpDialog, "Check-up type updated successfully.");
+            } else {
+                JOptionPane.showMessageDialog(CreateCheckUpDialog, "Failed to update check-up type.");
+                return;
+            }
+        }
+
+        CreateCheckUpDialog.dispose();
+        editingCheckUpId = null;
+
+        loadCheckUpTypes();
+    }//GEN-LAST:event_btnCreateCheckUpActionPerformed
+
+    private void btnCancelCheckUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelCheckUpActionPerformed
+        editingCheckUpId = null;
+        CreateCheckUpDialog.dispose();
+    }//GEN-LAST:event_btnCancelCheckUpActionPerformed
+
+    private void btnAddCheckUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCheckUpActionPerformed
+        initialCheckUpDialog();
+
+        CreateCheckUpDialog.pack();
+        CreateCheckUpDialog.setLocationRelativeTo(this);
+        CreateCheckUpDialog.setVisible(true);
+    }//GEN-LAST:event_btnAddCheckUpActionPerformed
+
+    private void btnEditCheckUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCheckUpActionPerformed
+        int selectedRow = tbCheckUpTypes.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a check-up type to edit.");
+            return;
+        }
+
+        editingCheckUpId = tbCheckUpTypes.getValueAt(selectedRow, 0).toString();
+        String name = tbCheckUpTypes.getValueAt(selectedRow, 1).toString();
+        String baseRate = tbCheckUpTypes.getValueAt(selectedRow, 2).toString();
+        String description = tbCheckUpTypes.getValueAt(selectedRow, 3).toString();
+        boolean active = Boolean.parseBoolean(tbCheckUpTypes.getValueAt(selectedRow, 4).toString());
+
+        txtNameCheckUp.setText(name);
+        txtDescriptionCheckUp.setText(description);
+        txtBaseRateCheckUp.setText(baseRate);
+        cdActiveCheckUp.setSelected(active);
+
+        btnCreateCheckUp.setText("Save Changes");
+        CreateCheckUpDialog.setTitle("Edit Check-Up Type");
+
+        CreateCheckUpDialog.pack();
+        CreateCheckUpDialog.setLocationRelativeTo(this);
+        CreateCheckUpDialog.setVisible(true);
+    }//GEN-LAST:event_btnEditCheckUpActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;
+    private javax.swing.JDialog CreateCheckUpDialog;
     private javax.swing.JDialog CreateInsuranceNetworkDialog;
     private javax.swing.JDialog CreateUserDialog;
     private javax.swing.JPanel DoctorAssignmentPanel;
@@ -1035,9 +1190,11 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JButton btnAddInsurance;
     private javax.swing.JButton btnAddInsuranceNetwork;
     private javax.swing.JButton btnAddUser;
+    private javax.swing.JButton btnCancelCheckUp;
     private javax.swing.JButton btnCancelCreateUser;
     private javax.swing.JButton btnCancelInsuranceNetwork;
     private javax.swing.JButton btnCheckUpRefresh;
+    private javax.swing.JButton btnCreateCheckUp;
     private javax.swing.JButton btnCreateUser;
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnEditCheckUp;
@@ -1048,6 +1205,9 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbAccepted;
     private javax.swing.JCheckBox cbActive;
     private javax.swing.JComboBox<String> cbRole;
+    private javax.swing.JCheckBox cdActiveCheckUp;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1055,6 +1215,8 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1067,9 +1229,12 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JTable tbDoctorAssignment;
     private javax.swing.JTable tbInsuranceNetwork;
     private javax.swing.JTable tbUsers;
+    private javax.swing.JTextField txtBaseRateCheckUp;
     private javax.swing.JTextField txtCoverage;
+    private javax.swing.JTextField txtDescriptionCheckUp;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFullName;
+    private javax.swing.JTextField txtNameCheckUp;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtProvider;
