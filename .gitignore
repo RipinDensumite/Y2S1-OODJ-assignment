@@ -28,6 +28,7 @@ manifest.mf~
 # Logs
 # =========================
 *.log
+*.txt
 
 # =========================
 # IDE / Editor files

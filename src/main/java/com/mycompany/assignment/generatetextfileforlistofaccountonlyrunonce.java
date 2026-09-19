@@ -21,7 +21,7 @@ public class generatetextfileforlistofaccountonlyrunonce {
         FileWriter fw =new FileWriter("accountlist.txt");
         BufferedWriter bw =new BufferedWriter(fw);
         
-        String defaultaccount=("001,ABU,ABU@GMAIL.COM,ABUPASSWORD,0123456789,ADMIN_STAFF,true\n002,ALI,ALI@GMAIL.COM,ALIPASSWORD,0132456789,MEDICAL_MANAGER,true;");
+        String defaultaccount=("001,ABU,ABU@GMAIL.COM,ABUPASSWORD,0123456789,ADMIN,true\n002,ALI,ALI@GMAIL.COM,ALIPASSWORD,0132456789,MEDICAL_MANAGER,true;");
        
         bw.write(defaultaccount+"\n");
 

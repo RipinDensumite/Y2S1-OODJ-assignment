@@ -4,6 +4,9 @@
  */
 package com.mycompany.assignment;
 
+import com.mycompany.assignment.classes.AdminStaff;
+import com.mycompany.assignment.classes.User;
+import com.mycompany.assignment.gui.AdminPage;
 import java.io.IOException;
 
 /**
@@ -11,7 +14,7 @@ import java.io.IOException;
  * @author HP
  */
 public class loginchangelater extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loginchangelater.class.getName());
 
     /**
@@ -34,70 +37,118 @@ public class loginchangelater extends javax.swing.JFrame {
         tempname = new javax.swing.JTextField();
         temppass = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Login");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
-        jLabel1.setText("??");
+        jLabel1.setText("Email");
+
+        jLabel2.setText("Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tempname, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(175, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(temppass, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(temppass))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tempname, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(80, 80, 80))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(163, 163, 163)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tempname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(temppass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(temppass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(59, 59, 59))
+                .addGap(47, 47, 47))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Authentication auth= new Authentication(tempname.getText(),temppass.getText());
-        try{
-            switch (auth.login()){
-                
-                case "ADMIN_STAFF":
-                    jLabel1.setText("ADMIN");  
-                    //create instance of object and popup your main page code
+        Authentication auth = new Authentication(
+                tempname.getText(),
+                temppass.getText()
+        );
+
+        try {
+
+            String role = auth.login();
+
+            switch (role) {
+
+                case "ADMIN":
+
+                    User loggedInUser = auth.getLoggedInUser();
+
+                    if (loggedInUser instanceof AdminStaff) {
+
+                        AdminStaff admin
+                                = (AdminStaff) loggedInUser;
+
+                        AdminPage adminPage
+                                = new AdminPage(admin);
+
+                        adminPage.setVisible(true);
+
+                        // Close login page
+                        dispose();
+                    }
+
                     break;
-                case "MEDICAL_MANAGER":
-                     //create instance of object and popup your main page code
+
+                case "MANAGER":
+                    // MedicalManagerPage later
+                    break;
+
                 case "DOCTOR":
-                     //create instance of object and popup your main page code
+                    // DoctorPage later
+                    break;
+
                 case "PATIENT":
-                     //create instance of object and popup your main page code
+                    // PatientPage later
+                    break;
+
                 default:
-                    jLabel1.setText("FAIL");
-        }
-        }
-        catch (IOException ex) {
-            System.getLogger(loginchangelater.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    jLabel1.setText("Invalid email or password");
+                    break;
+            }
+
+        } catch (IOException ex) {
+
+            jLabel1.setText("Error reading account file");
+
+            System.getLogger(
+                    loginchangelater.class.getName()
+            ).log(
+                    System.Logger.Level.ERROR,
+                    (String) null,
+                    ex
+            );
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -129,6 +180,7 @@ public class loginchangelater extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField tempname;
     private javax.swing.JTextField temppass;
     // End of variables declaration//GEN-END:variables
