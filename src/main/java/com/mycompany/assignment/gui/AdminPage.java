@@ -38,10 +38,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
-                new String[]{
-                    "User ID", "Full Name", "Email",
-                    "Phone Number", "Role", "Active"
-                }
+                new String[]{"User ID", "Full Name", "Email", "Phone Number", "Role", "Active"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -53,9 +50,7 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     private void loadUsers() {
-
-        DefaultTableModel model
-                = (DefaultTableModel) tbUsers.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbUsers.getModel();
 
         model.setRowCount(0);
 
@@ -333,7 +328,7 @@ public class AdminPage extends javax.swing.JFrame {
         String role = cbRole.getSelectedItem().toString();
         boolean active = cbActive.isSelected();
 
-        if (fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty()){
+        if (fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(CreateUserDialog, "Please fill in all fields.");
             return;
         }

@@ -80,18 +80,15 @@ public class AdminStaff extends User {
                 String[] data = line.split(",");
 
                 if (data[0].equals(userId)) {
-
                     String id = data[0];
                     String fullName = data[1];
                     String email = data[2];
                     String phoneNumber = data[3];
                     String password = data[4];
 
-                    UserRole role
-                            = UserRole.valueOf(data[5]);
+                    UserRole role = UserRole.valueOf(data[5]);
 
-                    boolean active
-                            = Boolean.parseBoolean(data[6]);
+                    boolean active = Boolean.parseBoolean(data[6]);
 
                     br.close();
                     fr.close();
@@ -186,7 +183,6 @@ public class AdminStaff extends User {
                     );
 
                 } else {
-
                     bw.write(line);
                 }
                 bw.newLine();
@@ -229,11 +225,9 @@ public class AdminStaff extends User {
                 String phoneNumber = data[3];
                 String password = data[4];
 
-                UserRole role
-                        = UserRole.valueOf(data[5]);
+                UserRole role = UserRole.valueOf(data[5]);
 
-                boolean active
-                        = Boolean.parseBoolean(data[6]);
+                boolean active = Boolean.parseBoolean(data[6]);
 
                 User user = null;
 
@@ -375,7 +369,6 @@ public class AdminStaff extends User {
 
             br.close();
             fr.close();
-
         } catch (IOException e) {
             System.out.println(
                     "Error generating User ID: "

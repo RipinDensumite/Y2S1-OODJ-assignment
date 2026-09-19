@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class User {
+
     private String userId;
     private String fullName;
     private String email;
