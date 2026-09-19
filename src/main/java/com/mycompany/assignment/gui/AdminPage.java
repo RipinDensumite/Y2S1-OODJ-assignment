@@ -10,6 +10,7 @@ import com.mycompany.assignment.classes.InsuranceNetwork;
 import com.mycompany.assignment.classes.MedicalManager;
 import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.User;
+import com.mycompany.assignment.loginchangelater;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -33,10 +34,11 @@ public class AdminPage extends javax.swing.JFrame {
         initComponents();
 
         this.adminStaff = adminStaff;
+        setTitle("Admin Dashboard");
 
         initialCreateUserDialog();
 
-        jLabel1.setText("Admin staff - " + adminStaff.getFullName());
+        lbWelcomeTitle.setText("Admin staff - " + adminStaff.getFullName());
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -163,21 +165,21 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cbAccepted = new javax.swing.JCheckBox();
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        MainPanel = new javax.swing.JPanel();
+        tabAdminDashboard = new javax.swing.JTabbedPane();
+        UsersPanel = new javax.swing.JPanel();
         btnRefreshUsers = new javax.swing.JButton();
         btnDeleteUser = new javax.swing.JButton();
         btnAddUser = new javax.swing.JButton();
         btnEditUser = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbUsers = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        InsuranceNetworkPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbInsuranceNetwork = new javax.swing.JTable();
         btnAddInsurance = new javax.swing.JButton();
         btnEditInsurance = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lbWelcomeTitle = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
         cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -347,7 +349,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         btnRefreshUsers.setText("Refresh");
         btnRefreshUsers.addActionListener(this::btnRefreshUsersActionPerformed);
@@ -387,12 +389,12 @@ public class AdminPage extends javax.swing.JFrame {
         tbUsers.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbUsers);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout UsersPanelLayout = new javax.swing.GroupLayout(UsersPanel);
+        UsersPanel.setLayout(UsersPanelLayout);
+        UsersPanelLayout.setHorizontalGroup(
+            UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UsersPanelLayout.createSequentialGroup()
                 .addContainerGap(250, Short.MAX_VALUE)
                 .addComponent(btnAddUser)
                 .addGap(18, 18, 18)
@@ -403,12 +405,12 @@ public class AdminPage extends javax.swing.JFrame {
                 .addComponent(btnRefreshUsers)
                 .addGap(224, 224, 224))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        UsersPanelLayout.setVerticalGroup(
+            UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UsersPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddUser)
                     .addComponent(btnEditUser)
                     .addComponent(btnDeleteUser)
@@ -416,7 +418,7 @@ public class AdminPage extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Users", jPanel2);
+        tabAdminDashboard.addTab("Users", UsersPanel);
 
         tbInsuranceNetwork.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -438,69 +440,69 @@ public class AdminPage extends javax.swing.JFrame {
         btnEditInsurance.setText("Edit Insurance");
         btnEditInsurance.addActionListener(this::btnEditInsuranceActionPerformed);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout InsuranceNetworkPanelLayout = new javax.swing.GroupLayout(InsuranceNetworkPanel);
+        InsuranceNetworkPanel.setLayout(InsuranceNetworkPanelLayout);
+        InsuranceNetworkPanelLayout.setHorizontalGroup(
+            InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(InsuranceNetworkPanelLayout.createSequentialGroup()
                 .addGap(278, 278, 278)
                 .addComponent(btnAddInsurance)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditInsurance)
                 .addContainerGap(343, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        InsuranceNetworkPanelLayout.setVerticalGroup(
+            InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InsuranceNetworkPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddInsurance)
                     .addComponent(btnEditInsurance))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Insurance", jPanel4);
+        tabAdminDashboard.addTab("Insurance", InsuranceNetworkPanel);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Admin staff - USER NAME");
+        lbWelcomeTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbWelcomeTitle.setText("Admin staff - USER NAME");
 
         btnLogout.setText("LOGOUT");
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
+        MainPanel.setLayout(MainPanelLayout);
+        MainPanelLayout.setHorizontalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lbWelcomeTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(tabAdminDashboard, javax.swing.GroupLayout.Alignment.TRAILING)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        MainPanelLayout.setVerticalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbWelcomeTitle)
                     .addComponent(btnLogout))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addComponent(tabAdminDashboard))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -508,7 +510,26 @@ public class AdminPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to logout?",
+                "Logout",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        adminStaff = null;
+
+        CreateUserDialog.dispose();
+        CreateInsuranceNetworkDialog.dispose();
+
         dispose();
+
+        loginchangelater loginPage = new loginchangelater();
+        loginPage.setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnRefreshUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshUsersActionPerformed
@@ -873,6 +894,9 @@ public class AdminPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog CreateInsuranceNetworkDialog;
     private javax.swing.JDialog CreateUserDialog;
+    private javax.swing.JPanel InsuranceNetworkPanel;
+    private javax.swing.JPanel MainPanel;
+    private javax.swing.JPanel UsersPanel;
     private javax.swing.JButton btnAddInsurance;
     private javax.swing.JButton btnAddInsuranceNetwork;
     private javax.swing.JButton btnAddUser;
@@ -899,7 +923,6 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbRole1;
     private javax.swing.JComboBox<String> cbRole2;
     private javax.swing.JComboBox<String> cbRole3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -907,17 +930,15 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbWelcomeTitle;
+    private javax.swing.JTabbedPane tabAdminDashboard;
     private javax.swing.JTable tbInsuranceNetwork;
     private javax.swing.JTable tbUsers;
     private javax.swing.JTextField txtCoverage;

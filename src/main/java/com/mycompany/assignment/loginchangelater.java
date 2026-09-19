@@ -22,6 +22,8 @@ public class loginchangelater extends javax.swing.JFrame {
      */
     public loginchangelater() {
         initComponents();
+        
+        setTitle("Login");
     }
 
     /**
