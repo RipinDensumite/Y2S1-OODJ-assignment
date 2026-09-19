@@ -16,14 +16,14 @@ import java.util.ArrayList;
  *
  * @author arifi
  */
-public class InsuranceNetwork{
+public class InsuranceNetwork {
 
-    private final int insuranceId;
+    private final String insuranceId;
     private String providerName;
     private double coverageRate;
     private boolean accepted;
 
-    public InsuranceNetwork(String providerName, double coverageRate, boolean accepted) throws IOException{
+    public InsuranceNetwork(String providerName, double coverageRate, boolean accepted) throws IOException {
         insuranceNetworkInputChecker(providerName, coverageRate);
         this.insuranceId = generateInsuranceId();
         this.providerName = providerName.trim();
@@ -31,40 +31,40 @@ public class InsuranceNetwork{
         this.accepted = accepted;
     }
 
-    public InsuranceNetwork(int insuranceId, String providerName, double coverageRate, boolean accepted){
+    public InsuranceNetwork(String insuranceId, String providerName, double coverageRate, boolean accepted) {
         this.insuranceId = insuranceId;
         this.providerName = providerName;
         this.coverageRate = coverageRate;
         this.accepted = accepted;
     }
 
-    public int getInsuranceId(){
+    public String getInsuranceId() {
         return insuranceId;
     }
 
-    public String getProviderName(){
+    public String getProviderName() {
         return providerName;
     }
 
-    public double getCoverageRate(){
+    public double getCoverageRate() {
         return coverageRate;
     }
 
-    public boolean isAccepted(){
+    public boolean isAccepted() {
         return accepted;
     }
 
-    public void addInsuranceNetwork() throws IOException{
+    public void addInsuranceNetwork() throws IOException {
         FileWriter fw = new FileWriter("InsuranceNetwork.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
 
         bw.write(insuranceId + "," + providerName + "," + coverageRate + "," + accepted + "\n");
 
-        fw.close();
         bw.close();
+        fw.close();
     }
 
-    public void deleteInsuranceNetwork() throws IOException{
+    public void deleteInsuranceNetwork() throws IOException {
         File originalFile = new File("InsuranceNetwork.txt");
         File tempFile = new File("InsuranceNetwork_temp.txt");
 
@@ -76,12 +76,11 @@ public class InsuranceNetwork{
 
         String line;
 
-        while ((line = br.readLine()) != null){
-
+        while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
-            int currentId = Integer.parseInt(data[0]);
+            String currentId = data[0];
 
-            if (currentId != insuranceId){
+            if (!currentId.equals(insuranceId)) {
                 bw.write(line);
                 bw.newLine();
             }
@@ -97,7 +96,7 @@ public class InsuranceNetwork{
         tempFile.renameTo(originalFile);
     }
 
-    public void updateDetails(String providerName, double coverageRate, boolean accepted) throws IOException{
+    public void updateDetails(String providerName, double coverageRate, boolean accepted) throws IOException {
         insuranceNetworkInputChecker(providerName, coverageRate);
 
         File originalFile = new File("InsuranceNetwork.txt");
@@ -111,19 +110,18 @@ public class InsuranceNetwork{
 
         String line;
 
-        while ((line = br.readLine()) != null){
-
+        while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
-            int currentId = Integer.parseInt(data[0]);
+            String currentId = data[0];
 
-            if (currentId == insuranceId){
+            if (currentId.equals(insuranceId)) {
                 bw.write(
                         insuranceId + ","
                         + providerName.trim() + ","
                         + coverageRate + ","
                         + accepted
                 );
-            } else{
+            } else {
                 bw.write(line);
             }
 
@@ -144,12 +142,12 @@ public class InsuranceNetwork{
         this.accepted = accepted;
     }
 
-    public static ArrayList<InsuranceNetwork> getAllInsuranceNetworks() throws IOException{
+    public static ArrayList<InsuranceNetwork> getAllInsuranceNetworks() throws IOException {
         ArrayList<InsuranceNetwork> insuranceList = new ArrayList<>();
 
         File file = new File("InsuranceNetwork.txt");
 
-        if (!file.exists()){
+        if (!file.exists()) {
             return insuranceList;
         }
 
@@ -158,15 +156,15 @@ public class InsuranceNetwork{
 
         String line;
 
-        while ((line = br.readLine()) != null){
+        while ((line = br.readLine()) != null) {
 
-            if (line.trim().isEmpty()){
+            if (line.trim().isEmpty()) {
                 continue;
             }
 
             String[] data = line.split(",");
 
-            int insuranceId = Integer.parseInt(data[0]);
+            String insuranceId = data[0];
             String providerName = data[1];
             double coverageRate = Double.parseDouble(data[2]);
             boolean accepted = Boolean.parseBoolean(data[3]);
@@ -187,20 +185,20 @@ public class InsuranceNetwork{
         return insuranceList;
     }
 
-    public void insuranceNetworkInputChecker(String providerName, double coverageRate){
-        if (providerName.isEmpty()){
+    public void insuranceNetworkInputChecker(String providerName, double coverageRate) {
+        if (providerName.isEmpty()) {
             throw new IllegalArgumentException("Provider name is required.");
         }
-        if (coverageRate < 0 || coverageRate > 100){
+        if (coverageRate < 0 || coverageRate > 100) {
             throw new IllegalArgumentException("Coverage must be 0-100%.");
         }
     }
 
-    private int generateInsuranceId() throws IOException{
+    private String generateInsuranceId() throws IOException {
         File file = new File("InsuranceNetwork.txt");
 
-        if (!file.exists()){
-            return 1;
+        if (!file.exists()) {
+            return "001";
         }
 
         FileReader fr = new FileReader(file);
@@ -209,16 +207,16 @@ public class InsuranceNetwork{
         int highestId = 0;
         String line;
 
-        while ((line = br.readLine()) != null){
+        while ((line = br.readLine()) != null) {
 
-            if (line.trim().isEmpty()){
+            if (line.trim().isEmpty()) {
                 continue;
             }
 
             String[] data = line.split(",");
             int id = Integer.parseInt(data[0]);
 
-            if (id > highestId){
+            if (id > highestId) {
                 highestId = id;
             }
         }
@@ -226,6 +224,8 @@ public class InsuranceNetwork{
         br.close();
         fr.close();
 
-        return highestId + 1;
+        int nextId = highestId + 1;
+
+        return String.format("%03d", nextId);
     }
 }

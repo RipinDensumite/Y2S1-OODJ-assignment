@@ -6,6 +6,7 @@ package com.mycompany.assignment.gui;
 
 import com.mycompany.assignment.classes.AdminStaff;
 import com.mycompany.assignment.classes.Doctor;
+import com.mycompany.assignment.classes.InsuranceNetwork;
 import com.mycompany.assignment.classes.MedicalManager;
 import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.User;
@@ -21,6 +22,7 @@ public class AdminPage extends javax.swing.JFrame {
 
     private AdminStaff adminStaff;
     private String editingUserId = null;
+    private String editingInsuranceId = null;
 
     /**
      * Creates new form AdminPage
@@ -46,7 +48,35 @@ public class AdminPage extends javax.swing.JFrame {
             }
         });
 
+        tbInsuranceNetwork.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Insurance ID", "Provider", "Coverage %", "Accepted"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+
         loadUsers();
+        loadInsuranceNetwork();
+    }
+
+    private void loadInsuranceNetwork() {
+        DefaultTableModel model = (DefaultTableModel) tbInsuranceNetwork.getModel();
+
+        model.setRowCount(0);
+
+        ArrayList<InsuranceNetwork> insuranceNetworks = adminStaff.getInsuranceNetworks();
+
+        for (InsuranceNetwork insurance : insuranceNetworks) {
+            model.addRow(new Object[]{
+                insurance.getInsuranceId(),
+                insurance.getProviderName(),
+                insurance.getCoverageRate(),
+                insurance.isAccepted()
+            });
+        }
     }
 
     private void loadUsers() {
@@ -89,6 +119,17 @@ public class AdminPage extends javax.swing.JFrame {
         CreateUserDialog.setTitle("Create User");
     }
 
+    private void initialInsuranceDialog() {
+        editingInsuranceId = null;
+
+        txtProvider.setText("");
+        txtCoverage.setText("");
+        cbAccepted.setSelected(true);
+
+        btnAddInsuranceNetwork.setText("Add");
+        CreateInsuranceNetworkDialog.setTitle("Add Insurance Network");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,6 +149,20 @@ public class AdminPage extends javax.swing.JFrame {
         cbActive = new javax.swing.JCheckBox();
         btnCreateUser = new javax.swing.JButton();
         btnCancelCreateUser = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        CreateInsuranceNetworkDialog = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        btnAddInsuranceNetwork = new javax.swing.JButton();
+        btnCancelInsuranceNetwork = new javax.swing.JButton();
+        txtProvider = new javax.swing.JTextField();
+        txtCoverage = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cbAccepted = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -117,6 +172,11 @@ public class AdminPage extends javax.swing.JFrame {
         btnEditUser = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbUsers = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbInsuranceNetwork = new javax.swing.JTable();
+        btnAddInsurance = new javax.swing.JButton();
+        btnEditInsurance = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
@@ -130,44 +190,74 @@ public class AdminPage extends javax.swing.JFrame {
         btnCancelCreateUser.setText("Cancel");
         btnCancelCreateUser.addActionListener(this::btnCancelCreateUserActionPerformed);
 
+        jLabel2.setText("Full Name");
+
+        jLabel3.setText("Email");
+
+        jLabel4.setText("Phone Number");
+
+        jLabel5.setText("Password");
+
+        jLabel6.setText("Role");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(127, 127, 127)
+                .addGap(48, 48, 48)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(btnCreateUser)
-                            .addGap(39, 39, 39)
-                            .addComponent(btnCancelCreateUser))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(74, 74, 74)
-                            .addComponent(cbActive)))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtFullName)
-                        .addComponent(txtEmail)
-                        .addComponent(txtPhoneNumber)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFullName)
+                            .addComponent(txtEmail)
+                            .addComponent(txtPhoneNumber)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(btnCreateUser)
+                                .addGap(39, 39, 39)
+                                .addComponent(btnCancelCreateUser))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(cbActive)))))
                 .addContainerGap(162, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(23, 23, 23)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(30, 30, 30)
-                .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addComponent(cbActive)
                 .addGap(24, 24, 24)
@@ -186,6 +276,73 @@ public class AdminPage extends javax.swing.JFrame {
         CreateUserDialogLayout.setVerticalGroup(
             CreateUserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        CreateInsuranceNetworkDialog.setPreferredSize(new java.awt.Dimension(472, 395));
+
+        btnAddInsuranceNetwork.setText("Add");
+        btnAddInsuranceNetwork.addActionListener(this::btnAddInsuranceNetworkActionPerformed);
+
+        btnCancelInsuranceNetwork.setText("Cancel");
+        btnCancelInsuranceNetwork.addActionListener(this::btnCancelInsuranceNetworkActionPerformed);
+
+        jLabel7.setText("Provider:");
+
+        jLabel8.setText("Coverage %:");
+
+        cbAccepted.setText("Accepted");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddInsuranceNetwork)
+                .addGap(112, 112, 112)
+                .addComponent(btnCancelInsuranceNetwork)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbAccepted)
+                    .addComponent(txtCoverage, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProvider, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(121, 121, 121))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtProvider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCoverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(38, 38, 38)
+                .addComponent(cbAccepted)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelInsuranceNetwork)
+                    .addComponent(btnAddInsuranceNetwork))
+                .addGap(82, 82, 82))
+        );
+
+        javax.swing.GroupLayout CreateInsuranceNetworkDialogLayout = new javax.swing.GroupLayout(CreateInsuranceNetworkDialog.getContentPane());
+        CreateInsuranceNetworkDialog.getContentPane().setLayout(CreateInsuranceNetworkDialogLayout);
+        CreateInsuranceNetworkDialogLayout.setHorizontalGroup(
+            CreateInsuranceNetworkDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        CreateInsuranceNetworkDialogLayout.setVerticalGroup(
+            CreateInsuranceNetworkDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -261,6 +418,52 @@ public class AdminPage extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Users", jPanel2);
 
+        tbInsuranceNetwork.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbInsuranceNetwork.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tbInsuranceNetwork);
+
+        btnAddInsurance.setText("Add Insurance");
+        btnAddInsurance.addActionListener(this::btnAddInsuranceActionPerformed);
+
+        btnEditInsurance.setText("Edit Insurance");
+        btnEditInsurance.addActionListener(this::btnEditInsuranceActionPerformed);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(278, 278, 278)
+                .addComponent(btnAddInsurance)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEditInsurance)
+                .addContainerGap(343, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddInsurance)
+                    .addComponent(btnEditInsurance))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Insurance", jPanel4);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Admin staff - USER NAME");
 
         btnLogout.setText("LOGOUT");
@@ -282,11 +485,11 @@ public class AdminPage extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(btnLogout))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -457,6 +660,7 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateUserActionPerformed
 
     private void btnCancelCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelCreateUserActionPerformed
+        editingUserId = null;
         CreateUserDialog.dispose();
     }//GEN-LAST:event_btnCancelCreateUserActionPerformed
 
@@ -529,27 +733,210 @@ public class AdminPage extends javax.swing.JFrame {
         CreateUserDialog.setVisible(true);
     }//GEN-LAST:event_btnEditUserActionPerformed
 
+    private void btnAddInsuranceNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInsuranceNetworkActionPerformed
+        // TODO add your handling code here:
+        String providerName = txtProvider.getText().trim();
+        String coverageText = txtCoverage.getText().trim();
+        boolean accepted = cbAccepted.isSelected();
+
+        if (providerName.isEmpty() || coverageText.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    CreateInsuranceNetworkDialog,
+                    "Please fill in all fields."
+            );
+            return;
+        }
+
+        double coverageRate;
+
+        try {
+            coverageRate = Double.parseDouble(coverageText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    CreateInsuranceNetworkDialog,
+                    "Coverage must be a number."
+            );
+            return;
+        }
+
+        boolean success;
+
+        // CREATE
+        if (editingInsuranceId == null) {
+
+            success = adminStaff.createInsuranceNetwork(
+                    providerName,
+                    coverageRate,
+                    accepted
+            );
+
+            if (success) {
+                JOptionPane.showMessageDialog(
+                        CreateInsuranceNetworkDialog,
+                        "Insurance network created successfully."
+                );
+            } else {
+                JOptionPane.showMessageDialog(
+                        CreateInsuranceNetworkDialog,
+                        "Failed to create insurance network."
+                );
+                return;
+            }
+
+        } else {
+
+            // EDIT
+            success = adminStaff.updateInsuranceNetwork(
+                    editingInsuranceId,
+                    providerName,
+                    coverageRate,
+                    accepted
+            );
+
+            if (success) {
+                JOptionPane.showMessageDialog(
+                        CreateInsuranceNetworkDialog,
+                        "Insurance network updated successfully."
+                );
+            } else {
+                JOptionPane.showMessageDialog(
+                        CreateInsuranceNetworkDialog,
+                        "Failed to update insurance network."
+                );
+                return;
+            }
+        }
+
+        CreateInsuranceNetworkDialog.dispose();
+
+        editingInsuranceId = null;
+
+        loadInsuranceNetwork();
+    }//GEN-LAST:event_btnAddInsuranceNetworkActionPerformed
+
+    private void btnCancelInsuranceNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelInsuranceNetworkActionPerformed
+        // TODO add your handling code here:
+        editingInsuranceId = null;
+        CreateInsuranceNetworkDialog.dispose();
+    }//GEN-LAST:event_btnCancelInsuranceNetworkActionPerformed
+
+    private void btnAddInsuranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInsuranceActionPerformed
+        // TODO add your handling code here:
+        initialInsuranceDialog();
+
+        CreateInsuranceNetworkDialog.pack();
+        CreateInsuranceNetworkDialog.setLocationRelativeTo(this);
+        CreateInsuranceNetworkDialog.setVisible(true);
+    }//GEN-LAST:event_btnAddInsuranceActionPerformed
+
+    private void btnEditInsuranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditInsuranceActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tbInsuranceNetwork.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select an insurance network to edit."
+            );
+            return;
+        }
+
+        editingInsuranceId = tbInsuranceNetwork.getValueAt(selectedRow, 0).toString();
+
+        String providerName
+                = tbInsuranceNetwork.getValueAt(selectedRow, 1).toString();
+
+        String coverageRate
+                = tbInsuranceNetwork.getValueAt(selectedRow, 2).toString();
+
+        boolean accepted
+                = Boolean.parseBoolean(
+                        tbInsuranceNetwork
+                                .getValueAt(selectedRow, 3)
+                                .toString()
+                );
+
+        txtProvider.setText(providerName);
+        txtCoverage.setText(coverageRate);
+        cbAccepted.setSelected(accepted);
+
+        btnAddInsuranceNetwork.setText("Save Changes");
+        CreateInsuranceNetworkDialog.setTitle(
+                "Edit Insurance Network"
+        );
+
+        CreateInsuranceNetworkDialog.pack();
+        CreateInsuranceNetworkDialog.setLocationRelativeTo(this);
+        CreateInsuranceNetworkDialog.setVisible(true);
+    }//GEN-LAST:event_btnEditInsuranceActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog CreateInsuranceNetworkDialog;
     private javax.swing.JDialog CreateUserDialog;
+    private javax.swing.JButton btnAddInsurance;
+    private javax.swing.JButton btnAddInsuranceNetwork;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnCancelCreateUser;
+    private javax.swing.JButton btnCancelCreateUser1;
+    private javax.swing.JButton btnCancelCreateUser2;
+    private javax.swing.JButton btnCancelCreateUser3;
+    private javax.swing.JButton btnCancelInsuranceNetwork;
     private javax.swing.JButton btnCreateUser;
+    private javax.swing.JButton btnCreateUser1;
+    private javax.swing.JButton btnCreateUser2;
+    private javax.swing.JButton btnCreateUser3;
     private javax.swing.JButton btnDeleteUser;
+    private javax.swing.JButton btnEditInsurance;
     private javax.swing.JButton btnEditUser;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRefreshUsers;
+    private javax.swing.JCheckBox cbAccepted;
     private javax.swing.JCheckBox cbActive;
+    private javax.swing.JCheckBox cbActive1;
+    private javax.swing.JCheckBox cbActive2;
+    private javax.swing.JCheckBox cbActive3;
     private javax.swing.JComboBox<String> cbRole;
+    private javax.swing.JComboBox<String> cbRole1;
+    private javax.swing.JComboBox<String> cbRole2;
+    private javax.swing.JComboBox<String> cbRole3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tbInsuranceNetwork;
     private javax.swing.JTable tbUsers;
+    private javax.swing.JTextField txtCoverage;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEmail1;
+    private javax.swing.JTextField txtEmail2;
+    private javax.swing.JTextField txtEmail3;
     private javax.swing.JTextField txtFullName;
+    private javax.swing.JTextField txtFullName1;
+    private javax.swing.JTextField txtFullName2;
+    private javax.swing.JTextField txtFullName3;
     private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtPassword1;
+    private javax.swing.JPasswordField txtPassword2;
+    private javax.swing.JPasswordField txtPassword3;
     private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtPhoneNumber1;
+    private javax.swing.JTextField txtPhoneNumber2;
+    private javax.swing.JTextField txtPhoneNumber3;
+    private javax.swing.JTextField txtProvider;
     // End of variables declaration//GEN-END:variables
 }

@@ -381,4 +381,71 @@ public class AdminStaff extends User {
 
         return String.format("%03d", nextId);
     }
+
+    public ArrayList<InsuranceNetwork> getInsuranceNetworks() {
+        try {
+            return InsuranceNetwork.getAllInsuranceNetworks();
+        } catch (IOException e) {
+            System.out.println("Error reading insurance networks: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean createInsuranceNetwork(
+            String providerName,
+            double coverageRate,
+            boolean accepted
+    ) {
+        try {
+            InsuranceNetwork insurance = new InsuranceNetwork(
+                    providerName,
+                    coverageRate,
+                    accepted
+            );
+
+            insurance.addInsuranceNetwork();
+
+            return true;
+
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println(
+                    "Error creating insurance network: "
+                    + e.getMessage()
+            );
+
+            return false;
+        }
+    }
+
+    public boolean updateInsuranceNetwork(
+            String insuranceId,
+            String providerName,
+            double coverageRate,
+            boolean accepted
+    ) {
+        try {
+            InsuranceNetwork insurance = new InsuranceNetwork(
+                    insuranceId,
+                    providerName,
+                    coverageRate,
+                    accepted
+            );
+
+            insurance.updateDetails(
+                    providerName,
+                    coverageRate,
+                    accepted
+            );
+
+            return true;
+
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println(
+                    "Error updating insurance network: "
+                    + e.getMessage()
+            );
+
+            return false;
+        }
+    }
 }
