@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.assignment;
+package com.mycompany.assignment.classes;
 
 import com.mycompany.assignment.classes.AdminStaff;
 import com.mycompany.assignment.classes.User;
