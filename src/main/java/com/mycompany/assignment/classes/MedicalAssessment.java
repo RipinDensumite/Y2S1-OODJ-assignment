@@ -1,6 +1,7 @@
-package assignment;
+package com.mycompany.assignment.classes;
 
 
+import com.mycompany.assignment.enums.HealthGrade;
 import java.time.LocalDate;
 
 /*
@@ -8,11 +9,6 @@ import java.time.LocalDate;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-enum HealthGrade{
-    NORMAL,
-    MODERATE,
-    HIGH_RISK
-}
 /**
  *
  * @author kohty

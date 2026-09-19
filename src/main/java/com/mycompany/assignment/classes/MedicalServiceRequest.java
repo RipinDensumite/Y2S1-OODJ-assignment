@@ -4,6 +4,8 @@
  */
 package com.mycompany.assignment.classes;
 
+import com.mycompany.assignment.enums.RequestStatus;
+import com.mycompany.assignment.enums.ServiceType;
 import java.time.LocalDate;
 
 /**
