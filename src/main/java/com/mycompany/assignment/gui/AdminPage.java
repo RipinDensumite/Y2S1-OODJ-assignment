@@ -59,6 +59,16 @@ public class AdminPage extends javax.swing.JFrame {
                 return false;
             }
         });
+        
+        tbDoctorAssignment.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Doctor ID", "Doctor", "Manager ID", "Medical Manager"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
 
         loadUsers();
         loadInsuranceNetwork();
@@ -174,6 +184,9 @@ public class AdminPage extends javax.swing.JFrame {
         btnEditUser = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbUsers = new javax.swing.JTable();
+        DoctorAssignmentPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbDoctorAssignment = new javax.swing.JTable();
         InsuranceNetworkPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbInsuranceNetwork = new javax.swing.JTable();
@@ -419,6 +432,34 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         tabAdminDashboard.addTab("Users", UsersPanel);
+
+        tbDoctorAssignment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tbDoctorAssignment);
+
+        javax.swing.GroupLayout DoctorAssignmentPanelLayout = new javax.swing.GroupLayout(DoctorAssignmentPanel);
+        DoctorAssignmentPanel.setLayout(DoctorAssignmentPanelLayout);
+        DoctorAssignmentPanelLayout.setHorizontalGroup(
+            DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
+        );
+        DoctorAssignmentPanelLayout.setVerticalGroup(
+            DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DoctorAssignmentPanelLayout.createSequentialGroup()
+                .addGap(0, 344, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tabAdminDashboard.addTab("Doctor Assignment", DoctorAssignmentPanel);
 
         tbInsuranceNetwork.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -894,6 +935,7 @@ public class AdminPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog CreateInsuranceNetworkDialog;
     private javax.swing.JDialog CreateUserDialog;
+    private javax.swing.JPanel DoctorAssignmentPanel;
     private javax.swing.JPanel InsuranceNetworkPanel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JPanel UsersPanel;
@@ -937,8 +979,10 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lbWelcomeTitle;
     private javax.swing.JTabbedPane tabAdminDashboard;
+    private javax.swing.JTable tbDoctorAssignment;
     private javax.swing.JTable tbInsuranceNetwork;
     private javax.swing.JTable tbUsers;
     private javax.swing.JTextField txtCoverage;
