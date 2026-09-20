@@ -4,7 +4,9 @@
  */
 package com.mycompany.assignment.classes;
 
+import com.mycompany.assignment.enums.ServiceType;
 import com.mycompany.assignment.enums.UserRole;
+import java.io.IOException;
 
 /**
  *
@@ -23,5 +25,37 @@ public class Doctor extends User {
     @Override
     public UserRole getRole() {
         return UserRole.DOCTOR;
+    }
+
+    public boolean createServiceRequest(
+            String consultationId,
+            ServiceType requestType,
+            String reason
+    ) {
+
+        try {
+
+            MedicalServiceRequest request
+                    = new MedicalServiceRequest(
+                            getUserId(),
+                            consultationId,
+                            requestType,
+                            reason
+                    );
+
+            request.addMedicalServiceRequest();
+
+            return true;
+
+        } catch (IOException
+                | IllegalArgumentException e) {
+
+            System.out.println(
+                    "Error creating medical service request: "
+                    + e.getMessage()
+            );
+
+            return false;
+        }
     }
 }

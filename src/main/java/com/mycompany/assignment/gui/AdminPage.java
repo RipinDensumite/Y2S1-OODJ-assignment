@@ -11,6 +11,7 @@ import com.mycompany.assignment.classes.Doctor;
 import com.mycompany.assignment.classes.HospitalAsset;
 import com.mycompany.assignment.classes.InsuranceNetwork;
 import com.mycompany.assignment.classes.MedicalManager;
+import com.mycompany.assignment.classes.MedicalServiceRequest;
 import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.User;
 import com.mycompany.assignment.enums.AssetStatus;
@@ -71,6 +72,8 @@ public class AdminPage extends javax.swing.JFrame {
                 loadInsuranceNetwork();
             } else if (selectedTab == CheckUpTypesPanel) {
                 loadCheckUpTypes();
+            } else if (selectedTab == MedicalServiceRequestsPanel) {
+                loadMedicalServiceRequests();
             }
         });
     }
@@ -261,6 +264,46 @@ public class AdminPage extends javax.swing.JFrame {
                 doctorName,
                 managerId,
                 managerName
+            });
+        }
+    }
+
+    private void loadMedicalServiceRequests() {
+
+        DefaultTableModel model
+                = (DefaultTableModel) tbMedicalServiceRequest.getModel();
+
+        model.setRowCount(0);
+
+        ArrayList<MedicalServiceRequest> requests
+                = adminStaff.getMedicalServiceRequests();
+
+        for (MedicalServiceRequest request : requests) {
+
+            User doctor
+                    = adminStaff.getUser(
+                            request.getDoctorId()
+                    );
+
+            String doctorName
+                    = doctor == null
+                            ? request.getDoctorId()
+                            : doctor.getFullName();
+
+            model.addRow(new Object[]{
+                request.getRequestId(),
+                request.getRequestType(),
+                doctorName,
+                request.getConsultationId(),
+                request.getReason(),
+                request.getStatus(),
+                request.getAssetId() == null
+                ? "Not Assigned"
+                : request.getAssetId(),
+                request.getResultDetails() == null
+                ? "-"
+                : request.getResultDetails(),
+                request.getServiceFee()
             });
         }
     }
