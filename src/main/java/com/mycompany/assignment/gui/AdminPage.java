@@ -7,6 +7,7 @@ package com.mycompany.assignment.gui;
 import com.mycompany.assignment.classes.AdminStaff;
 import com.mycompany.assignment.classes.CheckUpType;
 import com.mycompany.assignment.classes.Doctor;
+import com.mycompany.assignment.classes.HospitalAsset;
 import com.mycompany.assignment.classes.InsuranceNetwork;
 import com.mycompany.assignment.classes.MedicalManager;
 import com.mycompany.assignment.classes.Patient;
@@ -45,6 +46,7 @@ public class AdminPage extends javax.swing.JFrame {
         loadUsers();
         loadInsuranceNetwork();
         loadCheckUpTypes();
+        loadHospitalAssets();
     }
 
     private void setupTables() {
@@ -87,7 +89,7 @@ public class AdminPage extends javax.swing.JFrame {
                 return false;
             }
         });
-        
+
         tbHospitalAssets.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Asset ID", "Name", "Type", "Status", "Department"}
@@ -148,6 +150,24 @@ public class AdminPage extends javax.swing.JFrame {
                 checkUp.getDuration(),
                 checkUp.getDescription(),
                 checkUp.isActive()
+            });
+        }
+    }
+
+    private void loadHospitalAssets() {
+        DefaultTableModel model = (DefaultTableModel) tbHospitalAssets.getModel();
+        model.setRowCount(0);
+        ArrayList<HospitalAsset> hospitalAssets = adminStaff.getHospitalAssets();
+
+        for (HospitalAsset asset : hospitalAssets) {
+            model.addRow(new Object[]{
+                asset.getAssetId(),
+                asset.getAssetName(),
+                asset.getAssetType(),
+                asset.getStatus(),
+                asset.getDepartmentId() == null
+                ? "Not Allocated"
+                : asset.getDepartmentId()
             });
         }
     }
@@ -648,6 +668,7 @@ public class AdminPage extends javax.swing.JFrame {
         btnAllocateToDepartmentHospitalAssets.setText("Allocate To Department");
 
         btnRefreshHospitalAssets.setText("Refresh");
+        btnRefreshHospitalAssets.addActionListener(this::btnRefreshHospitalAssetsActionPerformed);
 
         javax.swing.GroupLayout HospitalAssetsPanelLayout = new javax.swing.GroupLayout(HospitalAssetsPanel);
         HospitalAssetsPanel.setLayout(HospitalAssetsPanelLayout);
@@ -1279,6 +1300,10 @@ public class AdminPage extends javax.swing.JFrame {
     private void btnEditAssetHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAssetHospitalAssetsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditAssetHospitalAssetsActionPerformed
+
+    private void btnRefreshHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshHospitalAssetsActionPerformed
+        loadHospitalAssets();
+    }//GEN-LAST:event_btnRefreshHospitalAssetsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;
