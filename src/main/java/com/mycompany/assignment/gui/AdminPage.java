@@ -48,10 +48,12 @@ public class AdminPage extends javax.swing.JFrame {
         lbWelcomeTitle.setText("Admin staff - " + adminStaff.getFullName());
 
         setupTables();
+
         loadUsers();
         loadInsuranceNetwork();
         loadCheckUpTypes();
         loadHospitalAssets();
+        loadDoctorAssignmentData();
     }
 
     private void setupTables() {
@@ -175,6 +177,90 @@ public class AdminPage extends javax.swing.JFrame {
                 : asset.getDepartmentId()
             });
         }
+    }
+
+    private void loadDoctorAssignmentLists() {
+
+        cbDoctorListDoctorAssignment.removeAllItems();
+
+        cbMedicalManagerListDoctorAssignment.removeAllItems();
+
+        ArrayList<Doctor> doctors
+                = adminStaff.getDoctors();
+
+        for (Doctor doctor : doctors) {
+
+            if (doctor.isActive()) {
+
+                cbDoctorListDoctorAssignment.addItem(
+                        doctor.getUserId()
+                        + " - "
+                        + doctor.getFullName()
+                );
+            }
+        }
+
+        ArrayList<MedicalManager> managers
+                = adminStaff.getMedicalManagers();
+
+        for (MedicalManager manager : managers) {
+
+            if (manager.isActive()) {
+
+                cbMedicalManagerListDoctorAssignment.addItem(
+                        manager.getUserId()
+                        + " - "
+                        + manager.getFullName()
+                );
+            }
+        }
+    }
+
+    private void loadDoctorAssignments() {
+
+        DefaultTableModel model
+                = (DefaultTableModel) tbDoctorAssignment.getModel();
+
+        model.setRowCount(0);
+
+        ArrayList<String[]> assignments
+                = adminStaff.getDoctorAssignments();
+
+        for (String[] assignment : assignments) {
+
+            String doctorId = assignment[0];
+            String managerId = assignment[1];
+
+            User doctor
+                    = adminStaff.getUser(doctorId);
+
+            User manager
+                    = adminStaff.getUser(managerId);
+
+            String doctorName
+                    = doctor == null
+                            ? "Unknown"
+                            : doctor.getFullName();
+
+            String managerName
+                    = manager == null
+                            ? "Unknown"
+                            : manager.getFullName();
+
+            model.addRow(new Object[]{
+                doctorId,
+                doctorName,
+                managerId,
+                managerName
+            });
+        }
+    }
+
+    private void loadDoctorAssignmentData() {
+
+        loadDoctorAssignmentLists();
+
+        loadDoctorAssignments();
     }
 
     private void initialCreateUserDialog() {
@@ -760,8 +846,10 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel16.setText("Medical Manager");
 
         btnAssignDoctorDoctorAssignment.setText("Assign Doctor To Medical Manager");
+        btnAssignDoctorDoctorAssignment.addActionListener(this::btnAssignDoctorDoctorAssignmentActionPerformed);
 
         btnUnassignDoctorDoctorAssignment.setText("Unassign Doctor");
+        btnUnassignDoctorDoctorAssignment.addActionListener(this::btnUnassignDoctorDoctorAssignmentActionPerformed);
 
         javax.swing.GroupLayout DoctorAssignmentPanelLayout = new javax.swing.GroupLayout(DoctorAssignmentPanel);
         DoctorAssignmentPanel.setLayout(DoctorAssignmentPanelLayout);
@@ -1660,6 +1748,65 @@ public class AdminPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Failed to allocate hospital asset.");
         }
     }//GEN-LAST:event_btnAllocateToDepartmentHospitalAssetsActionPerformed
+
+    private void btnAssignDoctorDoctorAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignDoctorDoctorAssignmentActionPerformed
+        if (cbDoctorListDoctorAssignment.getSelectedItem() == null || cbMedicalManagerListDoctorAssignment.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Please select a doctor and medical manager.");
+            return;
+        }
+
+        String doctorSelection = cbDoctorListDoctorAssignment.getSelectedItem().toString();
+        String managerSelection = cbMedicalManagerListDoctorAssignment.getSelectedItem().toString();
+
+        String doctorId = doctorSelection.split(" - ", 2)[0];
+        String managerId = managerSelection.split(" - ", 2)[0];
+        boolean success = adminStaff.assignDoctor(doctorId, managerId);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Doctor assigned successfully.");
+            loadDoctorAssignmentData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Doctor is already assigned to a medical manager.");
+        }
+    }//GEN-LAST:event_btnAssignDoctorDoctorAssignmentActionPerformed
+
+    private void btnUnassignDoctorDoctorAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnassignDoctorDoctorAssignmentActionPerformed
+        int selectedRow = tbDoctorAssignment.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select an assigned doctor.");
+            return;
+        }
+
+        String doctorId = tbDoctorAssignment.getValueAt(selectedRow, 0).toString();
+        String doctorName = tbDoctorAssignment.getValueAt(selectedRow, 1).toString();
+        String managerName = tbDoctorAssignment.getValueAt(selectedRow, 3).toString();
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Unassign "
+                + doctorName
+                + " from "
+                + managerName
+                + "?",
+                "Confirm Unassign",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean success = adminStaff.unassignDoctor(doctorId);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Doctor unassigned successfully.");
+            loadDoctorAssignmentData();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to unassign doctor.");
+        }
+    }//GEN-LAST:event_btnUnassignDoctorDoctorAssignmentActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;

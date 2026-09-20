@@ -607,4 +607,171 @@ public class AdminStaff extends User {
             return false;
         }
     }
+
+    public ArrayList<Doctor> getDoctors() {
+        ArrayList<Doctor> doctorList = new ArrayList<>();
+        ArrayList<User> users = getUsers();
+
+        for (User user : users) {
+            if (user instanceof Doctor) {
+                doctorList.add((Doctor) user);
+            }
+        }
+
+        return doctorList;
+    }
+
+    public ArrayList<MedicalManager> getMedicalManagers() {
+        ArrayList<MedicalManager> managerList = new ArrayList<>();
+        ArrayList<User> users = getUsers();
+
+        for (User user : users) {
+            if (user instanceof MedicalManager) {
+                managerList.add((MedicalManager) user);
+            }
+        }
+
+        return managerList;
+    }
+
+    public boolean assignDoctor(String doctorId, String medicalManagerId) {
+        File file = new File("DoctorAssignment.txt");
+
+        try {
+            // Check whether doctor is already assigned
+            if (file.exists()) {
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    if (line.trim().isEmpty()) {
+                        continue;
+                    }
+
+                    String[] data = line.split(",");
+
+                    if (data[0].equals(doctorId)) {
+                        br.close();
+                        fr.close();
+
+                        System.out.println("Doctor is already assigned.");
+
+                        return false;
+                    }
+                }
+
+                br.close();
+                fr.close();
+            }
+
+            FileWriter fw = new FileWriter("DoctorAssignment.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(doctorId + "," + medicalManagerId);
+            bw.newLine();
+
+            bw.close();
+            fw.close();
+
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error assigning doctor: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean unassignDoctor(String doctorId) {
+        File originalFile = new File("DoctorAssignment.txt");
+
+        if (!originalFile.exists()) {
+            return false;
+        }
+
+        File tempFile = new File("DoctorAssignment_temp.txt");
+        boolean found = false;
+
+        try {
+
+            FileReader fr = new FileReader(originalFile);
+            BufferedReader br = new BufferedReader(fr);
+
+            FileWriter fw = new FileWriter(tempFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+
+                String[] data = line.split(",");
+
+                if (data[0].equals(doctorId)) {
+                    found = true;
+                    continue;
+                }
+
+                bw.write(line);
+                bw.newLine();
+            }
+
+            br.close();
+            fr.close();
+
+            bw.close();
+            fw.close();
+
+            originalFile.delete();
+            tempFile.renameTo(originalFile);
+
+            return found;
+
+        } catch (IOException e) {
+            System.out.println("Error unassigning doctor: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public ArrayList<String[]> getDoctorAssignments() {
+        ArrayList<String[]> assignmentList = new ArrayList<>();
+        File file = new File("DoctorAssignment.txt");
+
+        if (!file.exists()) {
+            return assignmentList;
+        }
+
+        try {
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+
+                String[] data = line.split(",");
+
+                if (data.length >= 2) {
+                    assignmentList.add(
+                            new String[]{
+                                data[0],
+                                data[1]
+                            }
+                    );
+                }
+            }
+
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.out.println("Error reading doctor assignments: " + e.getMessage());
+        }
+
+        return assignmentList;
+    }
 }
