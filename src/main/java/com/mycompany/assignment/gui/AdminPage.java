@@ -6,6 +6,7 @@ package com.mycompany.assignment.gui;
 
 import com.mycompany.assignment.classes.AdminStaff;
 import com.mycompany.assignment.classes.CheckUpType;
+import com.mycompany.assignment.classes.Department;
 import com.mycompany.assignment.classes.Doctor;
 import com.mycompany.assignment.classes.HospitalAsset;
 import com.mycompany.assignment.classes.InsuranceNetwork;
@@ -779,6 +780,7 @@ public class AdminPage extends javax.swing.JFrame {
         btnEditAssetHospitalAssets.addActionListener(this::btnEditAssetHospitalAssetsActionPerformed);
 
         btnAllocateToDepartmentHospitalAssets.setText("Allocate To Department");
+        btnAllocateToDepartmentHospitalAssets.addActionListener(this::btnAllocateToDepartmentHospitalAssetsActionPerformed);
 
         btnRefreshHospitalAssets.setText("Refresh");
         btnRefreshHospitalAssets.addActionListener(this::btnRefreshHospitalAssetsActionPerformed);
@@ -1526,6 +1528,73 @@ public class AdminPage extends javax.swing.JFrame {
 
         CreateHospitalAssetsDialog.dispose();
     }//GEN-LAST:event_btnCancelHospitalAssetsActionPerformed
+
+    private void btnAllocateToDepartmentHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllocateToDepartmentHospitalAssetsActionPerformed
+        int selectedRow = tbHospitalAssets.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a hospital asset.");
+            return;
+        }
+
+        ArrayList<Department> departments
+                = adminStaff.getDepartments();
+
+        if (departments.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No departments are available.");
+            return;
+        }
+
+        Department selectedDepartment = (Department) JOptionPane.showInputDialog(
+                this,
+                "Select department:",
+                "Allocate Hospital Asset",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                departments.toArray(),
+                departments.get(0)
+        );
+
+        // User pressed Cancel
+        if (selectedDepartment == null) {
+            return;
+        }
+
+        String assetId = tbHospitalAssets.getValueAt(selectedRow, 0).toString();
+        String assetName = tbHospitalAssets.getValueAt(selectedRow, 1).toString();
+        AssetType assetType = AssetType.valueOf(tbHospitalAssets.getValueAt(selectedRow, 2).toString());
+        AssetStatus status = AssetStatus.valueOf(tbHospitalAssets.getValueAt(selectedRow, 3).toString());
+        String departmentValue = tbHospitalAssets.getValueAt(selectedRow, 4).toString();
+        String currentDepartmentId;
+
+        if (departmentValue.equals("Not Allocated")) {
+            currentDepartmentId = null;
+        } else {
+            currentDepartmentId = departmentValue;
+        }
+
+        boolean success = adminStaff.allocateHospitalAsset(
+                assetId,
+                assetName,
+                assetType,
+                status,
+                currentDepartmentId,
+                selectedDepartment
+        );
+
+        if (success) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Asset allocated to "
+                    + selectedDepartment.getDepartmentName()
+                    + " successfully."
+            );
+
+            loadHospitalAssets();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to allocate hospital asset.");
+        }
+    }//GEN-LAST:event_btnAllocateToDepartmentHospitalAssetsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;

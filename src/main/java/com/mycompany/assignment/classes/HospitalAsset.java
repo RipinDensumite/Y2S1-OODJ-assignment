@@ -141,7 +141,7 @@ public class HospitalAsset {
             );
         }
 
-        String newDepartmentId = null;
+        String newDepartmentId = department.getDepartmentId();
 
         File originalFile = new File("HospitalAsset.txt");
         File tempFile = new File("HospitalAsset_temp.txt");

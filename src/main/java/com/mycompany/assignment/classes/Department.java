@@ -1,8 +1,10 @@
 package com.mycompany.assignment.classes;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class Department {
+
     private String departmentId;
     private String departmentName;
     private String specialty;
@@ -12,6 +14,12 @@ public class Department {
         this.departmentName = departmentName;
         this.specialty = specialty;
         savetofile();
+    }
+
+    public Department(String departmentId, String departmentName, String specialty) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.specialty = specialty;
     }
 
     public Department(String departmentId) throws IOException {
@@ -54,8 +62,8 @@ public class Department {
 
     // Append new department to Department.txt
     public void savetofile() throws IOException {
-        FileWriter fw =new FileWriter("Department.txt");
-        BufferedWriter bw =new BufferedWriter(fw);
+        FileWriter fw = new FileWriter("Department.txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
 
         bw.write(departmentId + "," + departmentName + "," + specialty);
         bw.newLine();
@@ -63,8 +71,8 @@ public class Department {
     }
 
     private void updateDepartment() throws IOException {
-        FileReader fr =new FileReader("Department.txt");
-        BufferedReader br =new BufferedReader(fr);
+        FileReader fr = new FileReader("Department.txt");
+        BufferedReader br = new BufferedReader(fr);
         ArrayList<String> records = new ArrayList<>();
         String line;
 
@@ -89,14 +97,49 @@ public class Department {
         bw.close();
     }
 
+    public static ArrayList<Department> getAllDepartments() throws IOException {
+        ArrayList<Department> departmentList = new ArrayList<>();
+
+        File file = new File("Department.txt");
+
+        if (!file.exists()) {
+            return departmentList;
+        }
+
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+
+        String line;
+
+        while ((line = br.readLine()) != null) {
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
+            String[] data = line.split(",");
+            Department department = new Department(
+                    data[0],
+                    data[1],
+                    data[2]
+            );
+
+            departmentList.add(department);
+        }
+
+        br.close();
+        fr.close();
+
+        return departmentList;
+    }
+
     private String makenewid() throws IOException {
         File file = new File("Department.txt");
         if (!file.exists()) {
             return "D01";
         }
 
-        FileReader fr =new FileReader("Department.txt");
-        BufferedReader br =new BufferedReader(fr);
+        FileReader fr = new FileReader("Department.txt");
+        BufferedReader br = new BufferedReader(fr);
         String line;
         int highest = 0;
 
@@ -112,5 +155,27 @@ public class Department {
         br.close();
 
         return String.format("D%02d", highest + 1);
+    }
+
+    @Override
+    public String toString() {
+        return departmentId
+                + " - "
+                + departmentName
+                + " ("
+                + specialty
+                + ")";
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public String getSpecialty() {
+        return specialty;
     }
 }

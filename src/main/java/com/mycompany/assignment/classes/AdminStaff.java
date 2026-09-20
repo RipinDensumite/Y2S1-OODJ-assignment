@@ -572,4 +572,39 @@ public class AdminStaff extends User {
             return false;
         }
     }
+
+    public ArrayList<Department> getDepartments() {
+        try {
+            return Department.getAllDepartments();
+        } catch (IOException e) {
+            System.out.println("Error reading departments: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean allocateHospitalAsset(
+            String assetId,
+            String assetName,
+            AssetType assetType,
+            AssetStatus status,
+            String currentDepartmentId,
+            Department department
+    ) {
+        try {
+            HospitalAsset asset = new HospitalAsset(
+                    assetId,
+                    assetName,
+                    assetType,
+                    status,
+                    currentDepartmentId
+            );
+
+            asset.allocateTo(department);
+
+            return true;
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error allocating hospital asset: " + e.getMessage());
+            return false;
+        }
+    }
 }
