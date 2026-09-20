@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,6 +34,19 @@ public class HospitalAsset {
             String departmentId
     ) {
         this.assetId = assetId;
+        this.assetName = assetName;
+        this.assetType = assetType;
+        this.status = status;
+        this.departmentId = departmentId;
+    }
+
+    public HospitalAsset(
+            String assetName,
+            AssetType assetType,
+            AssetStatus status,
+            String departmentId
+    ) throws IOException {
+        this.assetId = generateHospitalAssetId();
         this.assetName = assetName;
         this.assetType = assetType;
         this.status = status;
@@ -235,5 +249,92 @@ public class HospitalAsset {
 
         originalFile.delete();
         tempFile.renameTo(originalFile);
+    }
+
+    private String generateHospitalAssetId() throws IOException {
+        File file = new File("HospitalAsset.txt");
+
+        if (!file.exists()) {
+            return "001";
+        }
+
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+
+        int highestId = 0;
+        String line;
+
+        while ((line = br.readLine()) != null) {
+
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
+            String[] data = line.split(",", -1);
+
+            int id = Integer.parseInt(data[0]);
+
+            if (id > highestId) {
+                highestId = id;
+            }
+        }
+
+        br.close();
+        fr.close();
+
+        int nextId = highestId + 1;
+
+        return String.format("%03d", nextId);
+    }
+
+    public static ArrayList<HospitalAsset> getAllHospitalAssets() throws IOException {
+        ArrayList<HospitalAsset> assetList = new ArrayList<>();
+
+        File file = new File("HospitalAsset.txt");
+
+        if (!file.exists()) {
+            return assetList;
+        }
+
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+
+        String line;
+
+        while ((line = br.readLine()) != null) {
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
+            String[] data = line.split(",", -1);
+
+            String assetId = data[0];
+            String assetName = data[1];
+
+            AssetType assetType = AssetType.valueOf(data[2]);
+
+            AssetStatus status = AssetStatus.valueOf(data[3]);
+
+            String departmentId = data[4];
+
+            if (departmentId.isEmpty()) {
+                departmentId = null;
+            }
+
+            HospitalAsset asset = new HospitalAsset(
+                    assetId,
+                    assetName,
+                    assetType,
+                    status,
+                    departmentId
+            );
+
+            assetList.add(asset);
+        }
+
+        br.close();
+        fr.close();
+
+        return assetList;
     }
 }

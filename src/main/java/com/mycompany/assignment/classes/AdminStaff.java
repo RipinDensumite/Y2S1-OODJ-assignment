@@ -4,6 +4,8 @@
  */
 package com.mycompany.assignment.classes;
 
+import com.mycompany.assignment.enums.AssetStatus;
+import com.mycompany.assignment.enums.AssetType;
 import com.mycompany.assignment.enums.UserRole;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -480,6 +482,93 @@ public class AdminStaff extends User {
             return true;
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Error updating check up type: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public ArrayList<HospitalAsset> getHospitalAssets() {
+        try {
+            return HospitalAsset.getAllHospitalAssets();
+        } catch (IOException e) {
+            System.out.println("Error reading hospital assets: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean createHospitalAsset(
+            String assetName,
+            AssetType assetType,
+            AssetStatus status,
+            String departmentId
+    ) {
+        try {
+            HospitalAsset asset = new HospitalAsset(
+                    assetName,
+                    assetType,
+                    status,
+                    departmentId
+            );
+
+            asset.addHospitalAsset();
+
+            return true;
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error creating hospital asset: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updateHospitalAsset(
+            String assetId,
+            String assetName,
+            AssetType assetType,
+            AssetStatus status,
+            String departmentId
+    ) throws IOException {
+        try {
+            HospitalAsset asset = new HospitalAsset(
+                    assetId,
+                    assetName,
+                    assetType,
+                    status,
+                    departmentId
+            );
+
+            asset.updateDetails(
+                    assetName,
+                    status
+            );
+
+            return true;
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error updating hospital asset: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean deleteHospitalAsset(
+            String assetId,
+            String assetName,
+            AssetType assetType,
+            AssetStatus status,
+            String departmentId
+    ) {
+        try {
+            HospitalAsset asset = new HospitalAsset(
+                    assetId,
+                    assetName,
+                    assetType,
+                    status,
+                    departmentId
+            );
+
+            asset.deleteHospitalAsset();
+
+            return true;
+
+        } catch (IOException e) {
+            System.out.println("Error deleting hospital asset: " + e.getMessage());
             return false;
         }
     }

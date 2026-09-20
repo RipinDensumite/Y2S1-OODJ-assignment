@@ -776,11 +776,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Add Asset"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddAssetHospitalAssetsActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEditAssetHospitalAssets">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Edit Asset"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditAssetHospitalAssetsActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAllocateToDepartmentHospitalAssets">
                   <Properties>

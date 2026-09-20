@@ -640,8 +640,10 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tbHospitalAssets);
 
         btnAddAssetHospitalAssets.setText("Add Asset");
+        btnAddAssetHospitalAssets.addActionListener(this::btnAddAssetHospitalAssetsActionPerformed);
 
         btnEditAssetHospitalAssets.setText("Edit Asset");
+        btnEditAssetHospitalAssets.addActionListener(this::btnEditAssetHospitalAssetsActionPerformed);
 
         btnAllocateToDepartmentHospitalAssets.setText("Allocate To Department");
 
@@ -1269,6 +1271,14 @@ public class AdminPage extends javax.swing.JFrame {
         CreateCheckUpDialog.setLocationRelativeTo(this);
         CreateCheckUpDialog.setVisible(true);
     }//GEN-LAST:event_btnEditCheckUpActionPerformed
+
+    private void btnAddAssetHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAssetHospitalAssetsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddAssetHospitalAssetsActionPerformed
+
+    private void btnEditAssetHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAssetHospitalAssetsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditAssetHospitalAssetsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;
