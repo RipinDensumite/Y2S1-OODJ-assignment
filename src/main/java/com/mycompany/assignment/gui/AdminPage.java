@@ -45,7 +45,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         initialCreateUserDialog();
 
-        lbWelcomeTitle.setText("Admin staff - " + adminStaff.getFullName());
+        lbWelcomeSubtitle.setText("Signed in as " + adminStaff.getFullName() + " | Admin Staff");
 
         setupTables();
         setupTabChangeListener();
@@ -423,6 +423,8 @@ public class AdminPage extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbWelcomeTitle = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        lbWelcomeSubtitle = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
 
         cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -743,19 +745,25 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("AdminDashboard"); // NOI18N
+        setSize(new java.awt.Dimension(0, 0));
 
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         btnRefreshUsers.setText("Refresh");
+        btnRefreshUsers.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnRefreshUsers.addActionListener(this::btnRefreshUsersActionPerformed);
 
         btnDeleteUser.setText("Delete User");
+        btnDeleteUser.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnDeleteUser.addActionListener(this::btnDeleteUserActionPerformed);
 
         btnAddUser.setText("Add User");
+        btnAddUser.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddUser.addActionListener(this::btnAddUserActionPerformed);
 
         btnEditUser.setText("Edit User");
+        btnEditUser.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditUser.addActionListener(this::btnEditUserActionPerformed);
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
@@ -788,29 +796,29 @@ public class AdminPage extends javax.swing.JFrame {
         UsersPanel.setLayout(UsersPanelLayout);
         UsersPanelLayout.setHorizontalGroup(
             UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UsersPanelLayout.createSequentialGroup()
-                .addContainerGap(414, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
                 .addComponent(btnAddUser)
                 .addGap(18, 18, 18)
                 .addComponent(btnEditUser)
                 .addGap(18, 18, 18)
                 .addComponent(btnDeleteUser)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRefreshUsers)
-                .addGap(224, 224, 224))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         UsersPanelLayout.setVerticalGroup(
             UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UsersPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddUser)
                     .addComponent(btnEditUser)
                     .addComponent(btnDeleteUser)
                     .addComponent(btnRefreshUsers))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         tabAdminDashboard.addTab("Users", UsersPanel);
@@ -860,7 +868,7 @@ public class AdminPage extends javax.swing.JFrame {
                             .addComponent(cbMedicalManagerListDoctorAssignment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DoctorAssignmentPanelLayout.createSequentialGroup()
-                        .addContainerGap(147, Short.MAX_VALUE)
+                        .addContainerGap(207, Short.MAX_VALUE)
                         .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnUnassignDoctorDoctorAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAssignDoctorDoctorAssignment))
@@ -869,7 +877,7 @@ public class AdminPage extends javax.swing.JFrame {
         );
         DoctorAssignmentPanelLayout.setVerticalGroup(
             DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
             .addGroup(DoctorAssignmentPanelLayout.createSequentialGroup()
                 .addGap(136, 136, 136)
                 .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -903,15 +911,19 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tbHospitalAssets);
 
         btnAddAssetHospitalAssets.setText("Add Asset");
+        btnAddAssetHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddAssetHospitalAssets.addActionListener(this::btnAddAssetHospitalAssetsActionPerformed);
 
         btnEditAssetHospitalAssets.setText("Edit Asset");
+        btnEditAssetHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditAssetHospitalAssets.addActionListener(this::btnEditAssetHospitalAssetsActionPerformed);
 
         btnAllocateToDepartmentHospitalAssets.setText("Allocate To Department");
+        btnAllocateToDepartmentHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAllocateToDepartmentHospitalAssets.addActionListener(this::btnAllocateToDepartmentHospitalAssetsActionPerformed);
 
         btnRefreshHospitalAssets.setText("Refresh");
+        btnRefreshHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnRefreshHospitalAssets.addActionListener(this::btnRefreshHospitalAssetsActionPerformed);
 
         javax.swing.GroupLayout HospitalAssetsPanelLayout = new javax.swing.GroupLayout(HospitalAssetsPanel);
@@ -920,15 +932,15 @@ public class AdminPage extends javax.swing.JFrame {
             HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane5)
             .addGroup(HospitalAssetsPanelLayout.createSequentialGroup()
-                .addGap(192, 192, 192)
+                .addGap(15, 15, 15)
                 .addComponent(btnAddAssetHospitalAssets)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(btnEditAssetHospitalAssets)
                 .addGap(18, 18, 18)
                 .addComponent(btnAllocateToDepartmentHospitalAssets)
                 .addGap(18, 18, 18)
                 .addComponent(btnRefreshHospitalAssets)
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addContainerGap(561, Short.MAX_VALUE))
         );
         HospitalAssetsPanelLayout.setVerticalGroup(
             HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -940,7 +952,7 @@ public class AdminPage extends javax.swing.JFrame {
                     .addComponent(btnEditAssetHospitalAssets)
                     .addComponent(btnAllocateToDepartmentHospitalAssets)
                     .addComponent(btnRefreshHospitalAssets))
-                .addGap(21, 21, 21))
+                .addGap(15, 15, 15))
         );
 
         tabAdminDashboard.addTab("Hospital Assets", HospitalAssetsPanel);
@@ -960,32 +972,34 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbInsuranceNetwork);
 
         btnAddInsurance.setText("Add Insurance");
+        btnAddInsurance.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddInsurance.addActionListener(this::btnAddInsuranceActionPerformed);
 
         btnEditInsurance.setText("Edit Insurance");
+        btnEditInsurance.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditInsurance.addActionListener(this::btnEditInsuranceActionPerformed);
 
         javax.swing.GroupLayout InsuranceNetworkPanelLayout = new javax.swing.GroupLayout(InsuranceNetworkPanel);
         InsuranceNetworkPanel.setLayout(InsuranceNetworkPanelLayout);
         InsuranceNetworkPanelLayout.setHorizontalGroup(
             InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
             .addGroup(InsuranceNetworkPanelLayout.createSequentialGroup()
-                .addGap(278, 278, 278)
+                .addGap(15, 15, 15)
                 .addComponent(btnAddInsurance)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnEditInsurance)
-                .addContainerGap(507, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         InsuranceNetworkPanelLayout.setVerticalGroup(
             InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InsuranceNetworkPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddInsurance)
                     .addComponent(btnEditInsurance))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         tabAdminDashboard.addTab("Insurance", InsuranceNetworkPanel);
@@ -1005,67 +1019,98 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tbCheckUpTypes);
 
         btnAddCheckUp.setText("Add Check-Up");
+        btnAddCheckUp.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddCheckUp.addActionListener(this::btnAddCheckUpActionPerformed);
 
         btnEditCheckUp.setText("Edit / Base Rate");
+        btnEditCheckUp.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditCheckUp.addActionListener(this::btnEditCheckUpActionPerformed);
 
         btnCheckUpRefresh.setText("Refresh");
+        btnCheckUpRefresh.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnCheckUpRefresh.addActionListener(this::btnCheckUpRefreshActionPerformed);
 
         javax.swing.GroupLayout CheckUpTypesPanelLayout = new javax.swing.GroupLayout(CheckUpTypesPanel);
         CheckUpTypesPanel.setLayout(CheckUpTypesPanelLayout);
         CheckUpTypesPanelLayout.setHorizontalGroup(
             CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
             .addGroup(CheckUpTypesPanelLayout.createSequentialGroup()
-                .addGap(293, 293, 293)
+                .addGap(15, 15, 15)
                 .addComponent(btnAddCheckUp)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(btnEditCheckUp)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(btnCheckUpRefresh)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CheckUpTypesPanelLayout.setVerticalGroup(
             CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CheckUpTypesPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCheckUp)
                     .addComponent(btnEditCheckUp)
                     .addComponent(btnCheckUpRefresh))
-                .addGap(21, 21, 21))
+                .addGap(15, 15, 15))
         );
 
         tabAdminDashboard.addTab("Check Up Types", CheckUpTypesPanel);
 
+        jPanel1.setBackground(new java.awt.Color(17, 55, 95));
+
+        lbWelcomeTitle.setBackground(new java.awt.Color(255, 255, 255));
         lbWelcomeTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbWelcomeTitle.setForeground(new java.awt.Color(255, 255, 255));
         lbWelcomeTitle.setText("Admin staff - USER NAME");
 
         btnLogout.setText("LOGOUT");
+        btnLogout.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
+
+        lbWelcomeSubtitle.setBackground(new java.awt.Color(255, 255, 255));
+        lbWelcomeSubtitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbWelcomeSubtitle.setForeground(new java.awt.Color(202, 202, 202));
+        lbWelcomeSubtitle.setText("Signed in as NAME | Admin Staff");
+
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logonew.png"))); // NOI18N
+        jLabel17.setMaximumSize(new java.awt.Dimension(561, 512));
+        jLabel17.setPreferredSize(new java.awt.Dimension(561, 512));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lbWelcomeTitle)
+                .addGap(25, 25, 25)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbWelcomeTitle)
+                    .addComponent(lbWelcomeSubtitle))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout)
-                .addGap(22, 22, 22))
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogout)
-                    .addComponent(lbWelcomeTitle))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(btnLogout)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbWelcomeTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbWelcomeSubtitle, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
         );
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
@@ -1082,19 +1127,19 @@ public class AdminPage extends javax.swing.JFrame {
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(tabAdminDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabAdminDashboard))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
         );
 
         pack();
@@ -1851,6 +1896,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1869,6 +1915,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lbWelcomeSubtitle;
     private javax.swing.JLabel lbWelcomeTitle;
     private javax.swing.JTabbedPane tabAdminDashboard;
     private javax.swing.JTable tbCheckUpTypes;
