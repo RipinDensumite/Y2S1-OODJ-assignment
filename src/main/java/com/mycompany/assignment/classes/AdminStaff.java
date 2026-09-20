@@ -775,145 +775,70 @@ public class AdminStaff extends User {
         return assignmentList;
     }
 
-    public ArrayList<MedicalServiceRequest>
-            getMedicalServiceRequests() {
-
+    public ArrayList<MedicalServiceRequest> getMedicalServiceRequests() {
         try {
-
-            return MedicalServiceRequest
-                    .getAllMedicalServiceRequests();
-
+            return MedicalServiceRequest.getAllMedicalServiceRequests();
         } catch (IOException e) {
-
-            System.out.println(
-                    "Error reading medical service requests: "
-                    + e.getMessage()
-            );
-
+            System.out.println("Error reading medical service requests: " + e.getMessage());
             return new ArrayList<>();
         }
     }
 
-    public MedicalServiceRequest getMedicalServiceRequest(
-            String requestId
-    ) {
-
+    public MedicalServiceRequest getMedicalServiceRequest(String requestId) {
         try {
-
-            return MedicalServiceRequest
-                    .getMedicalServiceRequest(requestId);
-
+            return MedicalServiceRequest.getMedicalServiceRequest(requestId);
         } catch (IOException e) {
-
-            System.out.println(
-                    "Error reading medical service request: "
-                    + e.getMessage()
-            );
-
+            System.out.println("Error reading medical service request: " + e.getMessage());
             return null;
         }
     }
 
-    public boolean approveServiceRequest(
-            String requestId,
-            HospitalAsset asset
-    ) {
-
+    public boolean approveServiceRequest(String requestId, HospitalAsset asset) {
         try {
-
-            MedicalServiceRequest request
-                    = MedicalServiceRequest
-                            .getMedicalServiceRequest(
-                                    requestId
-                            );
+            MedicalServiceRequest request = MedicalServiceRequest.getMedicalServiceRequest(requestId);
 
             if (request == null) {
                 return false;
             }
 
             request.assignAsset(asset);
-
             request.approve();
 
             return true;
-
-        } catch (IOException
-                | IllegalArgumentException e) {
-
-            System.out.println(
-                    "Error approving service request: "
-                    + e.getMessage()
-            );
-
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error approving service request: " + e.getMessage());
             return false;
         }
     }
 
-    public boolean rejectServiceRequest(
-            String requestId
-    ) {
-
+    public boolean rejectServiceRequest(String requestId) {
         try {
-
-            MedicalServiceRequest request
-                    = MedicalServiceRequest
-                            .getMedicalServiceRequest(
-                                    requestId
-                            );
+            MedicalServiceRequest request = MedicalServiceRequest.getMedicalServiceRequest(requestId);
 
             if (request == null) {
                 return false;
             }
 
             request.reject();
-
             return true;
-
-        } catch (IOException
-                | IllegalArgumentException e) {
-
-            System.out.println(
-                    "Error rejecting service request: "
-                    + e.getMessage()
-            );
-
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error rejecting service request: " + e.getMessage());
             return false;
         }
     }
 
-    public boolean recordServiceResult(
-            String requestId,
-            String result,
-            double serviceFee
-    ) {
-
+    public boolean recordServiceResult(String requestId, String result, double serviceFee) {
         try {
-
-            MedicalServiceRequest request
-                    = MedicalServiceRequest
-                            .getMedicalServiceRequest(
-                                    requestId
-                            );
+            MedicalServiceRequest request = MedicalServiceRequest.getMedicalServiceRequest(requestId);
 
             if (request == null) {
                 return false;
             }
 
-            request.recordResult(
-                    result,
-                    serviceFee
-            );
-
+            request.recordResult(result, serviceFee);
             return true;
-
-        } catch (IOException
-                | IllegalArgumentException e) {
-
-            System.out.println(
-                    "Error recording service result: "
-                    + e.getMessage()
-            );
-
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error recording service result: " + e.getMessage());
             return false;
         }
     }

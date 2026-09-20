@@ -35,12 +35,7 @@ public class MedicalServiceRequest {
     private LocalDate resultDate;
     private double serviceFee;
 
-    public MedicalServiceRequest(
-            String doctorId,
-            String consultationId,
-            ServiceType requestType,
-            String reason
-    ) throws IOException {
+    public MedicalServiceRequest(String doctorId, String consultationId, ServiceType requestType, String reason) throws IOException {
         this.requestId = generateRequestId();
         this.doctorId = doctorId;
         this.consultationId = consultationId;
@@ -54,19 +49,7 @@ public class MedicalServiceRequest {
         this.serviceFee = 0.0;
     }
 
-    public MedicalServiceRequest(
-            String requestId,
-            ServiceType requestType,
-            LocalDate requestDate,
-            String doctorId,
-            String consultationId,
-            String reason,
-            RequestStatus status,
-            String assetId,
-            String resultDetails,
-            LocalDate resultDate,
-            double serviceFee
-    ) {
+    public MedicalServiceRequest(String requestId, ServiceType requestType, LocalDate requestDate, String doctorId, String consultationId, String reason, RequestStatus status, String assetId, String resultDetails, LocalDate resultDate, double serviceFee) {
         this.requestId = requestId;
         this.requestType = requestType;
         this.requestDate = requestDate;
@@ -125,13 +108,8 @@ public class MedicalServiceRequest {
     }
 
     // Save new request
-    public void addMedicalServiceRequest()
-            throws IOException {
-
-        FileWriter fw = new FileWriter(
-                "MedicalServiceRequest.txt",
-                true
-        );
+    public void addMedicalServiceRequest() throws IOException {
+        FileWriter fw = new FileWriter("MedicalServiceRequest.txt", true);
 
         BufferedWriter bw = new BufferedWriter(fw);
 
@@ -142,73 +120,47 @@ public class MedicalServiceRequest {
         fw.close();
     }
 
-    public void assignAsset(HospitalAsset asset)
-            throws IOException {
-
+    public void assignAsset(HospitalAsset asset) throws IOException {
         if (asset == null) {
-            throw new IllegalArgumentException(
-                    "Hospital asset is required."
-            );
+            throw new IllegalArgumentException("Hospital asset is required.");
         }
 
         if (asset.getStatus() != AssetStatus.AVAILABLE) {
-
-            throw new IllegalArgumentException(
-                    "Hospital asset is not available."
-            );
+            throw new IllegalArgumentException("Hospital asset is not available.");
         }
 
         // Validate correct asset type
         switch (requestType) {
-
             case LAB_TEST:
                 if (asset.getAssetType() != AssetType.LAB) {
-                    throw new IllegalArgumentException(
-                            "Lab test requires a LAB asset."
-                    );
+                    throw new IllegalArgumentException("Lab test requires a LAB asset.");
                 }
                 break;
 
             case XRAY:
-                if (asset.getAssetType()
-                        != AssetType.XRAY_ROOM) {
-
-                    throw new IllegalArgumentException(
-                            "X-Ray request requires an XRAY_ROOM."
-                    );
+                if (asset.getAssetType() != AssetType.XRAY_ROOM) {
+                    throw new IllegalArgumentException("X-Ray request requires an XRAY_ROOM.");
                 }
                 break;
 
             case IMAGING:
-                if (asset.getAssetType()
-                        != AssetType.IMAGING_ROOM) {
-
-                    throw new IllegalArgumentException(
-                            "Imaging request requires an IMAGING_ROOM."
-                    );
+                if (asset.getAssetType() != AssetType.IMAGING_ROOM) {
+                    throw new IllegalArgumentException("Imaging request requires an IMAGING_ROOM.");
                 }
                 break;
         }
 
         this.assetId = asset.getAssetId();
-
         updateFile();
     }
 
     public void approve() throws IOException {
-
         if (status != RequestStatus.PENDING) {
-
-            throw new IllegalArgumentException(
-                    "Only pending requests can be approved."
-            );
+            throw new IllegalArgumentException("Only pending requests can be approved.");
         }
 
         if (assetId == null) {
-
-            throw new IllegalArgumentException(
-                    "Assign an asset before approving."
-            );
+            throw new IllegalArgumentException("Assign an asset before approving.");
         }
 
         this.status = RequestStatus.APPROVED;
@@ -217,43 +169,25 @@ public class MedicalServiceRequest {
     }
 
     public void reject() throws IOException {
-
         if (status != RequestStatus.PENDING) {
-
-            throw new IllegalArgumentException(
-                    "Only pending requests can be rejected."
-            );
+            throw new IllegalArgumentException("Only pending requests can be rejected.");
         }
 
         this.status = RequestStatus.REJECTED;
-
         updateFile();
     }
 
-    public void recordResult(
-            String result,
-            double serviceFee
-    ) throws IOException {
-
+    public void recordResult(String result, double serviceFee) throws IOException {
         if (status != RequestStatus.APPROVED) {
-
-            throw new IllegalArgumentException(
-                    "Only approved requests can record results."
-            );
+            throw new IllegalArgumentException("Only approved requests can record results.");
         }
 
         if (result == null || result.trim().isEmpty()) {
-
-            throw new IllegalArgumentException(
-                    "Result is required."
-            );
+            throw new IllegalArgumentException("Result is required.");
         }
 
         if (serviceFee < 0) {
-
-            throw new IllegalArgumentException(
-                    "Service fee cannot be negative."
-            );
+            throw new IllegalArgumentException("Service fee cannot be negative.");
         }
 
         this.resultDetails = result.trim();
@@ -267,29 +201,18 @@ public class MedicalServiceRequest {
     }
 
     private void updateFile() throws IOException {
+        File originalFile = new File("MedicalServiceRequest.txt");
+        File tempFile = new File("MedicalServiceRequest_temp.txt");
 
-        File originalFile
-                = new File("MedicalServiceRequest.txt");
+        FileReader fr = new FileReader(originalFile);
+        BufferedReader br = new BufferedReader(fr);
 
-        File tempFile
-                = new File("MedicalServiceRequest_temp.txt");
-
-        FileReader fr
-                = new FileReader(originalFile);
-
-        BufferedReader br
-                = new BufferedReader(fr);
-
-        FileWriter fw
-                = new FileWriter(tempFile);
-
-        BufferedWriter bw
-                = new BufferedWriter(fw);
+        FileWriter fw = new FileWriter(tempFile);
+        BufferedWriter bw = new BufferedWriter(fw);
 
         String line;
 
         while ((line = br.readLine()) != null) {
-
             if (line.trim().isEmpty()) {
                 continue;
             }
@@ -297,11 +220,8 @@ public class MedicalServiceRequest {
             String[] data = line.split(",", -1);
 
             if (data[0].equals(requestId)) {
-
                 bw.write(toFileString());
-
             } else {
-
                 bw.write(line);
             }
 
@@ -319,7 +239,6 @@ public class MedicalServiceRequest {
     }
 
     private String toFileString() {
-
         return requestId + ","
                 + requestType + ","
                 + requestDate + ","
@@ -329,14 +248,11 @@ public class MedicalServiceRequest {
                 + status + ","
                 + (assetId == null ? "" : assetId) + ","
                 + cleanText(resultDetails) + ","
-                + (resultDate == null
-                        ? ""
-                        : resultDate.toString()) + ","
+                + (resultDate == null ? "" : resultDate.toString()) + ","
                 + serviceFee;
     }
 
     private String cleanText(String text) {
-
         if (text == null) {
             return "";
         }
@@ -345,15 +261,10 @@ public class MedicalServiceRequest {
         return text.replace(",", " ").trim();
     }
 
-    public static ArrayList<MedicalServiceRequest>
-            getAllMedicalServiceRequests()
-            throws IOException {
+    public static ArrayList<MedicalServiceRequest> getAllMedicalServiceRequests() throws IOException {
+        ArrayList<MedicalServiceRequest> requestList = new ArrayList<>();
 
-        ArrayList<MedicalServiceRequest> requestList
-                = new ArrayList<>();
-
-        File file
-                = new File("MedicalServiceRequest.txt");
+        File file = new File("MedicalServiceRequest.txt");
 
         if (!file.exists()) {
             return requestList;
@@ -365,29 +276,18 @@ public class MedicalServiceRequest {
         String line;
 
         while ((line = br.readLine()) != null) {
-
             if (line.trim().isEmpty()) {
                 continue;
             }
 
             String[] data = line.split(",", -1);
-
             String requestId = data[0];
-
-            ServiceType requestType
-                    = ServiceType.valueOf(data[1]);
-
-            LocalDate requestDate
-                    = LocalDate.parse(data[2]);
-
+            ServiceType requestType = ServiceType.valueOf(data[1]);
+            LocalDate requestDate = LocalDate.parse(data[2]);
             String doctorId = data[3];
-
             String consultationId = data[4];
-
             String reason = data[5];
-
-            RequestStatus status
-                    = RequestStatus.valueOf(data[6]);
+            RequestStatus status = RequestStatus.valueOf(data[6]);
 
             String assetId = data[7];
 
@@ -407,23 +307,21 @@ public class MedicalServiceRequest {
                 resultDate = LocalDate.parse(data[9]);
             }
 
-            double serviceFee
-                    = Double.parseDouble(data[10]);
+            double serviceFee = Double.parseDouble(data[10]);
 
-            MedicalServiceRequest request
-                    = new MedicalServiceRequest(
-                            requestId,
-                            requestType,
-                            requestDate,
-                            doctorId,
-                            consultationId,
-                            reason,
-                            status,
-                            assetId,
-                            resultDetails,
-                            resultDate,
-                            serviceFee
-                    );
+            MedicalServiceRequest request = new MedicalServiceRequest(
+                    requestId,
+                    requestType,
+                    requestDate,
+                    doctorId,
+                    consultationId,
+                    reason,
+                    status,
+                    assetId,
+                    resultDetails,
+                    resultDate,
+                    serviceFee
+            );
 
             requestList.add(request);
         }
@@ -434,18 +332,11 @@ public class MedicalServiceRequest {
         return requestList;
     }
 
-    public static MedicalServiceRequest
-            getMedicalServiceRequest(String requestId)
-            throws IOException {
-
-        ArrayList<MedicalServiceRequest> requests
-                = getAllMedicalServiceRequests();
+    public static MedicalServiceRequest getMedicalServiceRequest(String requestId) throws IOException {
+        ArrayList<MedicalServiceRequest> requests = getAllMedicalServiceRequests();
 
         for (MedicalServiceRequest request : requests) {
-
-            if (request.getRequestId()
-                    .equals(requestId)) {
-
+            if (request.getRequestId().equals(requestId)) {
                 return request;
             }
         }
@@ -453,11 +344,8 @@ public class MedicalServiceRequest {
         return null;
     }
 
-    private String generateRequestId()
-            throws IOException {
-
-        File file
-                = new File("MedicalServiceRequest.txt");
+    private String generateRequestId() throws IOException {
+        File file = new File("MedicalServiceRequest.txt");
 
         if (!file.exists()) {
             return "SR001";
@@ -470,7 +358,6 @@ public class MedicalServiceRequest {
         int highestId = 0;
 
         while ((line = br.readLine()) != null) {
-
             if (line.trim().isEmpty()) {
                 continue;
             }
@@ -478,18 +365,12 @@ public class MedicalServiceRequest {
             String[] data = line.split(",", -1);
 
             try {
-
-                int id = Integer.parseInt(
-                        data[0].substring(2)
-                );
+                int id = Integer.parseInt(data[0].substring(2));
 
                 if (id > highestId) {
                     highestId = id;
                 }
-
-            } catch (NumberFormatException
-                    | IndexOutOfBoundsException e) {
-
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 // Ignore invalid request IDs
             }
         }
@@ -497,9 +378,6 @@ public class MedicalServiceRequest {
         br.close();
         fr.close();
 
-        return String.format(
-                "SR%03d",
-                highestId + 1
-        );
+        return String.format("SR%03d", highestId + 1);
     }
 }

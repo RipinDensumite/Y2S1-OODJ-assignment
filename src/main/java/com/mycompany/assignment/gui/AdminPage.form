@@ -1386,6 +1386,9 @@
                       <Insets value="[10, 20, 10, 20]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRejectServiceRequestActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnRefreshServiceRequest">
                   <Properties>
@@ -1394,6 +1397,9 @@
                       <Insets value="[10, 20, 10, 20]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshServiceRequestActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

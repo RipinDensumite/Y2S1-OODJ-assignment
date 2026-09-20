@@ -16,6 +16,7 @@ import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.User;
 import com.mycompany.assignment.enums.AssetStatus;
 import com.mycompany.assignment.enums.AssetType;
+import com.mycompany.assignment.enums.RequestStatus;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -269,26 +270,13 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     private void loadMedicalServiceRequests() {
-
-        DefaultTableModel model
-                = (DefaultTableModel) tbMedicalServiceRequest.getModel();
-
+        DefaultTableModel model = (DefaultTableModel) tbMedicalServiceRequest.getModel();
         model.setRowCount(0);
-
-        ArrayList<MedicalServiceRequest> requests
-                = adminStaff.getMedicalServiceRequests();
+        ArrayList<MedicalServiceRequest> requests = adminStaff.getMedicalServiceRequests();
 
         for (MedicalServiceRequest request : requests) {
-
-            User doctor
-                    = adminStaff.getUser(
-                            request.getDoctorId()
-                    );
-
-            String doctorName
-                    = doctor == null
-                            ? request.getDoctorId()
-                            : doctor.getFullName();
+            User doctor = adminStaff.getUser(request.getDoctorId());
+            String doctorName = doctor == null ? request.getDoctorId() : doctor.getFullName();
 
             model.addRow(new Object[]{
                 request.getRequestId(),
@@ -1140,9 +1128,11 @@ public class AdminPage extends javax.swing.JFrame {
 
         btnRejectServiceRequest.setText("Reject");
         btnRejectServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
+        btnRejectServiceRequest.addActionListener(this::btnRejectServiceRequestActionPerformed);
 
         btnRefreshServiceRequest.setText("Refresh");
         btnRefreshServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
+        btnRefreshServiceRequest.addActionListener(this::btnRefreshServiceRequestActionPerformed);
 
         javax.swing.GroupLayout MedicalServiceRequestsPanelLayout = new javax.swing.GroupLayout(MedicalServiceRequestsPanel);
         MedicalServiceRequestsPanel.setLayout(MedicalServiceRequestsPanelLayout);
@@ -1841,8 +1831,7 @@ public class AdminPage extends javax.swing.JFrame {
             return;
         }
 
-        ArrayList<Department> departments
-                = adminStaff.getDepartments();
+        ArrayList<Department> departments = adminStaff.getDepartments();
 
         if (departments.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No departments are available.");
@@ -1887,13 +1876,7 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         if (success) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Asset allocated to "
-                    + selectedDepartment.getDepartmentName()
-                    + " successfully."
-            );
-
+            JOptionPane.showMessageDialog(this, "Asset allocated to " + selectedDepartment.getDepartmentName() + " successfully.");
             loadHospitalAssets();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to allocate hospital asset.");
@@ -1960,8 +1943,177 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUnassignDoctorDoctorAssignmentActionPerformed
 
     private void btnAssignAssetServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAssetServiceRequestActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tbMedicalServiceRequest.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a medical service request.");
+            return;
+        }
+
+        String requestId = tbMedicalServiceRequest.getValueAt(selectedRow, 0).toString();
+        MedicalServiceRequest request = adminStaff.getMedicalServiceRequest(requestId);
+
+        if (request == null) {
+            JOptionPane.showMessageDialog(this, "Medical service request not found.");
+            return;
+        }
+
+        if (request.getStatus() != RequestStatus.PENDING) {
+            JOptionPane.showMessageDialog(this, "Only pending requests can be assigned.");
+            return;
+        }
+
+        ArrayList<HospitalAsset> allAssets = adminStaff.getHospitalAssets();
+        ArrayList<HospitalAsset> compatibleAssets = new ArrayList<>();
+
+        for (HospitalAsset asset : allAssets) {
+            if (asset.getStatus() != AssetStatus.AVAILABLE) {
+                continue;
+            }
+
+            boolean compatible = false;
+
+            switch (request.getRequestType()) {
+                case LAB_TEST:
+                    if (asset.getAssetType() == AssetType.LAB) {
+                        compatible = true;
+                    }
+                    break;
+
+                case XRAY:
+                    if (asset.getAssetType() == AssetType.XRAY_ROOM) {
+                        compatible = true;
+                    }
+                    break;
+
+                case IMAGING:
+                    if (asset.getAssetType() == AssetType.IMAGING_ROOM) {
+                        compatible = true;
+                    }
+                    break;
+            }
+
+            if (compatible) {
+                compatibleAssets.add(asset);
+            }
+        }
+
+        if (compatibleAssets.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No available compatible assets found for " + request.getRequestType() + ".");
+            return;
+        }
+
+        String[] assetOptions = new String[compatibleAssets.size()];
+
+        for (int i = 0; i < compatibleAssets.size(); i++) {
+            HospitalAsset asset = compatibleAssets.get(i);
+            assetOptions[i] = asset.getAssetId() + " - " + asset.getAssetName() + " (" + asset.getAssetType() + ")";
+        }
+
+        String selectedAsset = (String) JOptionPane.showInputDialog(
+                this,
+                "Select an asset for "
+                + request.getRequestType()
+                + ":",
+                "Assign Hospital Asset",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                assetOptions,
+                assetOptions[0]
+        );
+
+        // Cancel pressed
+        if (selectedAsset == null) {
+            return;
+        }
+
+        HospitalAsset selectedHospitalAsset = null;
+
+        for (int i = 0; i < assetOptions.length; i++) {
+            if (assetOptions[i].equals(selectedAsset)) {
+                selectedHospitalAsset = compatibleAssets.get(i);
+                break;
+            }
+        }
+
+        if (selectedHospitalAsset == null) {
+            JOptionPane.showMessageDialog(this, "Selected asset could not be found.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Assign "
+                + selectedHospitalAsset.getAssetName()
+                + " to request "
+                + requestId
+                + "?",
+                "Confirm Asset Assignment",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean success = adminStaff.approveServiceRequest(requestId, selectedHospitalAsset);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Asset assigned and request approved successfully.");
+            loadMedicalServiceRequests();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to assign asset.");
+        }
     }//GEN-LAST:event_btnAssignAssetServiceRequestActionPerformed
+
+    private void btnRejectServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectServiceRequestActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tbMedicalServiceRequest.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a medical service request.");
+            return;
+        }
+
+        String requestId = tbMedicalServiceRequest.getValueAt(selectedRow, 0).toString();
+        MedicalServiceRequest request = adminStaff.getMedicalServiceRequest(requestId);
+
+        if (request == null) {
+            JOptionPane.showMessageDialog(this, "Medical service request not found.");
+            return;
+        }
+
+        if (request.getStatus() != RequestStatus.PENDING) {
+            JOptionPane.showMessageDialog(this, "Only pending requests can be rejected.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to reject request "
+                + requestId
+                + "?",
+                "Confirm Reject",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean success = adminStaff.rejectServiceRequest(requestId);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Medical service request rejected successfully.");
+            loadMedicalServiceRequests();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to reject medical service request.");
+        }
+    }//GEN-LAST:event_btnRejectServiceRequestActionPerformed
+
+    private void btnRefreshServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshServiceRequestActionPerformed
+        loadMedicalServiceRequests();
+    }//GEN-LAST:event_btnRefreshServiceRequestActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;
