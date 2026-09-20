@@ -125,6 +125,16 @@ public class AdminPage extends javax.swing.JFrame {
                 return false;
             }
         });
+
+        tbMedicalServiceRequest.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Service ID", "Type", "Doctor", "Consultation", "Reason", "Status", "Asset", "Result", "Fee"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
     }
 
     private void loadInsuranceNetwork() {
@@ -420,7 +430,12 @@ public class AdminPage extends javax.swing.JFrame {
         tbInsuranceNetwork = new javax.swing.JTable();
         btnAddInsurance = new javax.swing.JButton();
         btnEditInsurance = new javax.swing.JButton();
-        ServiceRequestsPanel = new javax.swing.JPanel();
+        MedicalServiceRequestsPanel = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tbMedicalServiceRequest = new javax.swing.JTable();
+        btnAssignAssetServiceRequest = new javax.swing.JButton();
+        btnRejectServiceRequest = new javax.swing.JButton();
+        btnRefreshServiceRequest = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lbWelcomeTitle = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
@@ -524,8 +539,6 @@ public class AdminPage extends javax.swing.JFrame {
             CreateUserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        CreateInsuranceNetworkDialog.setPreferredSize(new java.awt.Dimension(472, 395));
 
         btnAddInsuranceNetwork.setText("Add");
         btnAddInsuranceNetwork.addActionListener(this::btnAddInsuranceNetworkActionPerformed);
@@ -1065,18 +1078,56 @@ public class AdminPage extends javax.swing.JFrame {
 
         tabAdminDashboard.addTab("Insurance Networks", InsuranceNetworkPanel);
 
-        javax.swing.GroupLayout ServiceRequestsPanelLayout = new javax.swing.GroupLayout(ServiceRequestsPanel);
-        ServiceRequestsPanel.setLayout(ServiceRequestsPanelLayout);
-        ServiceRequestsPanelLayout.setHorizontalGroup(
-            ServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1094, Short.MAX_VALUE)
+        tbMedicalServiceRequest.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(tbMedicalServiceRequest);
+
+        btnAssignAssetServiceRequest.setText("Assign Asset");
+        btnAssignAssetServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
+        btnAssignAssetServiceRequest.addActionListener(this::btnAssignAssetServiceRequestActionPerformed);
+
+        btnRejectServiceRequest.setText("Reject");
+        btnRejectServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
+
+        btnRefreshServiceRequest.setText("Refresh");
+        btnRefreshServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
+
+        javax.swing.GroupLayout MedicalServiceRequestsPanelLayout = new javax.swing.GroupLayout(MedicalServiceRequestsPanel);
+        MedicalServiceRequestsPanel.setLayout(MedicalServiceRequestsPanelLayout);
+        MedicalServiceRequestsPanelLayout.setHorizontalGroup(
+            MedicalServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1094, Short.MAX_VALUE)
+            .addGroup(MedicalServiceRequestsPanelLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btnAssignAssetServiceRequest)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRejectServiceRequest)
+                .addGap(18, 18, 18)
+                .addComponent(btnRefreshServiceRequest)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        ServiceRequestsPanelLayout.setVerticalGroup(
-            ServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+        MedicalServiceRequestsPanelLayout.setVerticalGroup(
+            MedicalServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MedicalServiceRequestsPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(MedicalServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAssignAssetServiceRequest)
+                    .addComponent(btnRejectServiceRequest)
+                    .addComponent(btnRefreshServiceRequest))
+                .addGap(15, 15, 15))
         );
 
-        tabAdminDashboard.addTab("Service Requests", ServiceRequestsPanel);
+        tabAdminDashboard.addTab("Medical Service Requests", MedicalServiceRequestsPanel);
 
         jPanel1.setBackground(new java.awt.Color(17, 55, 95));
 
@@ -1155,11 +1206,11 @@ public class AdminPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1094, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1865,6 +1916,10 @@ public class AdminPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUnassignDoctorDoctorAssignmentActionPerformed
 
+    private void btnAssignAssetServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAssetServiceRequestActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAssignAssetServiceRequestActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;
     private javax.swing.JDialog CreateCheckUpDialog;
@@ -1875,7 +1930,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JPanel HospitalAssetsPanel;
     private javax.swing.JPanel InsuranceNetworkPanel;
     private javax.swing.JPanel MainPanel;
-    private javax.swing.JPanel ServiceRequestsPanel;
+    private javax.swing.JPanel MedicalServiceRequestsPanel;
     private javax.swing.JPanel UsersPanel;
     private javax.swing.JButton btnAddAssetHospitalAssets;
     private javax.swing.JButton btnAddCheckUp;
@@ -1883,6 +1938,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JButton btnAddInsuranceNetwork;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnAllocateToDepartmentHospitalAssets;
+    private javax.swing.JButton btnAssignAssetServiceRequest;
     private javax.swing.JButton btnAssignDoctorDoctorAssignment;
     private javax.swing.JButton btnCancelCheckUp;
     private javax.swing.JButton btnCancelCreateUser;
@@ -1899,7 +1955,9 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JButton btnEditUser;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRefreshHospitalAssets;
+    private javax.swing.JButton btnRefreshServiceRequest;
     private javax.swing.JButton btnRefreshUsers;
+    private javax.swing.JButton btnRejectServiceRequest;
     private javax.swing.JButton btnUnassignDoctorDoctorAssignment;
     private javax.swing.JCheckBox cbAccepted;
     private javax.swing.JCheckBox cbActive;
@@ -1936,6 +1994,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lbWelcomeSubtitle;
     private javax.swing.JLabel lbWelcomeTitle;
     private javax.swing.JTabbedPane tabAdminDashboard;
@@ -1943,6 +2002,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JTable tbDoctorAssignment;
     private javax.swing.JTable tbHospitalAssets;
     private javax.swing.JTable tbInsuranceNetwork;
+    private javax.swing.JTable tbMedicalServiceRequest;
     private javax.swing.JTable tbUsers;
     private javax.swing.JTextField txtBaseRateCheckUp;
     private javax.swing.JTextField txtCoverage;
