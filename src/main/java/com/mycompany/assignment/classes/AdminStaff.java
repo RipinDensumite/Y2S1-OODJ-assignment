@@ -524,7 +524,7 @@ public class AdminStaff extends User {
             AssetType assetType,
             AssetStatus status,
             String departmentId
-    ) throws IOException {
+    ) {
         try {
             HospitalAsset asset = new HospitalAsset(
                     assetId,
@@ -541,7 +541,7 @@ public class AdminStaff extends User {
 
             return true;
 
-        } catch (IllegalArgumentException e) {
+        } catch (IOException | IllegalArgumentException e) {
             System.out.println("Error updating hospital asset: " + e.getMessage());
             return false;
         }

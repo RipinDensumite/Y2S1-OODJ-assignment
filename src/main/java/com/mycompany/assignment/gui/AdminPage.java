@@ -12,6 +12,8 @@ import com.mycompany.assignment.classes.InsuranceNetwork;
 import com.mycompany.assignment.classes.MedicalManager;
 import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.User;
+import com.mycompany.assignment.enums.AssetStatus;
+import com.mycompany.assignment.enums.AssetType;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +28,8 @@ public class AdminPage extends javax.swing.JFrame {
     private String editingUserId = null;
     private String editingInsuranceId = null;
     private String editingCheckUpId = null;
+    private String editingHospitalAssetId = null;
+    private String editingHospitalAssetDepartmentId = null;
 
     /**
      * Creates new form AdminPage
@@ -218,6 +222,33 @@ public class AdminPage extends javax.swing.JFrame {
         CreateCheckUpDialog.setTitle("Create Check-Up Type");
     }
 
+    private void initialHospitalAssetsDialog() {
+        editingHospitalAssetId = null;
+        editingHospitalAssetDepartmentId = null;
+
+        txtNameHospitalAssets.setText("");
+
+        cbTypeHospitalAssets.removeAllItems();
+
+        for (AssetType type : AssetType.values()) {
+            cbTypeHospitalAssets.addItem(type.toString());
+        }
+
+        cbStatusHospitalAssets.removeAllItems();
+
+        for (AssetStatus status : AssetStatus.values()) {
+            cbStatusHospitalAssets.addItem(status.toString());
+        }
+
+        cbTypeHospitalAssets.setSelectedIndex(0);
+        cbStatusHospitalAssets.setSelectedIndex(0);
+
+        btnCreateHospitalAssets.setText("Create");
+        CreateHospitalAssetsDialog.setTitle(
+                "Create Hospital Asset"
+        );
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -264,6 +295,16 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtDurationCheckUp = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        CreateHospitalAssetsDialog = new javax.swing.JDialog();
+        jPanel11 = new javax.swing.JPanel();
+        btnCreateHospitalAssets = new javax.swing.JButton();
+        btnCancelHospitalAssets = new javax.swing.JButton();
+        txtNameHospitalAssets = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        cbTypeHospitalAssets = new javax.swing.JComboBox<>();
+        cbStatusHospitalAssets = new javax.swing.JComboBox<>();
         MainPanel = new javax.swing.JPanel();
         tabAdminDashboard = new javax.swing.JTabbedPane();
         UsersPanel = new javax.swing.JPanel();
@@ -541,6 +582,78 @@ public class AdminPage extends javax.swing.JFrame {
         CreateCheckUpDialogLayout.setVerticalGroup(
             CreateCheckUpDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        btnCreateHospitalAssets.setText("Create");
+        btnCreateHospitalAssets.addActionListener(this::btnCreateHospitalAssetsActionPerformed);
+
+        btnCancelHospitalAssets.setText("Cancel");
+        btnCancelHospitalAssets.addActionListener(this::btnCancelHospitalAssetsActionPerformed);
+
+        jLabel13.setText("Name:");
+
+        jLabel14.setText("Type:");
+
+        jLabel15.setText("Status:");
+
+        cbTypeHospitalAssets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbStatusHospitalAssets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCreateHospitalAssets)
+                .addGap(112, 112, 112)
+                .addComponent(btnCancelHospitalAssets)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNameHospitalAssets, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .addComponent(cbStatusHospitalAssets, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbTypeHospitalAssets, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(121, 121, 121))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNameHospitalAssets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cbTypeHospitalAssets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(cbStatusHospitalAssets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(107, 107, 107)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelHospitalAssets)
+                    .addComponent(btnCreateHospitalAssets))
+                .addGap(82, 82, 82))
+        );
+
+        javax.swing.GroupLayout CreateHospitalAssetsDialogLayout = new javax.swing.GroupLayout(CreateHospitalAssetsDialog.getContentPane());
+        CreateHospitalAssetsDialog.getContentPane().setLayout(CreateHospitalAssetsDialogLayout);
+        CreateHospitalAssetsDialogLayout.setHorizontalGroup(
+            CreateHospitalAssetsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        CreateHospitalAssetsDialogLayout.setVerticalGroup(
+            CreateHospitalAssetsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1294,20 +1407,130 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditCheckUpActionPerformed
 
     private void btnAddAssetHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAssetHospitalAssetsActionPerformed
-        // TODO add your handling code here:
+        initialHospitalAssetsDialog();
+
+        CreateHospitalAssetsDialog.pack();
+        CreateHospitalAssetsDialog.setLocationRelativeTo(this);
+        CreateHospitalAssetsDialog.setVisible(true);
     }//GEN-LAST:event_btnAddAssetHospitalAssetsActionPerformed
 
     private void btnEditAssetHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAssetHospitalAssetsActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tbHospitalAssets.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a hospital asset to edit.");
+            return;
+        }
+
+        editingHospitalAssetId = tbHospitalAssets.getValueAt(selectedRow, 0).toString();
+        String assetName = tbHospitalAssets.getValueAt(selectedRow, 1).toString();
+        String assetType = tbHospitalAssets.getValueAt(selectedRow, 2).toString();
+        String status = tbHospitalAssets.getValueAt(selectedRow, 3).toString();
+        String department = tbHospitalAssets.getValueAt(selectedRow, 4).toString();
+
+        if (department.equals("Not Allocated")) {
+            editingHospitalAssetDepartmentId = null;
+        } else {
+            editingHospitalAssetDepartmentId = department;
+        }
+
+        // Populate enum combo boxes
+        cbTypeHospitalAssets.removeAllItems();
+
+        for (AssetType type : AssetType.values()) {
+            cbTypeHospitalAssets.addItem(type.toString());
+        }
+
+        cbStatusHospitalAssets.removeAllItems();
+
+        for (AssetStatus assetStatus : AssetStatus.values()) {
+            cbStatusHospitalAssets.addItem(assetStatus.toString());
+        }
+
+        // Fill existing values
+        txtNameHospitalAssets.setText(assetName);
+
+        cbTypeHospitalAssets.setSelectedItem(assetType);
+
+        cbStatusHospitalAssets.setSelectedItem(status);
+
+        btnCreateHospitalAssets.setText("Save Changes");
+
+        CreateHospitalAssetsDialog.setTitle("Edit Hospital Asset");
+
+        CreateHospitalAssetsDialog.pack();
+        CreateHospitalAssetsDialog.setLocationRelativeTo(this);
+        CreateHospitalAssetsDialog.setVisible(true);
     }//GEN-LAST:event_btnEditAssetHospitalAssetsActionPerformed
 
     private void btnRefreshHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshHospitalAssetsActionPerformed
         loadHospitalAssets();
     }//GEN-LAST:event_btnRefreshHospitalAssetsActionPerformed
 
+    private void btnCreateHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateHospitalAssetsActionPerformed
+        String assetName = txtNameHospitalAssets.getText().trim();
+
+        if (assetName.isEmpty()) {
+            JOptionPane.showMessageDialog(CreateHospitalAssetsDialog, "Please enter the asset name.");
+            return;
+        }
+
+        AssetType assetType = AssetType.valueOf(cbTypeHospitalAssets.getSelectedItem().toString());
+        AssetStatus status = AssetStatus.valueOf(cbStatusHospitalAssets.getSelectedItem().toString());
+        boolean success;
+
+        // CREATE
+        if (editingHospitalAssetId == null) {
+            success = adminStaff.createHospitalAsset(
+                    assetName,
+                    assetType,
+                    status,
+                    null
+            );
+
+            if (success) {
+                JOptionPane.showMessageDialog(CreateHospitalAssetsDialog, "Hospital asset created successfully.");
+            } else {
+                JOptionPane.showMessageDialog(CreateHospitalAssetsDialog, "Failed to create hospital asset.");
+                return;
+            }
+        } else {
+            // EDIT
+            success = adminStaff.updateHospitalAsset(
+                    editingHospitalAssetId,
+                    assetName,
+                    assetType,
+                    status,
+                    editingHospitalAssetDepartmentId
+            );
+
+            if (success) {
+                JOptionPane.showMessageDialog(CreateHospitalAssetsDialog, "Hospital asset updated successfully.");
+            } else {
+                JOptionPane.showMessageDialog(CreateHospitalAssetsDialog, "Failed to update hospital asset.");
+                return;
+            }
+        }
+
+        CreateHospitalAssetsDialog.dispose();
+
+        editingHospitalAssetId = null;
+        editingHospitalAssetDepartmentId = null;
+
+        loadHospitalAssets();
+    }//GEN-LAST:event_btnCreateHospitalAssetsActionPerformed
+
+    private void btnCancelHospitalAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelHospitalAssetsActionPerformed
+        editingHospitalAssetId = null;
+        editingHospitalAssetDepartmentId = null;
+
+        CreateHospitalAssetsDialog.dispose();
+    }//GEN-LAST:event_btnCancelHospitalAssetsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CheckUpTypesPanel;
     private javax.swing.JDialog CreateCheckUpDialog;
+    private javax.swing.JDialog CreateHospitalAssetsDialog;
     private javax.swing.JDialog CreateInsuranceNetworkDialog;
     private javax.swing.JDialog CreateUserDialog;
     private javax.swing.JPanel DoctorAssignmentPanel;
@@ -1323,9 +1546,11 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JButton btnAllocateToDepartmentHospitalAssets;
     private javax.swing.JButton btnCancelCheckUp;
     private javax.swing.JButton btnCancelCreateUser;
+    private javax.swing.JButton btnCancelHospitalAssets;
     private javax.swing.JButton btnCancelInsuranceNetwork;
     private javax.swing.JButton btnCheckUpRefresh;
     private javax.swing.JButton btnCreateCheckUp;
+    private javax.swing.JButton btnCreateHospitalAssets;
     private javax.swing.JButton btnCreateUser;
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnEditAssetHospitalAssets;
@@ -1338,10 +1563,15 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbAccepted;
     private javax.swing.JCheckBox cbActive;
     private javax.swing.JComboBox<String> cbRole;
+    private javax.swing.JComboBox<String> cbStatusHospitalAssets;
+    private javax.swing.JComboBox<String> cbTypeHospitalAssets;
     private javax.swing.JCheckBox cdActiveCheckUp;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1351,6 +1581,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1372,6 +1603,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtNameCheckUp;
+    private javax.swing.JTextField txtNameHospitalAssets;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtProvider;
