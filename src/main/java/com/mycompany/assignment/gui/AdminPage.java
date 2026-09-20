@@ -48,12 +48,31 @@ public class AdminPage extends javax.swing.JFrame {
         lbWelcomeTitle.setText("Admin staff - " + adminStaff.getFullName());
 
         setupTables();
+        setupTabChangeListener();
 
         loadUsers();
         loadInsuranceNetwork();
         loadCheckUpTypes();
         loadHospitalAssets();
         loadDoctorAssignmentData();
+    }
+
+    private void setupTabChangeListener() {
+        tabAdminDashboard.addChangeListener(e -> {
+            java.awt.Component selectedTab = tabAdminDashboard.getSelectedComponent();
+
+            if (selectedTab == UsersPanel) {
+                loadUsers();
+            } else if (selectedTab == DoctorAssignmentPanel) {
+                loadDoctorAssignmentData();
+            } else if (selectedTab == HospitalAssetsPanel) {
+                loadHospitalAssets();
+            } else if (selectedTab == InsuranceNetworkPanel) {
+                loadInsuranceNetwork();
+            } else if (selectedTab == CheckUpTypesPanel) {
+                loadCheckUpTypes();
+            }
+        });
     }
 
     private void setupTables() {
@@ -179,19 +198,18 @@ public class AdminPage extends javax.swing.JFrame {
         }
     }
 
+    private void loadDoctorAssignmentData() {
+        loadDoctorAssignmentLists();
+        loadDoctorAssignments();
+    }
+
     private void loadDoctorAssignmentLists() {
-
         cbDoctorListDoctorAssignment.removeAllItems();
-
         cbMedicalManagerListDoctorAssignment.removeAllItems();
 
-        ArrayList<Doctor> doctors
-                = adminStaff.getDoctors();
-
+        ArrayList<Doctor> doctors = adminStaff.getDoctors();
         for (Doctor doctor : doctors) {
-
             if (doctor.isActive()) {
-
                 cbDoctorListDoctorAssignment.addItem(
                         doctor.getUserId()
                         + " - "
@@ -200,13 +218,10 @@ public class AdminPage extends javax.swing.JFrame {
             }
         }
 
-        ArrayList<MedicalManager> managers
-                = adminStaff.getMedicalManagers();
+        ArrayList<MedicalManager> managers = adminStaff.getMedicalManagers();
 
         for (MedicalManager manager : managers) {
-
             if (manager.isActive()) {
-
                 cbMedicalManagerListDoctorAssignment.addItem(
                         manager.getUserId()
                         + " - "
@@ -217,35 +232,19 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     private void loadDoctorAssignments() {
-
-        DefaultTableModel model
-                = (DefaultTableModel) tbDoctorAssignment.getModel();
-
+        DefaultTableModel model = (DefaultTableModel) tbDoctorAssignment.getModel();
         model.setRowCount(0);
-
-        ArrayList<String[]> assignments
-                = adminStaff.getDoctorAssignments();
+        ArrayList<String[]> assignments = adminStaff.getDoctorAssignments();
 
         for (String[] assignment : assignments) {
-
             String doctorId = assignment[0];
             String managerId = assignment[1];
 
-            User doctor
-                    = adminStaff.getUser(doctorId);
+            User doctor = adminStaff.getUser(doctorId);
+            User manager = adminStaff.getUser(managerId);
 
-            User manager
-                    = adminStaff.getUser(managerId);
-
-            String doctorName
-                    = doctor == null
-                            ? "Unknown"
-                            : doctor.getFullName();
-
-            String managerName
-                    = manager == null
-                            ? "Unknown"
-                            : manager.getFullName();
+            String doctorName = doctor == null ? "Unknown" : doctor.getFullName();
+            String managerName = manager == null ? "Unknown" : manager.getFullName();
 
             model.addRow(new Object[]{
                 doctorId,
@@ -254,13 +253,6 @@ public class AdminPage extends javax.swing.JFrame {
                 managerName
             });
         }
-    }
-
-    private void loadDoctorAssignmentData() {
-
-        loadDoctorAssignmentLists();
-
-        loadDoctorAssignments();
     }
 
     private void initialCreateUserDialog() {
