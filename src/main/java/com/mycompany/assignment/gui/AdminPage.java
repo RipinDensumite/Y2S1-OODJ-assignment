@@ -377,6 +377,7 @@ public class AdminPage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         CreateUserDialog = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
@@ -437,10 +438,11 @@ public class AdminPage extends javax.swing.JFrame {
         DoctorAssignmentPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbDoctorAssignment = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         cbDoctorListDoctorAssignment = new javax.swing.JComboBox<>();
         cbMedicalManagerListDoctorAssignment = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         btnAssignDoctorDoctorAssignment = new javax.swing.JButton();
         btnUnassignDoctorDoctorAssignment = new javax.swing.JButton();
         HospitalAssetsPanel = new javax.swing.JPanel();
@@ -796,21 +798,47 @@ public class AdminPage extends javax.swing.JFrame {
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
         MainPanel.setLayout(new java.awt.BorderLayout());
 
+        UsersPanel.setLayout(new java.awt.GridBagLayout());
+
         btnRefreshUsers.setText("Refresh");
         btnRefreshUsers.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnRefreshUsers.addActionListener(this::btnRefreshUsersActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        UsersPanel.add(btnRefreshUsers, gridBagConstraints);
 
         btnDeleteUser.setText("Delete User");
         btnDeleteUser.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnDeleteUser.addActionListener(this::btnDeleteUserActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        UsersPanel.add(btnDeleteUser, gridBagConstraints);
 
         btnAddUser.setText("Add User");
         btnAddUser.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddUser.addActionListener(this::btnAddUserActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        UsersPanel.add(btnAddUser, gridBagConstraints);
 
         btnEditUser.setText("Edit User");
         btnEditUser.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditUser.addActionListener(this::btnEditUserActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        UsersPanel.add(btnEditUser, gridBagConstraints);
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -838,39 +866,21 @@ public class AdminPage extends javax.swing.JFrame {
         tbUsers.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbUsers);
 
-        javax.swing.GroupLayout UsersPanelLayout = new javax.swing.GroupLayout(UsersPanel);
-        UsersPanel.setLayout(UsersPanelLayout);
-        UsersPanelLayout.setHorizontalGroup(
-            UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UsersPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnAddUser)
-                .addGap(18, 18, 18)
-                .addComponent(btnEditUser)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeleteUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRefreshUsers)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(UsersPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        UsersPanelLayout.setVerticalGroup(
-            UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UsersPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(UsersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddUser)
-                    .addComponent(btnEditUser)
-                    .addComponent(btnDeleteUser)
-                    .addComponent(btnRefreshUsers))
-                .addGap(15, 15, 15))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 873;
+        gridBagConstraints.ipady = 407;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        UsersPanel.add(jScrollPane1, gridBagConstraints);
 
         tabAdminDashboard.addTab("Users", UsersPanel);
+
+        DoctorAssignmentPanel.setLayout(new java.awt.GridBagLayout());
 
         tbDoctorAssignment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -886,70 +896,93 @@ public class AdminPage extends javax.swing.JFrame {
         tbDoctorAssignment.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tbDoctorAssignment);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 436;
+        gridBagConstraints.ipady = 466;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
+        DoctorAssignmentPanel.add(jScrollPane3, gridBagConstraints);
+
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
         cbDoctorListDoctorAssignment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 159;
+        gridBagConstraints.ipady = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 25, 5, 25);
+        jPanel2.add(cbDoctorListDoctorAssignment, gridBagConstraints);
 
         cbMedicalManagerListDoctorAssignment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Doctor");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 159;
+        gridBagConstraints.ipady = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 25, 5, 25);
+        jPanel2.add(cbMedicalManagerListDoctorAssignment, gridBagConstraints);
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Medical Manager");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 25, 5, 25);
+        jPanel2.add(jLabel16, gridBagConstraints);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Doctor");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 25, 5, 25);
+        jPanel2.add(jLabel1, gridBagConstraints);
 
         btnAssignDoctorDoctorAssignment.setText("Assign Doctor To Medical Manager");
         btnAssignDoctorDoctorAssignment.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAssignDoctorDoctorAssignment.addActionListener(this::btnAssignDoctorDoctorAssignmentActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(btnAssignDoctorDoctorAssignment, gridBagConstraints);
 
         btnUnassignDoctorDoctorAssignment.setText("Unassign Doctor");
         btnUnassignDoctorDoctorAssignment.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnUnassignDoctorDoctorAssignment.addActionListener(this::btnUnassignDoctorDoctorAssignmentActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(btnUnassignDoctorDoctorAssignment, gridBagConstraints);
 
-        javax.swing.GroupLayout DoctorAssignmentPanelLayout = new javax.swing.GroupLayout(DoctorAssignmentPanel);
-        DoctorAssignmentPanel.setLayout(DoctorAssignmentPanelLayout);
-        DoctorAssignmentPanelLayout.setHorizontalGroup(
-            DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DoctorAssignmentPanelLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DoctorAssignmentPanelLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnUnassignDoctorDoctorAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAssignDoctorDoctorAssignment)))
-                    .addGroup(DoctorAssignmentPanelLayout.createSequentialGroup()
-                        .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel16))
-                        .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(DoctorAssignmentPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(cbMedicalManagerListDoctorAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DoctorAssignmentPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(cbDoctorListDoctorAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        DoctorAssignmentPanelLayout.setVerticalGroup(
-            DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DoctorAssignmentPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbDoctorListDoctorAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(DoctorAssignmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbMedicalManagerListDoctorAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addGap(54, 54, 54)
-                .addComponent(btnAssignDoctorDoctorAssignment)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUnassignDoctorDoctorAssignment)
-                .addGap(121, 121, 121))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipady = 93;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        DoctorAssignmentPanel.add(jPanel2, gridBagConstraints);
 
         tabAdminDashboard.addTab("Doctor Assignment", DoctorAssignmentPanel);
+
+        HospitalAssetsPanel.setLayout(new java.awt.GridBagLayout());
 
         tbHospitalAssets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -965,52 +998,61 @@ public class AdminPage extends javax.swing.JFrame {
         tbHospitalAssets.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tbHospitalAssets);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 885;
+        gridBagConstraints.ipady = 407;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        HospitalAssetsPanel.add(jScrollPane5, gridBagConstraints);
+
         btnAddAssetHospitalAssets.setText("Add Asset");
         btnAddAssetHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddAssetHospitalAssets.addActionListener(this::btnAddAssetHospitalAssetsActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        HospitalAssetsPanel.add(btnAddAssetHospitalAssets, gridBagConstraints);
 
         btnEditAssetHospitalAssets.setText("Edit Asset");
         btnEditAssetHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditAssetHospitalAssets.addActionListener(this::btnEditAssetHospitalAssetsActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        HospitalAssetsPanel.add(btnEditAssetHospitalAssets, gridBagConstraints);
 
         btnAllocateToDepartmentHospitalAssets.setText("Allocate To Department");
         btnAllocateToDepartmentHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAllocateToDepartmentHospitalAssets.addActionListener(this::btnAllocateToDepartmentHospitalAssetsActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        HospitalAssetsPanel.add(btnAllocateToDepartmentHospitalAssets, gridBagConstraints);
 
         btnRefreshHospitalAssets.setText("Refresh");
         btnRefreshHospitalAssets.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnRefreshHospitalAssets.addActionListener(this::btnRefreshHospitalAssetsActionPerformed);
-
-        javax.swing.GroupLayout HospitalAssetsPanelLayout = new javax.swing.GroupLayout(HospitalAssetsPanel);
-        HospitalAssetsPanel.setLayout(HospitalAssetsPanelLayout);
-        HospitalAssetsPanelLayout.setHorizontalGroup(
-            HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5)
-            .addGroup(HospitalAssetsPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnAddAssetHospitalAssets)
-                .addGap(18, 18, 18)
-                .addComponent(btnEditAssetHospitalAssets)
-                .addGap(18, 18, 18)
-                .addComponent(btnAllocateToDepartmentHospitalAssets)
-                .addGap(18, 18, 18)
-                .addComponent(btnRefreshHospitalAssets)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        HospitalAssetsPanelLayout.setVerticalGroup(
-            HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HospitalAssetsPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(HospitalAssetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddAssetHospitalAssets)
-                    .addComponent(btnEditAssetHospitalAssets)
-                    .addComponent(btnAllocateToDepartmentHospitalAssets)
-                    .addComponent(btnRefreshHospitalAssets))
-                .addGap(15, 15, 15))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        HospitalAssetsPanel.add(btnRefreshHospitalAssets, gridBagConstraints);
 
         tabAdminDashboard.addTab("Hospital Assets", HospitalAssetsPanel);
+
+        CheckUpTypesPanel.setLayout(new java.awt.GridBagLayout());
 
         tbCheckUpTypes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1026,45 +1068,51 @@ public class AdminPage extends javax.swing.JFrame {
         tbCheckUpTypes.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tbCheckUpTypes);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 885;
+        gridBagConstraints.ipady = 407;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        CheckUpTypesPanel.add(jScrollPane4, gridBagConstraints);
+
         btnAddCheckUp.setText("Add Check-Up");
         btnAddCheckUp.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddCheckUp.addActionListener(this::btnAddCheckUpActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        CheckUpTypesPanel.add(btnAddCheckUp, gridBagConstraints);
 
         btnEditCheckUp.setText("Edit / Base Rate");
         btnEditCheckUp.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditCheckUp.addActionListener(this::btnEditCheckUpActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        CheckUpTypesPanel.add(btnEditCheckUp, gridBagConstraints);
 
         btnCheckUpRefresh.setText("Refresh");
         btnCheckUpRefresh.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnCheckUpRefresh.addActionListener(this::btnCheckUpRefreshActionPerformed);
-
-        javax.swing.GroupLayout CheckUpTypesPanelLayout = new javax.swing.GroupLayout(CheckUpTypesPanel);
-        CheckUpTypesPanel.setLayout(CheckUpTypesPanelLayout);
-        CheckUpTypesPanelLayout.setHorizontalGroup(
-            CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4)
-            .addGroup(CheckUpTypesPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnAddCheckUp)
-                .addGap(18, 18, 18)
-                .addComponent(btnEditCheckUp)
-                .addGap(18, 18, 18)
-                .addComponent(btnCheckUpRefresh)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        CheckUpTypesPanelLayout.setVerticalGroup(
-            CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CheckUpTypesPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(CheckUpTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddCheckUp)
-                    .addComponent(btnEditCheckUp)
-                    .addComponent(btnCheckUpRefresh))
-                .addGap(15, 15, 15))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        CheckUpTypesPanel.add(btnCheckUpRefresh, gridBagConstraints);
 
         tabAdminDashboard.addTab("Check Up Types", CheckUpTypesPanel);
+
+        InsuranceNetworkPanel.setLayout(new java.awt.GridBagLayout());
 
         tbInsuranceNetwork.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1080,38 +1128,41 @@ public class AdminPage extends javax.swing.JFrame {
         tbInsuranceNetwork.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbInsuranceNetwork);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 885;
+        gridBagConstraints.ipady = 407;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        InsuranceNetworkPanel.add(jScrollPane2, gridBagConstraints);
+
         btnAddInsurance.setText("Add Insurance");
         btnAddInsurance.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAddInsurance.addActionListener(this::btnAddInsuranceActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        InsuranceNetworkPanel.add(btnAddInsurance, gridBagConstraints);
 
         btnEditInsurance.setText("Edit Insurance");
         btnEditInsurance.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditInsurance.addActionListener(this::btnEditInsuranceActionPerformed);
-
-        javax.swing.GroupLayout InsuranceNetworkPanelLayout = new javax.swing.GroupLayout(InsuranceNetworkPanel);
-        InsuranceNetworkPanel.setLayout(InsuranceNetworkPanelLayout);
-        InsuranceNetworkPanelLayout.setHorizontalGroup(
-            InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-            .addGroup(InsuranceNetworkPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnAddInsurance)
-                .addGap(18, 18, 18)
-                .addComponent(btnEditInsurance)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        InsuranceNetworkPanelLayout.setVerticalGroup(
-            InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InsuranceNetworkPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(InsuranceNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddInsurance)
-                    .addComponent(btnEditInsurance))
-                .addGap(15, 15, 15))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        InsuranceNetworkPanel.add(btnEditInsurance, gridBagConstraints);
 
         tabAdminDashboard.addTab("Insurance Networks", InsuranceNetworkPanel);
+
+        MedicalServiceRequestsPanel.setLayout(new java.awt.GridBagLayout());
 
         tbMedicalServiceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1126,43 +1177,47 @@ public class AdminPage extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(tbMedicalServiceRequest);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 885;
+        gridBagConstraints.ipady = 407;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        MedicalServiceRequestsPanel.add(jScrollPane6, gridBagConstraints);
+
         btnAssignAssetServiceRequest.setText("Assign Asset");
         btnAssignAssetServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnAssignAssetServiceRequest.addActionListener(this::btnAssignAssetServiceRequestActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        MedicalServiceRequestsPanel.add(btnAssignAssetServiceRequest, gridBagConstraints);
 
         btnRejectServiceRequest.setText("Reject");
         btnRejectServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnRejectServiceRequest.addActionListener(this::btnRejectServiceRequestActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        MedicalServiceRequestsPanel.add(btnRejectServiceRequest, gridBagConstraints);
 
         btnRefreshServiceRequest.setText("Refresh");
         btnRefreshServiceRequest.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnRefreshServiceRequest.addActionListener(this::btnRefreshServiceRequestActionPerformed);
-
-        javax.swing.GroupLayout MedicalServiceRequestsPanelLayout = new javax.swing.GroupLayout(MedicalServiceRequestsPanel);
-        MedicalServiceRequestsPanel.setLayout(MedicalServiceRequestsPanelLayout);
-        MedicalServiceRequestsPanelLayout.setHorizontalGroup(
-            MedicalServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6)
-            .addGroup(MedicalServiceRequestsPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnAssignAssetServiceRequest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRejectServiceRequest)
-                .addGap(18, 18, 18)
-                .addComponent(btnRefreshServiceRequest)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        MedicalServiceRequestsPanelLayout.setVerticalGroup(
-            MedicalServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MedicalServiceRequestsPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(MedicalServiceRequestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAssignAssetServiceRequest)
-                    .addComponent(btnRejectServiceRequest)
-                    .addComponent(btnRefreshServiceRequest))
-                .addGap(15, 15, 15))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        MedicalServiceRequestsPanel.add(btnRefreshServiceRequest, gridBagConstraints);
 
         tabAdminDashboard.addTab("Medical Service Requests", MedicalServiceRequestsPanel);
 
@@ -1229,11 +1284,11 @@ public class AdminPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
         );
 
         pack();
@@ -2207,6 +2262,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
