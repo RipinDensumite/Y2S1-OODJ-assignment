@@ -243,5 +243,8 @@ public class Department {
         return String.valueOf(highest + 1);
     }
    
-
+    @Override
+    public String toString() {
+        return departmentName;
+    }
 }
