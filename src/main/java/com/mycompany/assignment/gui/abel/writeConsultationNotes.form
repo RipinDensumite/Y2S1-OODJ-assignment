@@ -13,7 +13,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -133,7 +133,7 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="bloodPressuretxt" alignment="0" pref="79" max="32767" attributes="0"/>
+                                  <Component id="bloodPressuretxt" alignment="0" pref="81" max="32767" attributes="0"/>
                                   <Component id="heartratetxt" alignment="0" max="32767" attributes="0"/>
                                   <Component id="weighttxt" alignment="0" max="32767" attributes="0"/>
                               </Group>

@@ -167,6 +167,7 @@ public class requestAdmin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
         private String[] getAssetIDs() {

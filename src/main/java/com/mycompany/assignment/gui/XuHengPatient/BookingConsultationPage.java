@@ -41,9 +41,7 @@ public class BookingConsultationPage extends javax.swing.JFrame {
         List<doctorShift> slots = patient.viewAvailableSlots();
         for (doctorShift slot : slots) {
             Doctor doctor = slot.getDoctor();
-
             String doctorId = doctor == null ? "Unknown" : doctor.getUserId();
-
             String doctorName = doctor == null ? "Unknown" : doctor.getFullName();
 
             model.addRow(new Object[]{

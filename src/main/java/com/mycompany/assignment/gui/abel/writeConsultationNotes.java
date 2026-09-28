@@ -136,7 +136,7 @@ public class writeConsultationNotes extends javax.swing.JFrame {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(bloodPressuretxt, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                                .addComponent(bloodPressuretxt, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                                 .addComponent(heartratetxt)
                                 .addComponent(weighttxt))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -287,6 +287,7 @@ public class writeConsultationNotes extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void assessmentidtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assessmentidtxtActionPerformed
