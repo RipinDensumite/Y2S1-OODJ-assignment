@@ -285,10 +285,21 @@ public class AdminPage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tbMedicalServiceRequest.getModel();
         model.setRowCount(0);
         ArrayList<MedicalServiceRequest> requests = adminStaff.getMedicalServiceRequests();
+        ArrayList<HospitalAsset> hospitalAssets = adminStaff.getHospitalAssets();
 
         for (MedicalServiceRequest request : requests) {
             User doctor = adminStaff.getUser(request.getDoctorId());
             String doctorName = doctor == null ? request.getDoctorId() : doctor.getFullName();
+            String assetName = "Not Assigned";
+
+            if (request.getAssetId() != null && !request.getAssetId().isBlank()) {
+                for (HospitalAsset asset : hospitalAssets) {
+                    if (asset.getAssetId().equals(request.getAssetId())) {
+                        assetName = asset.getAssetName();
+                        break;
+                    }
+                }
+            }
 
             model.addRow(new Object[]{
                 request.getRequestId(),
@@ -297,9 +308,7 @@ public class AdminPage extends javax.swing.JFrame {
                 request.getConsultationId(),
                 request.getReason(),
                 request.getStatus(),
-                request.getAssetId() == null
-                ? "Not Assigned"
-                : request.getAssetId(),
+                assetName,
                 request.getResultDetails() == null
                 ? "-"
                 : request.getResultDetails(),
