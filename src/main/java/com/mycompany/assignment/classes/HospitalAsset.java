@@ -21,13 +21,7 @@ public class HospitalAsset {
     private AssetStatus status;
     private String departmentId;
 
-    public HospitalAsset(
-            String assetId,
-            String assetName,
-            AssetType assetType,
-            AssetStatus status,
-            String departmentId
-    ) {
+    public HospitalAsset(String assetId, String assetName, AssetType assetType, AssetStatus status, String departmentId) {
         this.assetId = assetId;
         this.assetName = assetName;
         this.assetType = assetType;
@@ -35,12 +29,7 @@ public class HospitalAsset {
         this.departmentId = departmentId;
     }
 
-    public HospitalAsset(
-            String assetName,
-            AssetType assetType,
-            AssetStatus status,
-            String departmentId
-    ) throws IOException {
+    public HospitalAsset(String assetName, AssetType assetType, AssetStatus status, String departmentId) throws IOException {
         this.assetId = generateHospitalAssetId();
         this.assetName = assetName;
         this.assetType = assetType;
