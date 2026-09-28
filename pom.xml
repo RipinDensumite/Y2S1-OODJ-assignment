@@ -17,5 +17,5 @@
         <maven.compiler.release>26</maven.compiler.release>
         <exec.mainClass>com.mycompany.assignment.Assignment</exec.mainClass>
     </properties>
-    <name>Assignmentchanged</name>
+    <name>HSM-Assignment-GroupAE</name>
 </project>
