@@ -41,20 +41,6 @@ public class generatealltextfilesrunbeforerunningmain {
         bw4.close();
         fw4.close();
 
-        // Consultation1.txt
-        FileWriter fw5 = new FileWriter("Consultation1.txt");
-        BufferedWriter bw5 = new BufferedWriter(fw5);
-        bw5.write("ConsultationID: C001\n");
-        bw5.write("ConsultationDateTime: 2026-10-15 14:30:00\n");
-        bw5.write("ConsultationNotes: Patient reports mild fever and headache.\n");
-        bw5.write("Consultation: false\n\n");
-        bw5.write("ConsultationID: C002\n");
-        bw5.write("ConsultationDateTime: 2026-10-16 09:15:00\n");
-        bw5.write("ConsultationNotes: Follow-up consultation completed successfully.\n");
-        bw5.write("Consultation: true\n\n");
-        bw5.close();
-        fw5.close();
-
         // Department.txt
         FileWriter fw6 = new FileWriter("Department.txt");
         BufferedWriter bw6 = new BufferedWriter(fw6);
@@ -67,7 +53,6 @@ public class generatealltextfilesrunbeforerunningmain {
         FileWriter fw7 = new FileWriter("DoctorAssignment.txt");
         BufferedWriter bw7 = new BufferedWriter(fw7);
         bw7.write("3,2\n");
-        bw7.write("5,7\n");
         bw7.close();
         fw7.close();
 
@@ -75,7 +60,6 @@ public class generatealltextfilesrunbeforerunningmain {
         FileWriter fw8 = new FileWriter("doctorShift.txt");
         BufferedWriter bw8 = new BufferedWriter(fw8);
         bw8.write("1,2026-10-15,08:00,16:00,3,SCHEDULED\n");
-        bw8.write("2,2026-10-16,09:00,17:00,5,COMPLETED\n");
         bw8.close();
         fw8.close();
 
@@ -90,8 +74,8 @@ public class generatealltextfilesrunbeforerunningmain {
         // HospitalAsset.txt
         FileWriter fw10 = new FileWriter("HospitalAsset.txt");
         BufferedWriter bw10 = new BufferedWriter(fw10);
-        bw10.write("001,ECG Machine,MEDICAL_EQUIPMENT,AVAILABLE,1\n");
-        bw10.write("002,Wheelchair,FURNITURE,IN_USE,\n");
+        bw10.write("001,Xray room 1,XRAY_ROOM,AVAILABLE,1\n");
+        bw10.write("002,Lab 1,LAB,IN_USE,\n");
         bw10.close();
         fw10.close();
 
