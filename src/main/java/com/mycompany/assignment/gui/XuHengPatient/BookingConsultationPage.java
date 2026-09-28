@@ -4,6 +4,7 @@ package com.mycompany.assignment.gui.XuHengPatient;
 import com.mycompany.assignment.classes.Patient;
 import com.mycompany.assignment.classes.doctorShift;
 import com.mycompany.assignment.classes.Appointment;
+import com.mycompany.assignment.classes.Doctor;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -39,13 +40,19 @@ public class BookingConsultationPage extends javax.swing.JFrame {
         model.setColumnIdentifiers(columnName);
         List<doctorShift> slots = patient.viewAvailableSlots();
         for (doctorShift slot : slots) {
-        model.addRow(new Object[]{
-            slot.getShiftDate(),
-            slot.getStartTime(),
-            slot.getEndTime(),
-            slot.getDoctor().getUserId(),
-            slot.getDoctor().getFullName()
-        });
+            Doctor doctor = slot.getDoctor();
+
+            String doctorId = doctor == null ? "Unknown" : doctor.getUserId();
+
+            String doctorName = doctor == null ? "Unknown" : doctor.getFullName();
+
+            model.addRow(new Object[]{
+                slot.getShiftDate(),
+                slot.getStartTime(),
+                slot.getEndTime(),
+                doctorId,
+                doctorName
+            });
         }
         
         for (int row = 0; row < jTable1.getRowCount(); row++) {

@@ -63,15 +63,19 @@ public class MedicalManagerPage extends javax.swing.JFrame {
         DefaultTableModel model2 = (DefaultTableModel) shifttable.getModel();
         
         model2.setRowCount(0);
-
+        
         for (doctorShift shift : shifts) {
+            Doctor doctor = shift.getDoctor();
+            String doctorName = doctor == null ? "Unknown" : doctor.getFullName();
+
             model2.addRow(new Object[]{
                 shift.getshiftId(),
                 shift.getdate(),
                 shift.getStarttime(),
                 shift.getendtime(),
-                shift.getDoctor().getFullName(),
-                shift.getstatus(),});
+                doctorName,
+                shift.getstatus(),
+            });
         }
     }
 
