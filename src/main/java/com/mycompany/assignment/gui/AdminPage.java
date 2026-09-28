@@ -1122,7 +1122,7 @@ public class AdminPage extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         CheckUpTypesPanel.add(btnAddCheckUp, gridBagConstraints);
 
-        btnEditCheckUp.setText("Edit / Base Rate");
+        btnEditCheckUp.setText("Edit Check-Up");
         btnEditCheckUp.setMargin(new java.awt.Insets(10, 20, 10, 20));
         btnEditCheckUp.addActionListener(this::btnEditCheckUpActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();

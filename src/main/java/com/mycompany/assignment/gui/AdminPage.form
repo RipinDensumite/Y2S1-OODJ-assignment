@@ -1138,7 +1138,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEditCheckUp">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Edit / Base Rate"/>
+                    <Property name="text" type="java.lang.String" value="Edit Check-Up"/>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[10, 20, 10, 20]"/>
                     </Property>
