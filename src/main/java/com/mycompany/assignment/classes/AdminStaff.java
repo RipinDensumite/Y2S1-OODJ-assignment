@@ -577,8 +577,7 @@ public class AdminStaff extends User {
     public ArrayList<Department> getDepartments() {
         try {
             return Department.getAllDepartments();
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error reading departments: " + e.getMessage());
             return new ArrayList<>();
         }
@@ -795,7 +794,7 @@ public class AdminStaff extends User {
         }
     }
 
-    public boolean approveServiceRequest(String requestId, HospitalAsset asset) {
+    public boolean approveServiceRequest(String requestId, HospitalAsset asset, double serviceFee) {
         try {
             MedicalServiceRequest request = MedicalServiceRequest.getMedicalServiceRequest(requestId);
 
@@ -804,6 +803,7 @@ public class AdminStaff extends User {
             }
 
             request.assignAsset(asset);
+            request.setServiceFee(serviceFee);
             request.approve();
 
             return true;
@@ -825,22 +825,6 @@ public class AdminStaff extends User {
             return true;
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Error rejecting service request: " + e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean recordServiceResult(String requestId, String result, double serviceFee) {
-        try {
-            MedicalServiceRequest request = MedicalServiceRequest.getMedicalServiceRequest(requestId);
-
-            if (request == null) {
-                return false;
-            }
-
-            request.recordResult(result, serviceFee);
-            return true;
-        } catch (IOException | IllegalArgumentException e) {
-            System.out.println("Error recording service result: " + e.getMessage());
             return false;
         }
     }

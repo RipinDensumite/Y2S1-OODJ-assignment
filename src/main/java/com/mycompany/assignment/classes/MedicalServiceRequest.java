@@ -380,4 +380,16 @@ public class MedicalServiceRequest {
 
         return String.format("SR%03d", highestId + 1);
     }
+
+    public void setServiceFee(double serviceFee) throws IOException {
+
+        if (serviceFee < 0) {
+            throw new IllegalArgumentException(
+                    "Service fee cannot be negative."
+            );
+        }
+
+        this.serviceFee = serviceFee;
+        updateFile();
+    }
 }

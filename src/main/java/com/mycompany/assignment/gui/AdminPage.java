@@ -1347,12 +1347,12 @@ public class AdminPage extends javax.swing.JFrame {
         String email = txtEmail.getText().trim();
         String phoneNumber = txtPhoneNumber.getText().trim();
         String password = new String(txtPassword.getPassword());
-        
+
         if (cbRole.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(CreateUserDialog, "Please select a role.");
             return;
         }
-        
+
         String role = cbRole.getSelectedItem().toString();
         boolean active = cbActive.isSelected();
 
@@ -1385,7 +1385,7 @@ public class AdminPage extends javax.swing.JFrame {
             );
             return;
         }
-        
+
         User user = null;
 
 //        CREATE
@@ -1430,7 +1430,6 @@ public class AdminPage extends javax.swing.JFrame {
                             phoneNumber,
                             password,
                             active
-                            
                     );
                     break;
             }
@@ -2133,13 +2132,40 @@ public class AdminPage extends javax.swing.JFrame {
             return;
         }
 
+        String feeInput = JOptionPane.showInputDialog(
+                this,
+                "Enter service fee (RM):",
+                "Service Fee",
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (feeInput == null) {
+            return;
+        }
+
+        double serviceFee;
+
+        try {
+            serviceFee = Double.parseDouble(feeInput);
+
+            if (serviceFee < 0) {
+                JOptionPane.showMessageDialog(this, "Service fee cannot be negative.");
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid service fee.");
+            return;
+        }
+
         int confirm = JOptionPane.showConfirmDialog(
                 this,
                 "Assign "
                 + selectedHospitalAsset.getAssetName()
                 + " to request "
                 + requestId
-                + "?",
+                + "?\nService Fee: RM "
+                + String.format("%.2f", serviceFee),
                 "Confirm Asset Assignment",
                 JOptionPane.YES_NO_OPTION
         );
@@ -2148,7 +2174,7 @@ public class AdminPage extends javax.swing.JFrame {
             return;
         }
 
-        boolean success = adminStaff.approveServiceRequest(requestId, selectedHospitalAsset);
+        boolean success = adminStaff.approveServiceRequest(requestId, selectedHospitalAsset, serviceFee);
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Asset assigned and request approved successfully.");
