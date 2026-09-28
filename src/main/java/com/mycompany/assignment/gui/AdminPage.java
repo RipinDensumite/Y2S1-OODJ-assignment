@@ -196,18 +196,30 @@ public class AdminPage extends javax.swing.JFrame {
 
     private void loadHospitalAssets() {
         DefaultTableModel model = (DefaultTableModel) tbHospitalAssets.getModel();
+
         model.setRowCount(0);
+
         ArrayList<HospitalAsset> hospitalAssets = adminStaff.getHospitalAssets();
+        ArrayList<Department> departments = adminStaff.getDepartments();
 
         for (HospitalAsset asset : hospitalAssets) {
+            String departmentName = "Not Allocated";
+
+            if (asset.getDepartmentId() != null && !asset.getDepartmentId().isBlank()) {
+                for (Department department : departments) {
+                    if (department.getDepartmentId().equals(asset.getDepartmentId())) {
+                        departmentName = department.getDepartmentName();
+                        break;
+                    }
+                }
+            }
+
             model.addRow(new Object[]{
                 asset.getAssetId(),
                 asset.getAssetName(),
                 asset.getAssetType(),
                 asset.getStatus(),
-                asset.getDepartmentId() == null
-                ? "Not Allocated"
-                : asset.getDepartmentId()
+                departmentName
             });
         }
     }
@@ -1948,13 +1960,16 @@ public class AdminPage extends javax.swing.JFrame {
         String assetName = tbHospitalAssets.getValueAt(selectedRow, 1).toString();
         AssetType assetType = AssetType.valueOf(tbHospitalAssets.getValueAt(selectedRow, 2).toString());
         AssetStatus status = AssetStatus.valueOf(tbHospitalAssets.getValueAt(selectedRow, 3).toString());
-        String departmentValue = tbHospitalAssets.getValueAt(selectedRow, 4).toString();
-        String currentDepartmentId;
 
-        if (departmentValue.equals("Not Allocated")) {
-            currentDepartmentId = null;
-        } else {
-            currentDepartmentId = departmentValue;
+        String currentDepartmentId = null;
+
+        ArrayList<HospitalAsset> assets = adminStaff.getHospitalAssets();
+
+        for (HospitalAsset asset : assets) {
+            if (asset.getAssetId().equals(assetId)) {
+                currentDepartmentId = asset.getDepartmentId();
+                break;
+            }
         }
 
         boolean success = adminStaff.allocateHospitalAsset(
