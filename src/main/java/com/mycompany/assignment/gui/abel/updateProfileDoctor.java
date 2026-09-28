@@ -30,6 +30,10 @@ public class updateProfileDoctor extends javax.swing.JFrame {
     public updateProfileDoctor(Doctor doctor) {
         initComponents();
         this.doctor=doctor;
+        doctornametxt.setText(doctor.getFullName());
+        doctorgmailtxt.setText(doctor.getEmail());
+        doctorphonenumbertxt.setText(doctor.getPhoneNumber());
+        doctorpasswordtxt.setText(doctor.getPassword());
     }
 
     /**
@@ -52,7 +56,7 @@ public class updateProfileDoctor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         doctorpasswordtxt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        doctorphonenumbetxt = new javax.swing.JTextField();
+        doctorphonenumbertxt = new javax.swing.JTextField();
         Updatebtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -68,7 +72,6 @@ public class updateProfileDoctor extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        doctornametxt.setText("DR AINA");
         doctornametxt.addActionListener(this::doctornametxtActionPerformed);
 
         jLabel5.setText("Name");
@@ -126,7 +129,7 @@ public class updateProfileDoctor extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(doctorgmailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(doctorpasswordtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                        .addComponent(doctorphonenumbetxt))
+                        .addComponent(doctorphonenumbertxt))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,7 +158,7 @@ public class updateProfileDoctor extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(doctorphonenumbetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(doctorphonenumbertxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -179,7 +182,7 @@ public class updateProfileDoctor extends javax.swing.JFrame {
         String name=doctornametxt.getText().trim();
         String newEmail=doctorgmailtxt.getText().trim();
         String newPassword=doctorpasswordtxt.getText().trim();
-        String newPhone=doctorphonenumbetxt.getText().trim();
+        String newPhone=doctorphonenumbertxt.getText().trim();
         
         if (!newPhone.isEmpty() && !newPhone.matches("\\d+")) {
         JOptionPane.showMessageDialog(this, "Phone number must contain numbers only.");
@@ -207,7 +210,7 @@ public class updateProfileDoctor extends javax.swing.JFrame {
             
              
             
-         if(data[1].equalsIgnoreCase(name)){
+         if(data[0].equals(doctor.getUserId())){
              
              
              
@@ -267,7 +270,7 @@ public class updateProfileDoctor extends javax.swing.JFrame {
     private javax.swing.JTextField doctorgmailtxt;
     private javax.swing.JTextField doctornametxt;
     private javax.swing.JTextField doctorpasswordtxt;
-    private javax.swing.JTextField doctorphonenumbetxt;
+    private javax.swing.JTextField doctorphonenumbertxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -84,6 +84,8 @@ public class requestAdmin extends javax.swing.JFrame {
         jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
         jComboBox1.addPropertyChangeListener(this::jComboBox1PropertyChange);
 
+        consultationidtxt.addActionListener(this::consultationidtxtActionPerformed);
+
         reasontxt.setColumns(20);
         reasontxt.setRows(5);
         jScrollPane1.setViewportView(reasontxt);
@@ -205,6 +207,28 @@ public class requestAdmin extends javax.swing.JFrame {
         String doctorId = doctor.getUserId();
 
         String consultationId = consultationidtxt.getText().trim();
+        
+        boolean consultationExists = false;
+        
+        BufferedReader br = new BufferedReader(
+                new FileReader("Consultation.txt"));
+
+        String line;
+
+        while ((line = br.readLine()) != null) {
+
+            if (line.trim().equals("ConsultationID: " + consultationId)) {
+                consultationExists = true;
+                break;
+            }
+        }
+         br.close();
+         
+         if (!consultationExists) {
+            JOptionPane.showMessageDialog(this,
+                    "Consultation ID does not exist!");
+            return;
+        }
 
         ServiceType requestType = ServiceType.valueOf(
             Servicetypebox.getSelectedItem().toString()
@@ -242,6 +266,10 @@ public class requestAdmin extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void consultationidtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationidtxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_consultationidtxtActionPerformed
 
     /**
      * @param args the command line arguments

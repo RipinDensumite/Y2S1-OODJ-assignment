@@ -52,7 +52,7 @@ public class Feedback {
             String line;
             String allData = "";
             while((line = br.readLine()) !=null){
-                String[] data= line.split(",");
+                String[] data= line.split(";");
 
                 if(data[0].equals(check)){
                     data[4] = Comment;

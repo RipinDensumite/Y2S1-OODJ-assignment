@@ -293,7 +293,10 @@ public class ReschedulingPage extends javax.swing.JFrame {
             ReschedulingPage page = new ReschedulingPage(patient);
             page.setVisible(true);
             dispose();
-        } catch (IOException ex) {
+        }catch(IllegalArgumentException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } 
+        catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "System Error. Please Try Again.");
         }
     }//GEN-LAST:event_RescheduleBTNActionPerformed

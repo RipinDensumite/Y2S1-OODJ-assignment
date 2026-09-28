@@ -207,7 +207,7 @@ public class EditProfilePage extends javax.swing.JFrame {
         } catch (IOException ex) {
             System.getLogger(EditProfilePage.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }catch(IllegalArgumentException ex){
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_UpdateProfileBTNActionPerformed
 
@@ -219,13 +219,14 @@ public class EditProfilePage extends javax.swing.JFrame {
     }//GEN-LAST:event_BackBTNActionPerformed
 
     private void UpdatePasswordBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordBTNActionPerformed
-        if(patient.changePassword(patient.getPassword(), PasswordTF.getText())==true){
+        if(patient.changePassword(patient.getPassword(), PasswordTF.getText())==false){
             JOptionPane.showMessageDialog(null, "Password cannot be same.");
         }else{
             try {
                 patient.updatePassword();
                 JOptionPane.showMessageDialog(null, "Password Updated.");
             } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "System Error. Please try again.");
                 System.getLogger(EditProfilePage.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
         }

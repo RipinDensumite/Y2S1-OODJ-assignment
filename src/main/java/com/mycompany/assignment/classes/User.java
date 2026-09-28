@@ -74,7 +74,7 @@ public abstract class User {
             String oldPassword,
             String newPassword
     ) {
-        if (!this.password.equals(oldPassword)) {
+        if (oldPassword.equals(newPassword)) {
             return false;
         }
 

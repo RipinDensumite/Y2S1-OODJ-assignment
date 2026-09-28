@@ -61,7 +61,7 @@
                           <Component id="jLabel2" alignment="0" min="-2" pref="177" max="-2" attributes="0"/>
                           <Component id="doctorgmailtxt" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
                           <Component id="doctorpasswordtxt" alignment="0" pref="297" max="32767" attributes="0"/>
-                          <Component id="doctorphonenumbetxt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="doctorphonenumbertxt" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jButton1" min="-2" pref="63" max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="doctorphonenumbetxt" min="-2" max="-2" attributes="0"/>
+                  <Component id="doctorphonenumbertxt" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="52" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -158,9 +158,6 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="doctornametxt">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="DR AINA"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doctornametxtActionPerformed"/>
                   </Events>
@@ -193,7 +190,7 @@
             <Property name="text" type="java.lang.String" value="Phone Number"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="doctorphonenumbetxt">
+        <Component class="javax.swing.JTextField" name="doctorphonenumbertxt">
         </Component>
         <Component class="javax.swing.JButton" name="Updatebtn">
           <Properties>
