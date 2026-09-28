@@ -11,7 +11,6 @@ package com.mycompany.assignment.enums;
 public enum AssetType {
     CONSULTATION_ROOM,
     WARD,
-    CLINIC,
     LAB,
     XRAY_ROOM,
     IMAGING_ROOM
