@@ -694,7 +694,6 @@ public class AdminStaff extends User {
         boolean found = false;
 
         try {
-
             FileReader fr = new FileReader(originalFile);
             BufferedReader br = new BufferedReader(fr);
 
@@ -758,12 +757,7 @@ public class AdminStaff extends User {
                 String[] data = line.split(",");
 
                 if (data.length >= 2) {
-                    assignmentList.add(
-                            new String[]{
-                                data[0],
-                                data[1]
-                            }
-                    );
+                    assignmentList.add(new String[]{data[0], data[1]});
                 }
             }
 
